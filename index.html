@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leonardo Plebe 🎮</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        body { background: #000; color: #fff; min-height: 100vh; }
+        .anuncio-superior { width: 100%; min-height: 100px; background: #0a0a0a; border-bottom: 2px solid #25D366; padding: 10px; display: flex; align-items: center; justify-content: center; }
+        .contenido { padding: 20px; padding-top: 15px; padding-bottom: 90px; }
+        .pantalla { display: none; min-height: calc(100vh - 100px); }
+        .activa { display: block; }
+        .inicio { text-align: center; padding: 60px 20px; }
+        .logo { font-size: 36px; font-weight: bold; color: #25D366; margin-bottom: 10px; }
+        .subtitulo { color: #888; font-size: 17px; margin-bottom: 50px; }
+        .boton-principal { background: #fff; color: #000; border: none; padding: 20px 35px; font-size: 19px; font-weight: bold; border-radius: 16px; cursor: pointer; width: 290px; }
+        .cabecera { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+        .btn-volver { background: #1a1a1a; color: #fff; border: none; padding: 10px 16px; border-radius: 10px; cursor: pointer; font-size: 15px; }
+        .titulo { font-size: 24px; font-weight: bold; color: #25D366; }
+        .buscador { width: 100%; padding: 15px 18px; background: #0f0f0f; border: 2px solid #333; border-radius: 14px; color: #fff; margin-bottom: 25px; font-size: 16px; outline: none; }
+        .buscador:focus { border-color: #25D366; }
+        .cuadricula { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 20px; }
+        .tarjeta { background: #0f0f0f; border-radius: 16px; padding: 22px 15px; text-align: center; border: 2px solid #222; }
+        .tarjeta:hover { border-color: #25D366; }
+        .logo-juego { width: 70px; height: 70px; border-radius: 12px; margin: 0 auto 12px; background: #222; }
+        .nombre-juego { font-size: 16px; font-weight: bold; margin-bottom: 14px; }
+        .btn-ver { background: linear-gradient(135deg, #ff9500, #ff6b00); color: #000; border: none; padding: 11px 14px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 14px; margin-bottom: 8px; }
+        .btn-desc { background: #2a2a2a; color: #777; border: none; padding: 11px 14px; border-radius: 10px; font-weight: bold; width: 100%; font-size: 14px; }
+        .desbloqueado { background: #25D366; color: #000; cursor: pointer; }
+        .btn-flotante { position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; border-radius: 50%; background: #25D366; color: #000; border: none; font-size: 32px; cursor: pointer; display: none; }
+        .visible { display: flex; align-items: center; justify-content: center; }
+        .form-subida { background: #0f0f0f; padding: 25px; border-radius: 18px; margin: 25px 0; border: 2px solid #25D366; display: none; }
+        .form-activo { display: block; }
+        .campo { margin-bottom: 12px; }
+        .campo input { width: 100%; padding: 15px; background: #1a1a1a; border: 2px solid #333; border-radius: 10px; color: #fff; font-size: 15px; outline: none; }
+        .btn-guardar { background: #25D366; color: #000; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; margin-top: 5px; }
+        .vacio { text-align: center; padding: 50px 20px; color: #666; }
+    </style>
+</head>
+<body>
+
+<div class="anuncio-superior">
+    <div id="zona-anuncio"></div>
+</div>
+
+<div class="contenido">
+    <div class="pantalla activa" id="pantalla-inicio">
+        <div class="inicio">
+            <div class="logo">🎮 Leonardo Plebe</div>
+            <p class="subtitulo">Los mejores juegos — descarga gratis</p>
+            <button class="boton-principal" onclick="irABiblioteca()">📚 Biblioteca de Juegos</button>
+        </div>
+    </div>
+
+    <div class="pantalla" id="pantalla-biblioteca">
+        <div class="cabecera">
+            <button class="btn-volver" onclick="volverInicio()">← Volver</button>
+            <h2 class="titulo">Biblioteca de Juegos</h2>
+        </div>
+        <input type="text" class="buscador" id="buscador" placeholder="🔍 Buscar juego...">
+        <div class="form-subida" id="form-subida">
+            <h3 style="color:#25D366; margin-bottom: 20px;">➕ Agregar Nuevo Juego</h3>
+            <div class="campo">
+                <label>Nombre del juego</label>
+                <input type="text" id="nombre-juego" placeholder="Ej: Minecraft">
+            </div>
+            <div class="campo">
+                <label>Enlace de descarga</label>
+                <input type="url" id="enlace-descarga" placeholder="https://...">
+            </div>
+            <button class="btn-guardar" onclick="guardarJuego()">✅ Guardar Juego</button>
+        </div>
+        <div class="cuadricula" id="lista-juegos"></div>
+    </div>
+</div>
+
+<button class="btn-flotante" id="btn-flotante" onclick="abrirFormulario()">+</button>
+
+<script>
+const ENLACE_ANUNCIO = "https://www.profitableratecpmnetwork.com/kdh025k658?key=0f23a827cf1b00386d9029f83eb28d75";
+
+function cargarBanner() {
+    const zona = document.getElementById('zona-anuncio');
+    zona.innerHTML = '';
+    const div = document.createElement('div'); div.style.width = "100%"; div.style.height = "90px";
+    div.style.background = "#111"; div.style.display = "flex"; div.style.alignItems = "center";
+    div.style.justifyContent = "center"; div.style.color = "#666";
+    div.textContent = "🔔 Espacio para anuncios";
+    zona.appendChild(div);
+}
+cargarBanner();
+
+let juegos = JSON.parse(localStorage.getItem('juegos') || '[]');
+let formAbierto = false;
+
+function mostrarPantalla(id) {
+    document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
+    document.getElementById(id).classList.add('activa');
+    document.getElementById('btn-flotante').classList.toggle('visible', id === 'pantalla-biblioteca');
+    document.getElementById('form-subida').classList.remove('form-activo');
+    formAbierto = false;
+}
+function volverInicio() { mostrarPantalla('pantalla-inicio'); }
+function irABiblioteca() { mostrarPantalla('pantalla-biblioteca'); }
+
+function abrirFormulario() {
+    formAbierto = !formAbierto;
+    document.getElementById('form-subida').classList.toggle('form-activo', formAbierto);
+}
+
+function guardarJuego() {
+    const nombre = document.getElementById('nombre-juego').value.trim();
+    const enlace = document.getElementById('enlace-descarga').value.trim();
+    if (!nombre || !enlace) return alert('⚠️ Llena todos los campos');
+    juegos.push({ nombre, enlace, id: Date.now() });
+    localStorage.setItem('juegos', JSON.stringify(juegos));
+    document.getElementById('nombre-juego').value = '';
+    document.getElementById('enlace-descarga').value = '';
+    abrirFormulario(); listarJuegos();
+    alert('✅ ¡Juego agregado!');
+}
+
+function listarJuegos(filtro = '') {
+    const caja = document.getElementById('lista-juegos');
+    const filtrados = juegos.filter(j => j.nombre.toLowerCase().includes(filtro.toLowerCase()));
+    if (!filtrados.length) {
+        caja.innerHTML = '<p class="vacio">Sin juegos aún</p>'; return;
+    }
+    caja.innerHTML = filtrados.map(j => {
+        const desbloqueado = sessionStorage.getItem('desbloqueado_' + j.id);
+        return `
+            <div class="tarjeta">
+                <div class="logo-juego"></div>
+                <h3 class="nombre-juego">${j.nombre}</h3>
+                <button class="btn-ver" onclick="verAnuncio(${j.id})">📺 Ver para descargar</button>
+                <a class="btn-desc ${desbloqueado ? 'desbloqueado' : ''}" 
+                   href="${desbloqueado ? j.enlace : '#'}" target="_blank"
+                   ${desbloqueado ? '' : 'style="pointer-events:none"'}>
+                    ${desbloqueado ? '⬇️ Descargar' : '🔒 Bloqueado'}
+                </a>
+            </div>
+        `;
+    }).join('');
+}
+
+function verAnuncio(id) {
+    window.open(ENLACE_ANUNCIO, '_blank');
+    sessionStorage.setItem('desbloqueado_' + id, 'si');
+    listarJuegos(document.getElementById('buscador').value);
+}
+
+document.getElementById('buscador').addEventListener('input', e => listarJuegos(e.target.value));
+listarJuegos();
+</script>
+</body>
+</html>
+
