@@ -6,79 +6,163 @@
     <title>Leonardo Plebe 🎮</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-        body { 
-            background: #000; 
-            color: #fff; 
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+        body { background: #000; color: #fff; min-height: 100vh; }
+        .oculto { display: none !important; }
 
-        /* 🎮 CONTENIDO PRINCIPAL — LIBRE, SIN ANUNCIOS ENCIMA */
-        .contenido { 
-            flex: 1;
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 40px 20px; 
-            text-align: center;
-        }
-        .logo { font-size: 70px; margin-bottom: 15px; }
+        /* --- PÁGINA DE INICIO --- */
+        .inicio { padding: 40px 20px; text-align: center; }
+        .logo { font-size: 70px; margin-bottom: 10px; }
         h1 { color: #2ecc71; font-size: 42px; margin-bottom: 10px; }
         .subtitulo { color: #ccc; font-size: 18px; margin-bottom: 50px; }
-        
-        /* ✅ BOTÓN — TOTALMENTE LIBRE */
         .btn { 
-            background: #fff; 
-            color: #000; 
-            border: none; 
-            padding: 20px 40px; 
-            font-size: 22px; 
-            font-weight: bold; 
-            border-radius: 16px; 
-            cursor: pointer; 
-            width: 85%; 
-            max-width: 340px; 
-            transition: transform 0.2s;
-            position: relative;
-            z-index: 1;
+            background: #fff; color: #000; border: none; 
+            padding: 20px 40px; font-size: 22px; font-weight: bold; 
+            border-radius: 16px; cursor: pointer; width: 85%; max-width: 340px;
+            transition: transform 0.2s; margin-bottom: 30px;
         }
         .btn:hover { transform: scale(1.05); }
+        .anuncio { width: 90%; max-width: 400px; margin: 40px auto 20px; padding: 15px; border-top: 2px solid #2ecc71; border-bottom: 2px solid #2ecc71; min-height: 280px; }
 
-        /* 📢 SOLO 1 ANUNCIO — ABAJO, TAMAÑO MEDIANO, SIN ESTORBAR */
-        .anuncio-unico {
-            width: 90%;
-            max-width: 400px;
-            margin: 0 auto 30px auto;
-            padding: 10px;
-            text-align: center;
-            border-top: 2px solid #2ecc71;
-            border-bottom: 2px solid #2ecc71;
-            min-height: 280px; /* Tamaño como la foto que viste */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* --- BARRA DE BÚSQUEDA --- */
+        .barra-busqueda {
+            width: 90%; max-width: 400px; margin: 0 auto 30px;
+            padding: 12px 15px; border-radius: 10px; border: none;
+            background: #222; color: #fff; font-size: 16px;
         }
+        .barra-busqueda::placeholder { color: #666; }
+
+        /* --- BIBLIOTECA --- */
+        .cabecera { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; border-bottom: 1px solid #333; }
+        .atras { background: none; border: none; color: #2ecc71; font-size: 18px; cursor: pointer; }
+        .perfil { width: 45px; height: 45px; border-radius: 50%; background: #333; overflow: hidden; cursor: pointer; }
+        .perfil img { width: 100%; height: 100%; object-fit: cover; }
+        .subir-juego { margin: 20px; padding: 20px; border: 2px dashed #2ecc71; border-radius: 12px; text-align: center; cursor: pointer; }
+        .lista-juegos { padding: 20px; }
+        .juego { display: flex; align-items: center; background: #111; padding: 15px; border-radius: 10px; margin-bottom: 12px; }
+        .juego-img { width: 60px; height: 60px; border-radius: 8px; background: #222; margin-right: 15px; object-fit: cover; }
+        .juego-info { flex: 1; }
+        .juego-nombre { font-weight: bold; margin-bottom: 5px; }
+        .descargar { background: #2ecc71; color: #000; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+
+        /* --- OCULTAR INPUTS --- */
+        input[type="file"] { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- 🎮 PARTE DE ARRIBA — TOTALMENTE LIMPIA -->
-    <div class="contenido">
+    <!-- ================================== -->
+    <!-- PÁGINA DE INICIO -->
+    <!-- ================================== -->
+    <div id="pagina-inicio" class="inicio">
         <div class="logo">🎮</div>
         <h1>Leonardo Plebe</h1>
         <p class="subtitulo">Los mejores juegos — descarga gratis</p>
+        <button class="btn" onclick="abrirBiblioteca()">📚 Biblioteca de Juegos</button>
         
-        <!-- ✅ BOTÓN — NADA LO TAPA, SE PULSA BIEN -->
-        <button class="btn" onclick="alert('Próximamente! 🚀')">📚 Biblioteca de Juegos</button>
+        <!-- ANUNCIO — SOLO AQUÍ, ABAJO -->
+        <div class="anuncio">
+            <script async="async" data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script>
+            <div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div>
+        </div>
     </div>
 
-    <!-- 📢 SOLO 1 ANUNCIO — ABAJO, TAMAÑO MEDIANO, LEJOS DEL BOTÓN -->
-    <div class="anuncio-unico">
-        <script async="async" data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script>
-        <div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div>
+    <!-- ================================== -->
+    <!-- BIBLIOTECA DE JUEGOS -->
+    <!-- ================================== -->
+    <div id="pagina-biblioteca" class="oculto">
+        <div class="cabecera">
+            <button class="atras" onclick="volverInicio()">← Atrás</button>
+            <input type="text" class="barra-busqueda" id="buscar" placeholder="" oninput="filtrarJuegos()">
+            <div class="perfil" onclick="document.getElementById('foto-perfil').click()">
+                <img id="foto-mostrada" src="" alt="Perfil">
+            </div>
+        </div>
+
+        <!-- Subir juego -->
+        <div class="subir-juego" onclick="document.getElementById('subir-juego').click()">
+            <h3>➕ Subir Juego</h3>
+            <p style="color:#888; font-size:14px; margin-top:5px;">Toca para agregar</p>
+        </div>
+        <input type="file" id="subir-juego" accept=".apk,.zip" onchange="agregarJuego(this)">
+        <input type="file" id="foto-perfil" accept="image/*" onchange="cambiarPerfil(this)">
+
+        <!-- Lista de juegos -->
+        <div class="lista-juegos" id="lista-juegos">
+            <!-- Los juegos se agregan solos aquí -->
+        </div>
     </div>
 
+<script>
+let juegos = [];
+
+// Ir a biblioteca
+function abrirBiblioteca() {
+    document.getElementById('pagina-inicio').classList.add('oculto');
+    document.getElementById('pagina-biblioteca').classList.remove('oculto');
+}
+
+// Volver al inicio
+function volverInicio() {
+    document.getElementById('pagina-biblioteca').classList.add('oculto');
+    document.getElementById('pagina-inicio').classList.remove('oculto');
+}
+
+// Cambiar foto de perfil desde galería
+function cambiarPerfil(input) {
+    if (input.files && input.files[0]) {
+        const lector = new FileReader();
+        lector.onload = function(e) {
+            document.getElementById('foto-mostrada').src = e.target.result;
+        };
+        lector.readAsDataURL(input.files[0]);
+    }
+}
+
+// Agregar juego
+function agregarJuego(input) {
+    if (input.files && input.files[0]) {
+        const archivo = input.files[0];
+        juegos.push({
+            nombre: archivo.name,
+            tamano: (archivo.size / 1024 / 1024).toFixed(2) + ' MB',
+            url: URL.createObjectURL(archivo)
+        });
+        mostrarJuegos();
+    }
+}
+
+// Mostrar juegos
+function mostrarJuegos(filtrados = null) {
+    const lista = document.getElementById('lista-juegos');
+    lista.innerHTML = '';
+    const listaMostrar = filtrados || juegos;
+    
+    listaMostrar.forEach(juego => {
+        const tarjeta = document.createElement('div');
+        tarjeta.className = 'juego';
+        tarjeta.innerHTML = `
+            <div class="juego-img" style="display:flex; align-items:center; justify-content:center; font-size:30px;">🎮</div>
+            <div class="juego-info">
+                <div class="juego-nombre">${juego.nombre}</div>
+                <div style="color:#888; font-size:13px;">${juego.tamano}</div>
+            </div>
+            <a href="${juego.url}" download="${juego.nombre}" class="descargar">⬇️ Descargar</a>
+        `;
+        lista.appendChild(tarjeta);
+    });
+}
+
+// Buscar juegos
+function filtrarJuegos() {
+    const texto = document.getElementById('buscar').value.toLowerCase();
+    const filtrados = juegos.filter(j => j.nombre.toLowerCase().includes(texto));
+    mostrarJuegos(filtrados);
+}
+
+// Cargar juegos guardados
+window.onload = function() {
+    mostrarJuegos();
+};
+</script>
 </body>
 </html>
