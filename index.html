@@ -6,11 +6,11 @@
     <title>Leonardo Plebe 🎮</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-        body { background: #000; color: #fff; min-height: 100vh; }
+        body { background: #000; color: #fff; min-height: 100vh; padding-bottom: 80px; }
         .oculto { display: none !important; }
 
         /* --- PÁGINA DE INICIO --- */
-        .inicio { padding: 40px 20px; text-align: center; }
+        .inicio { padding: 50px 20px; text-align: center; }
         .logo { font-size: 70px; margin-bottom: 10px; }
         h1 { color: #2ecc71; font-size: 42px; margin-bottom: 10px; }
         .subtitulo { color: #ccc; font-size: 18px; margin-bottom: 50px; }
@@ -23,28 +23,65 @@
         .btn:hover { transform: scale(1.05); }
         .anuncio { width: 90%; max-width: 400px; margin: 40px auto 20px; padding: 15px; border-top: 2px solid #2ecc71; border-bottom: 2px solid #2ecc71; min-height: 280px; }
 
-        /* --- BARRA DE BÚSQUEDA --- */
+        /* --- BÚSQUEDA --- */
+        .cabecera { display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid #333; }
+        .atras { background: none; border: none; color: #2ecc71; font-size: 18px; cursor: pointer; margin-right: 10px; }
         .barra-busqueda {
-            width: 90%; max-width: 400px; margin: 0 auto 30px;
-            padding: 12px 15px; border-radius: 10px; border: none;
+            flex: 1; padding: 12px 15px; border-radius: 10px; border: none;
             background: #222; color: #fff; font-size: 16px;
         }
         .barra-busqueda::placeholder { color: #666; }
 
-        /* --- BIBLIOTECA --- */
-        .cabecera { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; border-bottom: 1px solid #333; }
-        .atras { background: none; border: none; color: #2ecc71; font-size: 18px; cursor: pointer; }
-        .perfil { width: 45px; height: 45px; border-radius: 50%; background: #333; overflow: hidden; cursor: pointer; }
-        .perfil img { width: 100%; height: 100%; object-fit: cover; }
-        .subir-juego { margin: 20px; padding: 20px; border: 2px dashed #2ecc71; border-radius: 12px; text-align: center; cursor: pointer; }
+        /* --- LISTA DE JUEGOS --- */
         .lista-juegos { padding: 20px; }
         .juego { display: flex; align-items: center; background: #111; padding: 15px; border-radius: 10px; margin-bottom: 12px; }
         .juego-img { width: 60px; height: 60px; border-radius: 8px; background: #222; margin-right: 15px; object-fit: cover; }
         .juego-info { flex: 1; }
-        .juego-nombre { font-weight: bold; margin-bottom: 5px; }
-        .descargar { background: #2ecc71; color: #000; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .juego-nombre { font-weight: bold; margin-bottom: 5px; font-size: 16px; }
+        
+        /* BOTONES */
+        .descargar-bloqueado { 
+            background: #444; color: #888; border: none; padding: 8px 15px; 
+            border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;
+        }
+        .descargar-listo { 
+            background: #2ecc71; color: #000; border: none; padding: 8px 15px; 
+            border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px;
+            text-decoration: none;
+        }
+        .etapa { font-size: 11px; color: #888; margin-top: 3px; }
 
-        /* --- OCULTAR INPUTS --- */
+        /* --- BOTÓN + CREADOR --- */
+        .boton-creador {
+            position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px;
+            border-radius: 50%; background: #2ecc71; color: #000; border: none;
+            font-size: 30px; font-weight: bold; cursor: pointer; z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        /* --- FORMULARIO --- */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center;
+            z-index: 200; padding: 20px;
+        }
+        .form-publicar {
+            background: #111; padding: 25px; border-radius: 15px; width: 100%; max-width: 380px;
+        }
+        .form-publicar h3 { text-align: center; margin-bottom: 20px; color: #2ecc71; }
+        .form-publicar input {
+            width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: none;
+            background: #222; color: #fff; font-size: 15px;
+        }
+        .btn-imagen {
+            width: 100%; padding: 15px; background: #222; border: 2px dashed #2ecc71;
+            color: #fff; border-radius: 8px; text-align: center; cursor: pointer; margin-bottom: 15px;
+        }
+        .vista-previa { width: 80px; height: 80px; border-radius: 8px; margin: 0 auto 15px; background: #333; object-fit: cover; }
+        .botones { display: flex; gap: 10px; margin-top: 10px; }
+        .btn-cancelar { flex: 1; padding: 12px; border: none; border-radius: 8px; background: #444; color: #fff; font-weight: bold; cursor: pointer; }
+        .btn-publicar { flex: 1; padding: 12px; border: none; border-radius: 8px; background: #2ecc71; color: #000; font-weight: bold; cursor: pointer; }
+
         input[type="file"] { display: none; }
     </style>
 </head>
@@ -59,7 +96,7 @@
         <p class="subtitulo">Los mejores juegos — descarga gratis</p>
         <button class="btn" onclick="abrirBiblioteca()">📚 Biblioteca de Juegos</button>
         
-        <!-- ANUNCIO — SOLO AQUÍ, ABAJO -->
+        <!-- ANUNCIO DE ADSTERRA -->
         <div class="anuncio">
             <script async="async" data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script>
             <div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div>
@@ -67,102 +104,172 @@
     </div>
 
     <!-- ================================== -->
-    <!-- BIBLIOTECA DE JUEGOS -->
+    <!-- BIBLIOTECA -->
     <!-- ================================== -->
     <div id="pagina-biblioteca" class="oculto">
         <div class="cabecera">
             <button class="atras" onclick="volverInicio()">← Atrás</button>
-            <input type="text" class="barra-busqueda" id="buscar" placeholder="" oninput="filtrarJuegos()">
-            <div class="perfil" onclick="document.getElementById('foto-perfil').click()">
-                <img id="foto-mostrada" src="" alt="Perfil">
+            <input type="text" class="barra-busqueda" id="buscar" placeholder="" onkeydown="verificarCodigo(event)">
+        </div>
+
+        <div class="lista-juegos" id="lista-juegos"></div>
+
+        <!-- BOTÓN + SOLO PARA TI -->
+        <button id="boton-mas" class="boton-creador oculto" onclick="abrirFormulario()">+</button>
+
+        <!-- FORMULARIO PUBLICAR -->
+        <div id="formulario-modal" class="modal oculto">
+            <div class="form-publicar">
+                <h3>Publicar Juego</h3>
+                <input type="text" id="nombre-juego" placeholder="Nombre del juego">
+                <input type="text" id="enlace-juego" placeholder="Enlace de descarga">
+                
+                <div class="btn-imagen" onclick="document.getElementById('logo-juego').click()">
+                    📷 Elegir imagen / logo
+                </div>
+                <img id="vista-previa-img" class="vista-previa" src="" alt="Vista previa">
+                <input type="file" id="logo-juego" accept="image/*" onchange="cargarImagen(event)">
+                
+                <div class="botones">
+                    <button class="btn-cancelar" onclick="cerrarFormulario()">Cancelar</button>
+                    <button class="btn-publicar" onclick="publicarJuego()">Publicar</button>
+                </div>
             </div>
-        </div>
-
-        <!-- Subir juego -->
-        <div class="subir-juego" onclick="document.getElementById('subir-juego').click()">
-            <h3>➕ Subir Juego</h3>
-            <p style="color:#888; font-size:14px; margin-top:5px;">Toca para agregar</p>
-        </div>
-        <input type="file" id="subir-juego" accept=".apk,.zip" onchange="agregarJuego(this)">
-        <input type="file" id="foto-perfil" accept="image/*" onchange="cambiarPerfil(this)">
-
-        <!-- Lista de juegos -->
-        <div class="lista-juegos" id="lista-juegos">
-            <!-- Los juegos se agregan solos aquí -->
         </div>
     </div>
 
 <script>
-let juegos = [];
+const CODIGO_CREADOR = "2k8l"; 
+const ENLACE_ANUNCIO = "https://pl31361169.profitableratecpmnetwork.com/22/e5/ce/22e5ce45b7f08d83a957b7a61350ecf6.js";
 
-// Ir a biblioteca
+// ⚠️ NO se guarda nada permanentemente
+let juegos = [];
+let imagenSeleccionada = null;
+let desbloqueadoAhora = null; // Solo vale mientras NO cierren la página
+
+// Cargar juegos que tú publicas (se reinicia al cerrar)
+// Para que los juegos queden siempre, se guardan en memoria temporal
+function cargarJuegos() {
+    const guardados = sessionStorage.getItem('juegos_temporales');
+    if (guardados) juegos = JSON.parse(guardados);
+}
+function guardarJuegos() {
+    sessionStorage.setItem('juegos_temporales', JSON.stringify(juegos));
+}
+
+// --- NAVEGACIÓN ---
 function abrirBiblioteca() {
     document.getElementById('pagina-inicio').classList.add('oculto');
     document.getElementById('pagina-biblioteca').classList.remove('oculto');
+    cargarJuegos();
+    mostrarJuegos();
 }
-
-// Volver al inicio
 function volverInicio() {
     document.getElementById('pagina-biblioteca').classList.add('oculto');
     document.getElementById('pagina-inicio').classList.remove('oculto');
+    document.getElementById('boton-mas').classList.add('oculto');
+    document.getElementById('buscar').value = '';
+    desbloqueadoAhora = null;
 }
 
-// Cambiar foto de perfil desde galería
-function cambiarPerfil(input) {
-    if (input.files && input.files[0]) {
-        const lector = new FileReader();
-        lector.onload = function(e) {
-            document.getElementById('foto-mostrada').src = e.target.result;
-        };
-        lector.readAsDataURL(input.files[0]);
+// --- CÓDIGO CREADOR ---
+function verificarCodigo(event) {
+    if (event.key === 'Enter') {
+        const texto = document.getElementById('buscar').value.trim();
+        if (texto === CODIGO_CREADOR) {
+            document.getElementById('boton-mas').classList.remove('oculto');
+            document.getElementById('buscar').value = '';
+        } else filtrarJuegos(texto);
     }
 }
 
-// Agregar juego
-function agregarJuego(input) {
-    if (input.files && input.files[0]) {
-        const archivo = input.files[0];
-        juegos.push({
-            nombre: archivo.name,
-            tamano: (archivo.size / 1024 / 1024).toFixed(2) + ' MB',
-            url: URL.createObjectURL(archivo)
-        });
-        mostrarJuegos();
-    }
+// --- IMAGEN ---
+function cargarImagen(e) {
+    const f = e.target.files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = x => {
+        imagenSeleccionada = x.target.result;
+        document.getElementById('vista-previa-img').src = imagenSeleccionada;
+    };
+    r.readAsDataURL(f);
 }
 
-// Mostrar juegos
-function mostrarJuegos(filtrados = null) {
-    const lista = document.getElementById('lista-juegos');
-    lista.innerHTML = '';
-    const listaMostrar = filtrados || juegos;
+// --- PUBLICAR ---
+function abrirFormulario() {
+    document.getElementById('formulario-modal').classList.remove('oculto');
+}
+function cerrarFormulario() {
+    document.getElementById('formulario-modal').classList.add('oculto');
+    document.getElementById('nombre-juego').value = '';
+    document.getElementById('enlace-juego').value = '';
+    document.getElementById('vista-previa-img').src = '';
+    imagenSeleccionada = null;
+}
+function publicarJuego() {
+    const nombre = document.getElementById('nombre-juego').value.trim();
+    const enlace = document.getElementById('enlace-juego').value.trim();
+    if (!nombre || !enlace) return alert('Escribe nombre y enlace de descarga');
     
-    listaMostrar.forEach(juego => {
+    juegos.push({
+        id: Date.now(),
+        nombre,
+        enlace,
+        imagen: imagenSeleccionada || ''
+    });
+    guardarJuegos();
+    cerrarFormulario();
+    mostrarJuegos();
+}
+
+// --- MOSTRAR JUEGOS ---
+function mostrarJuegos(lista = juegos) {
+    const contenedor = document.getElementById('lista-juegos');
+    contenedor.innerHTML = '';
+    
+    lista.forEach(juego => {
+        const yaDesbloqueado = desbloqueadoAhora === juego.id;
+        
         const tarjeta = document.createElement('div');
         tarjeta.className = 'juego';
         tarjeta.innerHTML = `
-            <div class="juego-img" style="display:flex; align-items:center; justify-content:center; font-size:30px;">🎮</div>
+            <img class="juego-img" src="${juego.imagen || 'https://via.placeholder.com/60/222/2ecc71?text=🎮'}" alt="${juego.nombre}">
             <div class="juego-info">
                 <div class="juego-nombre">${juego.nombre}</div>
-                <div style="color:#888; font-size:13px;">${juego.tamano}</div>
+                <div class="etapa">${yaDesbloqueado ? '✅ Listo' : '🔒 Toca para ver anuncio'}</div>
             </div>
-            <a href="${juego.url}" download="${juego.nombre}" class="descargar">⬇️ Descargar</a>
+            ${yaDesbloqueado 
+                ? `<a href="${juego.enlace}" target="_blank" class="descargar-listo">⬇️ Descargar</a>`
+                : `<button class="descargar-bloqueado" onclick="desbloquear('${juego.id}')">🔓 Desbloquear</button>`
+            }
         `;
-        lista.appendChild(tarjeta);
+        contenedor.appendChild(tarjeta);
     });
 }
 
-// Buscar juegos
-function filtrarJuegos() {
-    const texto = document.getElementById('buscar').value.toLowerCase();
-    const filtrados = juegos.filter(j => j.nombre.toLowerCase().includes(texto));
+// --- DESBLOQUEO = SIEMPRE ANUNCIO ---
+function desbloquear(idJuego) {
+    // Abrir anuncio
+    window.open(ENLACE_ANUNCIO, '_blank');
+    
+    // Desbloquea SOLO mientras la página siga abierta
+    desbloqueadoAhora = parseInt(idJuego);
+    
+    // Refrescar vista
+    setTimeout(() => {
+        mostrarJuegos();
+        alert('✅ Desbloqueado por ahora. Si cierras la página, vuelve a ver el anuncio.');
+    }, 500);
+}
+
+// --- BUSCAR ---
+function filtrarJuegos(texto) {
+    const filtrados = juegos.filter(j => j.nombre.toLowerCase().includes(texto.toLowerCase()));
     mostrarJuegos(filtrados);
 }
 
-// Cargar juegos guardados
-window.onload = function() {
-    mostrarJuegos();
-};
+cargarJuegos();
+mostrarJuegos();
 </script>
 </body>
 </html>
