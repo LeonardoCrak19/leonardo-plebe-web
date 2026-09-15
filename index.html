@@ -10,97 +10,74 @@
             background: #000; 
             color: #fff; 
             min-height: 100vh;
-            position: relative;
+            display: flex;
+            flex-direction: column;
         }
-        
-        /* Anuncio superior */
-        .anuncio-superior { 
-            background: #111; 
-            padding: 12px; 
-            text-align: center; 
-            border-bottom: 2px solid #2ecc71;
-            z-index: 10;
-            position: relative;
-        }
-        
-        /* Contenido principal centrado */
+
+        /* 🎮 CONTENIDO PRINCIPAL — LIBRE, SIN ANUNCIOS ENCIMA */
         .contenido { 
+            flex: 1;
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
-            padding: 60px 20px; 
-            text-align: center; 
-            min-height: 80vh;
-            position: relative;
-            z-index: 5;
+            padding: 40px 20px; 
+            text-align: center;
         }
-        .logo { font-size: 60px; margin-bottom: 15px; }
+        .logo { font-size: 70px; margin-bottom: 15px; }
         h1 { color: #2ecc71; font-size: 42px; margin-bottom: 10px; }
-        .subtitulo { color: #ccc; font-size: 18px; margin-bottom: 40px; }
+        .subtitulo { color: #ccc; font-size: 18px; margin-bottom: 50px; }
         
-        /* Botón bien visible */
+        /* ✅ BOTÓN — TOTALMENTE LIBRE */
         .btn { 
             background: #fff; 
             color: #000; 
             border: none; 
-            padding: 18px 35px; 
-            font-size: 20px; 
+            padding: 20px 40px; 
+            font-size: 22px; 
             font-weight: bold; 
-            border-radius: 12px; 
+            border-radius: 16px; 
             cursor: pointer; 
-            width: 80%; 
-            max-width: 350px; 
+            width: 85%; 
+            max-width: 340px; 
             transition: transform 0.2s;
             position: relative;
-            z-index: 20;
+            z-index: 1;
         }
         .btn:hover { transform: scale(1.05); }
-        
-        /* Anuncio inferior */
-        .anuncio-inferior { 
-            background: #111; 
-            padding: 12px; 
-            text-align: center; 
-            border-top: 2px solid #2ecc71;
-            margin-top: auto;
-        }
 
-        /* Estilo para centrar el anuncio de ventana */
-        .contenedor-anuncio-ventana {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-            pointer-events: auto;
+        /* 📢 SOLO 1 ANUNCIO — ABAJO, TAMAÑO MEDIANO, SIN ESTORBAR */
+        .anuncio-unico {
+            width: 90%;
+            max-width: 400px;
+            margin: 0 auto 30px auto;
+            padding: 10px;
+            text-align: center;
+            border-top: 2px solid #2ecc71;
+            border-bottom: 2px solid #2ecc71;
+            min-height: 280px; /* Tamaño como la foto que viste */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
 
-    <!-- 📢 ANUNCIO DE ARRIBA -->
-    <div class="anuncio-superior">
-        <script async="async" data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script>
-        <div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div>
-    </div>
-
-    <!-- 🎮 CONTENIDO PRINCIPAL -->
+    <!-- 🎮 PARTE DE ARRIBA — TOTALMENTE LIMPIA -->
     <div class="contenido">
         <div class="logo">🎮</div>
         <h1>Leonardo Plebe</h1>
         <p class="subtitulo">Los mejores juegos — descarga gratis</p>
+        
+        <!-- ✅ BOTÓN — NADA LO TAPA, SE PULSA BIEN -->
         <button class="btn" onclick="alert('Próximamente! 🚀')">📚 Biblioteca de Juegos</button>
     </div>
 
-    <!-- 📢 ANUNCIO DE VENTANA — CENTRADO, FÁCIL DE CERRAR -->
-    <div class="contenedor-anuncio-ventana">
-        <script src="https://pl31361169.profitableratecpmnetwork.com/22/e5/ce/22e5ce45b7f08d83a957b7a61350ecf6.js"></script>
-    </div>
-
-    <!-- 📢 ANUNCIO DE ABAJO -->
-    <div class="anuncio-inferior">
-        Tu publicidad — Gana con cada visita 💰
+    <!-- 📢 SOLO 1 ANUNCIO — ABAJO, TAMAÑO MEDIANO, LEJOS DEL BOTÓN -->
+    <div class="anuncio-unico">
+        <script async="async" data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script>
+        <div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div>
     </div>
 
 </body>
