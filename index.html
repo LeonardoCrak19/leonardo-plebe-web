@@ -9,25 +9,20 @@
         body { background: #000; color: #fff; min-height: 100vh; display: flex; flex-direction: column; }
         .oculto { display: none !important; }
 
-        /* --- INICIO --- */
         .inicio { flex: 1; display: flex; flex-direction: column; padding: 50px 20px 20px; text-align: center; }
         .zona-principal { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .logo { font-size: 70px; margin-bottom: 10px; }
         h1 { color: #2ecc71; font-size: 36px; margin-bottom: 10px; }
         .subtitulo { color: #aaa; font-size: 16px; margin-bottom: 40px; }
         .btn-entrar {
-            background: #fff; color: #000; border: none;
-            padding: 18px 36px; font-size: 20px; font-weight: bold;
-            border-radius: 14px; cursor: pointer; width: 85%; max-width: 320px;
-            transition: transform 0.2s;
+            background: #fff; color: #000; border: none; padding: 18px 36px; font-size: 20px; font-weight: bold;
+            border-radius: 14px; cursor: pointer; width: 85%; max-width: 320px; transition: transform 0.2s;
         }
         .btn-entrar:hover { transform: scale(1.05); }
         
-        /* ANUNCIO ABAJO */
         .zona-anuncios { width: 100%; padding: 15px 20px; border-top: 1px solid #222; margin-top: auto; }
         .anuncio { width: 100%; max-width: 400px; margin: 0 auto; min-height: 220px; }
 
-        /* --- BIBLIOTECA --- */
         .cabecera { padding: 15px; border-bottom: 1px solid #222; position: sticky; top: 0; background: #000; z-index: 50; }
         .barra-busqueda {
             width: 100%; padding: 12px 16px; border-radius: 10px; border: none;
@@ -38,15 +33,13 @@
         .bienvenida {
             text-align: center; color: #2ecc71; padding: 10px; margin: 10px 15px;
             background: rgba(46,204,113,0.1); border-radius: 8px;
-            font-weight: bold; animation: aparecer 0.4s ease-out;
+            font-weight: bold;
         }
-        @keyframes aparecer { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
 
         .lista-juegos { padding: 15px; flex: 1; }
         .juego { display: flex; align-items: center; background: #111; padding: 12px; border-radius: 10px; margin-bottom: 12px; border-left: 3px solid #ff0033; }
         .juego-img { width: 55px; height: 55px; border-radius: 8px; background: #222; margin-right: 12px; object-fit: cover; }
-        .juego-info { flex: 1; }
-        .juego-nombre { font-weight: bold; margin-bottom: 3px; font-size: 15px; }
+        .juego-nombre { font-weight: bold; font-size: 15px; margin-bottom: 3px; }
         .etapa { font-size: 11px; color: #888; margin-bottom: 3px; }
         .contador { font-size: 11px; color: #2ecc71; font-weight: bold; }
         .contador-num { background: rgba(46,204,113,0.2); padding: 1px 6px; border-radius: 8px; font-size: 12px; }
@@ -94,13 +87,15 @@
         .vista-previa { width: 90px; height: 90px; border-radius: 8px; margin: 0 auto 15px; background: #333; object-fit: cover; display: block; }
         .codigo-salida {
             background: #1a1a1a; border: 1px solid #2ecc71; padding: 12px; border-radius: 8px;
-            margin: 15px 0; font-family: monospace; font-size: 11px; word-break: break-all; color: #90ee90;
+            margin: 15px 0; font-family: monospace; font-size: 10px; color: #90ee90;
+            word-break: break-all; max-height: 200px; overflow-y: auto;
         }
         .botones { display: flex; gap: 10px; margin-top: 8px; }
-        .btn-cancelar { flex: 1; padding: 14px; border: none; border-radius: 8px; background: #444; color: #fff; font-weight: bold; cursor: pointer; font-size: 15px; }
-        .btn-publicar { flex: 1; padding: 14px; border: none; border-radius: 8px; background: #2ecc71; color: #000; font-weight: bold; cursor: pointer; font-size: 15px; }
+        .btn-cancelar, .btn-publicar { flex: 1; padding: 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px; }
+        .btn-cancelar { background: #444; color: #fff; }
+        .btn-publicar { background: #2ecc71; color: #000; }
         input[type="file"] { display: none; }
-        .oculto { display: none !important; }
+        .optimizando { color: #ffcc00; text-align: center; padding: 8px; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -129,9 +124,7 @@
         
         <div id="mensaje-bienvenida" class="bienvenida oculto">✅ Bienvenido, Creador! Toca el + para publicar 🎮</div>
         
-        <div class="lista-juegos" id="lista-juegos">
-            <p style="text-align:center;color:#777;padding:40px;">No hay juegos publicados todavía 🎮</p>
-        </div>
+        <div class="lista-juegos" id="lista-juegos"></div>
         <div class="paginacion" id="paginacion"></div>
         
         <button id="boton-mas" class="boton-creador oculto" onclick="abrirFormulario()">+</button>
@@ -146,17 +139,18 @@
                 <div class="btn-imagen" onclick="document.getElementById('logo-juego').click()">
                     📷 Elegir imagen / logo
                 </div>
+                <div id="estado-optimizar" class="oculto optimizando">⚙️ Optimizando imagen... espere ⏳</div>
                 <img id="vista-previa-img" class="vista-previa" src="" alt="Vista previa">
-                <input type="file" id="logo-juego" accept="image/*" onchange="cargarImagen(event)">
+                <input type="file" id="logo-juego" accept="image/*" onchange="cargarYOptimizar(event)">
                 
                 <div id="caja-codigo" class="oculto">
-                    <p style="color:#90ee90; font-size:13px; margin:10px 0 5px 0;">📋 Copia este código y pégalo en tu archivo index.html donde dice: let juegos = [ AQUÍ ]</p>
+                    <p style="color:#90ee90; font-size:12px; margin:10px 0 5px 0;">📋 Código optimizado — pégalo en: let juegos = [ AQUÍ ]</p>
                     <div id="codigo-generado" class="codigo-salida"></div>
                 </div>
                 
                 <div class="botones">
                     <button class="btn-cancelar" onclick="cerrarFormulario()">Cancelar</button>
-                    <button id="btn-publicar-ahora" class="btn-publicar" onclick="generarCodigo()">Publicar</button>
+                    <button id="btn-publicar-ahora" class="btn-publicar" onclick="generarCodigo()">Generar Código</button>
                 </div>
             </div>
         </div>
@@ -168,19 +162,58 @@ const ENLACE_ANUNCIO = "https://pl31361169.profitableratecpmnetwork.com/22/e5/ce
 const JUEGOS_POR_PAGINA = 10;
 
 // ==============================================
-// AQUÍ VAN TUS JUEGOS — PEGA DEBAJO CADA NUEVO
+// TUS JUEGOS — MINECRAFT SE QUEDA IGUAL ✅
 // ==============================================
 let juegos = [
-    // EJEMPLO: {id: 1, nombre: "Juego", enlace: "https://...", imagen: "data...", descargas: 0}
+    {id: 1789530272561, nombre: "Minecraft", enlace: "https://www.mediafire.com/file/vmaz5vp7pf0fu34/minecraft-26-45-music.apk/file?dky=vo0ai7eoxz6&=583", imagen: "data:image/jpeg;base64,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CHuEQhCEIQ4RCEIQhD3jlZWVlZWVlZcIhCEIQh7JEIQhCEPg5WVlZWVlZWXtH//xAAZEQEBAQADAAAAAAAAAAAAAAARAGAgcID/2gAIAQMBAT8B9CERG5IiOkSIjckRHEiI3JERqf/EABkRAQEBAAMAAAAAAAAAAAAAABEAYCBwgP/aAAgBAgEBPwH0IzM7lmZ6RZmdyzM8WZncszOp/8QAGBABAQADAAAAAAAAAAAAAAAAMQCAkLD/2gAIAQEABj8C6EDMzMzOgFmZmZnNH//EABsQAAMAAwEBAAAAAAAAAAAAAAARUTBAgFCQ/9oACAEBAAE/IfgQ1Go1Go1Go1GvgtRqNRqNRqNRr2S1Go1Go1Go1GuFqNRqNRqNRqNRqNRqNRqNRqNcLUajUajUajUa9svR6PR6PR6PR7otRqNRqNRqNRqNfBaBoGgaBoGgaBo7R/9oADAMBAAIAAwAAABAAAAD3330MMMMAAAAMMMP3330MMMP3330AAAD3330MMMMAAAAMMMP3330MMMP3330AAAD3330MMMMAAAAMMMP3330MMMP3330AAAD3330MMMMAAAAMMMP3330MMMP33333333LLLL333333333330MMMPLLLIMMMP3330MMMP333333333330MMMMMMMMMMMP3330MMMP333333333330MMMMMMMMMMMP3330MMMP333333333330MMMMMMMMMMMPLLLIIIILLLLLLLLIMMMPLLLIEEEH3330MMMMIIIIMMMMMMMMMMMMMMMMEEEH3330MMMMIIIIMMMMMMMMMMMMMMMMEEEH3330MMMMIIIIMMMMMMMMMMMMMMMMEEEH3330MMMMIIIIMMMMMMMMMMMMMMMMEEEH3330/AP8A/wAIIIL/AP8A/wD3333LLLIEEEH/AP8A/wDLLLL/AP8A/wAEEEH/AP8A/wD3330MMMMEEEH/AP8A/wAMMMP/AP8A/wAEEEH/AP8A/wD3330MMMMEEEH/AP8A/wAMMMP/AP8A/wAEEEH/AP8A/wD3330MMMMEEEH/AP8A/wAMMMP/AP8A/wAEEEH/AP8A/wD3330MMMMEEEH/AP8A/wAMMMMIIIIMMMPLLLL/AP8A/wAEEEH3333LLLIMMMMEEEEMMMMMMMP/AP8A/wAEEEH3330MMMMMMMMEEEEMMMMMMMP/AP8A/wAEEEH3330MMMMMMMMEEEEMMMMMMMP/AP8A/wAEEEH3330MMMMMMMP3330EEEEMMMPLLLIIIIIIIIL/AP8A/wAEEEH3330EEEEMMMMMMMMIIIIEEEH/AP8A/wAEEEH3330EEEEMMMMMMMMIIIIEEEH/AP8A/wAEEEH3330EEEEMMMMMMMMIIIIEEEH/AP8A/wAEEEEEEEH/AP8A/wAMMMP333377773330IIIL/AP8A/wAEEEH/AP8A/wAMMMP3333/AP8A/wD3330EEEH/AP8A/wAEEEH/AP8A/wAMMMP3333/AP8A/wD3330EEEH/AP8A/wAEEEH/AP8A/wAMMMP3333/AP8A/wD3330EEEH/AP8A/wDLLLIEEEEIIIIEEEEEEEH7774MMMP3330MMMMEEEEIIIIEEEEEEEH/AP8A/wAMMMP3330MMMMEEEEIIIIEEEEEEEH/AP8A/wAMMMP3330MMMMEEEEIIIIEEEEEEEH/AP8A/wAMMMP3333/xAAbEQEBAQADAQEAAAAAAAAAAAARAAEgMGBAcP/aAAgBAwEBPxD8EMjIyM+EyMjIz0pkZGRnEyMjIyMjIyM4mRkZGetEIQ6TIyMjOkyMjIz0IhCHEyMjIztMjIyM9iZGRkZxEIQ9yIQhxEIQ9KZGRkZ8IhCHqf/EABsRAQEBAAMBAQAAAAAAAAAAABEAASAwYEBw/9oACAECAQE/EPwR2dnZ34XZ2dnfSuzs7O8XZ2dnZ2dnZ3i7Ozs761SlLpdnZ2d6XZ2dnfQqUpcXZ2dne12dnZ32Ls7OzvFSlL3KlKXFSlL0rs7OzvwqUpep/8QAHBAAAwEAAwEBAAAAAAAAAAAAAGGR8TBAgFCQ/9oACAEBAAE/EPwIVgrBWCsFYKwVgrPgqwVgrBWCsFYKwVnslWCsFYKwVgrBWCs4VYKwVgrBWCsFYKwVgrBWCsFYKwVgrOFWCsFYKwVgrBWCs9sqwVgrBWCsFYKwVnRVgrBWCsFYKwVgrOirBWCsFYKwVgrBWewVYKwVgrBWCsFYKzhVgrBWCsFYKwVgrOyrBWCsFYKwVgrBWe4VYKwVgrBWCsFYKzhVgrBWCsFYKwVgrPeOIYhiGIYhiGIYnCrBWCsFYKwVgrBWeyVYKwVgrBWCsFYKz4OIYhiGIYhiGIYntH//2Q==", descargas: 0}
 ];
 
-let imagenSeleccionada = null;
+let imagenOptimizada = null;
 let paginaActual = 1;
 let listaFiltrada = [...juegos];
-
-// REINICIAR DESBLOQUEO AL CERRAR EL NAVEGADOR ✅
 let desbloqueadoAhora = sessionStorage.getItem('desbloqueado_juego');
 if (desbloqueadoAhora) desbloqueadoAhora = null;
+
+// ⚙️ OPTIMIZADOR DE IMÁGENES — NUEVO ✅
+function cargarYOptimizar(e) {
+    const archivo = e.target.files[0];
+    if (!archivo) return;
+    
+    document.getElementById('estado-optimizar').classList.remove('oculto');
+    
+    const lector = new FileReader();
+    lector.onload = function(evt) {
+        const img = new Image();
+        img.onload = function() {
+            // Tamaño reducido: 128px de lado máximo → código mucho más corto ✅
+            const tamMax = 128;
+            let ancho = img.width;
+            let alto = img.height;
+            
+            if (ancho > alto && ancho > tamMax) {
+                alto = Math.round(alto * tamMax / ancho);
+                ancho = tamMax;
+            } else if (alto > tamMax) {
+                ancho = Math.round(ancho * tamMax / alto);
+                alto = tamMax;
+            }
+            
+            const lienzo = document.createElement('canvas');
+            lienzo.width = ancho;
+            lienzo.height = alto;
+            const ctx = lienzo.getContext('2d');
+            ctx.drawImage(img, 0, 0, ancho, alto);
+            
+            // Calidad media → se ve bien pero pesa POCO ✅
+            imagenOptimizada = lienzo.toDataURL('image/jpeg', 0.75);
+            
+            document.getElementById('vista-previa-img').src = imagenOptimizada;
+            document.getElementById('estado-optimizar').classList.add('oculto');
+        };
+        img.src = evt.target.result;
+    };
+    lector.readAsDataURL(archivo);
+}
 
 function abrirBiblioteca() {
     document.getElementById('pagina-inicio').classList.add('oculto');
@@ -201,53 +234,36 @@ function verificarCodigo(e) {
     }
 }
 
-// CARGAR IMAGEN DESDE GALERÍA ✅
-function cargarImagen(e) {
-    const archivo = e.target.files[0];
-    if (!archivo) return;
-    const lector = new FileReader();
-    lector.onload = function(resultado) {
-        imagenSeleccionada = resultado.target.result;
-        document.getElementById('vista-previa-img').src = imagenSeleccionada;
-    };
-    lector.readAsDataURL(archivo);
-}
-
 function abrirFormulario() {
     document.getElementById('formulario-modal').classList.remove('oculto');
     document.getElementById('caja-codigo').classList.add('oculto');
     document.getElementById('codigo-generado').textContent = '';
+    document.getElementById('nombre-juego').value = '';
+    document.getElementById('enlace-juego').value = '';
+    document.getElementById('vista-previa-img').src = '';
+    imagenOptimizada = null;
 }
 
 function cerrarFormulario() {
     document.getElementById('formulario-modal').classList.add('oculto');
-    document.getElementById('nombre-juego').value = '';
-    document.getElementById('enlace-juego').value = '';
-    document.getElementById('vista-previa-img').src = '';
-    imagenSeleccionada = null;
 }
 
-// GENERAR CÓDIGO AUTOMÁTICAMENTE ✅
 function generarCodigo() {
     const nombre = document.getElementById('nombre-juego').value.trim();
     const enlace = document.getElementById('enlace-juego').value.trim();
     
     if (!nombre) return alert('Pon el nombre del juego 🎮');
     if (!enlace) return alert('Pon el enlace de descarga 🔗');
-    if (!imagenSeleccionada) return alert('Elige una imagen/logo 📷');
+    if (!imagenOptimizada) return alert('Elige una imagen/logo 📷');
     
     const idNuevo = Date.now();
-    const codigoListo = `{id: ${idNuevo}, nombre: "${nombre}", enlace: "${enlace}", imagen: "${imagenSeleccionada}", descargas: 0}`;
+    const codigoListo = `{id: ${idNuevo}, nombre: "${nombre}", enlace: "${enlace}", imagen: "${imagenOptimizada}", descargas: 0}`;
     
-    // MOSTRAR CÓDIGO YA HECHO ✅
     document.getElementById('codigo-generado').textContent = codigoListo;
     document.getElementById('caja-codigo').classList.remove('oculto');
     
-    // Copiar automáticamente
     navigator.clipboard.writeText(codigoListo).then(() => {
-        alert('✅ ¡Copiado automáticamente!\n\n👉 Pégalo en tu código donde dice: let juegos = [ AQUÍ ]');
-    }).catch(() => {
-        alert('📋 Copia el código que aparece en verde y pégalo en tu código base');
+        alert('✅ ¡Copiado!\n\n👉 Pégalo en: let juegos = [ AQUÍ ]\n\n💡 La imagen ya está optimizada ✨');
     });
 }
 
