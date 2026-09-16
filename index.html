@@ -10,123 +10,97 @@
         .oculto { display: none !important; }
 
         /* --- INICIO --- */
-        .inicio { flex: 1; display: flex; flex-direction: column; padding: 40px 20px 20px; text-align: center; }
-        .zona-principal { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-bottom: 20px; }
+        .inicio { flex: 1; display: flex; flex-direction: column; padding: 50px 20px 20px; text-align: center; }
+        .zona-principal { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .logo { font-size: 70px; margin-bottom: 10px; }
-        h1 { color: #2ecc71; font-size: 42px; margin-bottom: 10px; }
-        .subtitulo { color: #ccc; font-size: 18px; margin-bottom: 40px; }
-        .btn-entrar { 
-            background: #fff; color: #000; border: none; 
-            padding: 22px 40px; font-size: 22px; font-weight: bold; 
-            border-radius: 16px; cursor: pointer; width: 85%; max-width: 340px;
+        h1 { color: #2ecc71; font-size: 36px; margin-bottom: 10px; }
+        .subtitulo { color: #aaa; font-size: 16px; margin-bottom: 40px; }
+        .btn-entrar {
+            background: #fff; color: #000; border: none;
+            padding: 18px 36px; font-size: 20px; font-weight: bold;
+            border-radius: 14px; cursor: pointer; width: 85%; max-width: 320px;
             transition: transform 0.2s;
         }
         .btn-entrar:hover { transform: scale(1.05); }
-
-        /* ZONA DE ANUNCIOS — ABAJO, SIN TAPAR NADA ✅ */
-        .zona-anuncios {
-            width: 100%; padding: 15px 20px; border-top: 1px solid #222;
-            margin-top: auto;
-        }
-        .anuncio {
-            width: 100%; max-width: 400px; margin: 0 auto;
-            min-height: 250px; display: flex;
-            align-items: center; justify-content: center;
-        }
+        
+        /* ANUNCIO ABAJO */
+        .zona-anuncios { width: 100%; padding: 15px 20px; border-top: 1px solid #222; margin-top: auto; }
+        .anuncio { width: 100%; max-width: 400px; margin: 0 auto; min-height: 220px; }
 
         /* --- BIBLIOTECA --- */
-        .cabecera { padding: 20px; border-bottom: 1px solid #333; position: sticky; top: 0; background: #000; z-index: 50; }
+        .cabecera { padding: 15px; border-bottom: 1px solid #222; position: sticky; top: 0; background: #000; z-index: 50; }
         .barra-busqueda {
-            width: 100%; padding: 14px 20px; border-radius: 12px; border: none;
-            background: #222; color: #fff; font-size: 16px; text-align: center;
+            width: 100%; padding: 12px 16px; border-radius: 10px; border: none;
+            background: #1a1a2e; color: #fff; font-size: 15px; text-align: center;
         }
-        .barra-busqueda::placeholder { color: #888; }
+        .barra-busqueda::placeholder { color: #666; }
 
         .bienvenida {
-            text-align: center; color: #2ecc71; padding: 12px; margin: 10px 20px;
-            background: rgba(46,204,113,0.1); border-radius: 10px;
-            animation: aparecer 0.5s ease-out; font-weight: bold;
+            text-align: center; color: #2ecc71; padding: 10px; margin: 10px 15px;
+            background: rgba(46,204,113,0.1); border-radius: 8px;
+            font-weight: bold; animation: aparecer 0.4s ease-out;
         }
-        @keyframes aparecer { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes aparecer { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
 
-        .lista-juegos { padding: 20px; flex: 1; }
-        .juego { display: flex; align-items: center; background: #111; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
-        .juego-img { width: 60px; height: 60px; border-radius: 8px; background: #222; margin-right: 15px; object-fit: cover; }
+        .lista-juegos { padding: 15px; flex: 1; }
+        .juego { display: flex; align-items: center; background: #111; padding: 12px; border-radius: 10px; margin-bottom: 12px; border-left: 3px solid #ff0033; }
+        .juego-img { width: 55px; height: 55px; border-radius: 8px; background: #222; margin-right: 12px; object-fit: cover; }
         .juego-info { flex: 1; }
-        .juego-nombre { font-weight: bold; margin-bottom: 4px; font-size: 16px; }
-        .etapa { font-size: 11px; color: #888; margin-bottom: 4px; }
+        .juego-nombre { font-weight: bold; margin-bottom: 3px; font-size: 15px; }
+        .etapa { font-size: 11px; color: #888; margin-bottom: 3px; }
+        .contador { font-size: 11px; color: #2ecc71; font-weight: bold; }
+        .contador-num { background: rgba(46,204,113,0.2); padding: 1px 6px; border-radius: 8px; font-size: 12px; }
         
-        .contador { 
-            font-size: 12px; color: #2ecc71; font-weight: bold; 
-            display: flex; align-items: center; gap: 5px;
-        }
-        .contador-num { 
-            background: rgba(46,204,113,0.2); padding: 2px 8px; 
-            border-radius: 10px; font-size: 13px;
-        }
-        
-        .descargar-bloqueado { 
-            background: #444; color: #888; border: none; padding: 10px 14px; 
+        .descargar-bloqueado {
+            background: #333; color: #777; border: none; padding: 8px 12px;
             border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px;
         }
-        .descargar-listo { 
-            background: #2ecc71; color: #000; border: none; padding: 10px 14px; 
+        .descargar-listo {
+            background: #2ecc71; color: #000; border: none; padding: 8px 12px;
             border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px;
             text-decoration: none;
         }
 
-        .paginacion {
-            display: flex; justify-content: center; align-items: center; gap: 6px;
-            padding: 20px; border-top: 1px solid #111;
-        }
-        .pagina-texto { color: #888; font-size: 13px; margin-right: 8px; }
-        .pagina-btn {
-            background: #222; color: #fff; border: none; padding: 10px 14px;
-            border-radius: 8px; font-size: 15px; cursor: pointer; transition: all 0.2s;
-            min-width: 42px;
-        }
-        .pagina-btn:hover { background: #2ecc71; color: #000; }
+        .paginacion { display: flex; justify-content: center; align-items: center; gap: 5px; padding: 15px; border-top: 1px solid #111; }
+        .pagina-texto { color: #777; font-size: 12px; margin-right: 6px; }
+        .pagina-btn { background: #222; color: #fff; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; min-width: 36px; }
+        .pagina-btn:hover, .pagina-activa { background: #2ecc71; color: #000; font-weight: bold; }
         .pagina-btn:disabled { background: #1a1a1a; color: #444; cursor: not-allowed; }
-        .pagina-activa { background: #2ecc71; color: #000; font-weight: bold; }
-        .puntos { color: #555; padding: 0 4px; }
+        .puntos { color: #555; padding: 0 3px; }
 
         .boton-creador {
-            position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px;
+            position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px;
             border-radius: 50%; background: #2ecc71; color: #000; border: none;
-            font-size: 32px; font-weight: bold; cursor: pointer; z-index: 100;
-            box-shadow: 0 4px 15px rgba(46,204,113,0.4);
+            font-size: 28px; font-weight: bold; cursor: pointer; z-index: 100;
+            box-shadow: 0 3px 12px rgba(46,204,113,0.35);
         }
 
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.92); display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center;
             z-index: 200; padding: 20px;
         }
-        .form-publicar {
-            background: #111; padding: 25px; border-radius: 15px; width: 100%; max-width: 380px;
-        }
-        .form-publicar h3 { text-align: center; margin-bottom: 20px; color: #2ecc71; font-size: 22px; }
+        .form-publicar { background: #111; padding: 22px; border-radius: 12px; width: 100%; max-width: 340px; }
+        .form-publicar h3 { text-align: center; margin-bottom: 18px; color: #2ecc71; font-size: 20px; }
         .form-publicar input {
-            width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 8px; border: none;
-            background: #222; color: #fff; font-size: 15px;
+            width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 8px;
+            border: none; background: #222; color: #fff; font-size: 14px;
         }
         .btn-imagen {
-            width: 100%; padding: 15px; background: #222; border: 2px dashed #2ecc71;
-            color: #fff; border-radius: 8px; text-align: center; cursor: pointer; margin-bottom: 15px;
+            width: 100%; padding: 14px; background: #222; border: 2px dashed #2ecc71;
+            color: #fff; border-radius: 8px; text-align: center; cursor: pointer; margin-bottom: 12px;
+            font-size: 15px;
         }
-        .vista-previa { width: 90px; height: 90px; border-radius: 8px; margin: 0 auto 15px; background: #333; object-fit: cover; }
-        .botones { display: flex; gap: 10px; margin-top: 5px; }
+        .vista-previa { width: 90px; height: 90px; border-radius: 8px; margin: 0 auto 15px; background: #333; object-fit: cover; display: block; }
+        .botones { display: flex; gap: 10px; margin-top: 8px; }
         .btn-cancelar { flex: 1; padding: 14px; border: none; border-radius: 8px; background: #444; color: #fff; font-weight: bold; cursor: pointer; font-size: 15px; }
         .btn-publicar { flex: 1; padding: 14px; border: none; border-radius: 8px; background: #2ecc71; color: #000; font-weight: bold; cursor: pointer; font-size: 15px; }
-
         input[type="file"] { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- ================================== -->
-    <!-- INICIO — BOTÓN LIBRE, ANUNCIO ABAJO -->
-    <!-- ================================== -->
+    <!-- INICIO -->
     <div id="pagina-inicio" class="inicio">
         <div class="zona-principal">
             <div class="logo">🎮</div>
@@ -134,8 +108,6 @@
             <p class="subtitulo">Los mejores juegos — descarga gratis</p>
             <button class="btn-entrar" onclick="abrirBiblioteca()">📚 Biblioteca de Juegos</button>
         </div>
-
-        <!-- 🔽 ANUNCIO BANDERA NATIVA — ABAJO ✅ -->
         <div class="zona-anuncios">
             <div class="anuncio">
                 <script async="async" data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script>
@@ -144,23 +116,22 @@
         </div>
     </div>
 
-    <!-- ================================== -->
     <!-- BIBLIOTECA -->
-    <!-- ================================== -->
     <div id="pagina-biblioteca" class="oculto" style="display:flex;flex-direction:column;min-height:100vh;">
         <div class="cabecera">
             <input type="text" class="barra-busqueda" id="buscar" placeholder="Buscar juegos, apps y más..." oninput="filtrarJuegos(this.value)" onkeydown="verificarCodigo(event)">
         </div>
-
-        <div id="mensaje-bienvenida" class="bienvenida oculto">
-            ✅ Bienvenido, Creador! Toca el + para publicar 🎮
+        
+        <div id="mensaje-bienvenida" class="bienvenida oculto">✅ Bienvenido, Creador! Toca el + para publicar 🎮</div>
+        
+        <div class="lista-juegos" id="lista-juegos">
+            <p style="text-align:center;color:#777;padding:40px;">No hay juegos publicados todavía 🎮</p>
         </div>
-
-        <div class="lista-juegos" id="lista-juegos"></div>
         <div class="paginacion" id="paginacion"></div>
-
+        
         <button id="boton-mas" class="boton-creador oculto" onclick="abrirFormulario()">+</button>
-
+        
+        <!-- FORMULARIO DE PUBLICACIÓN -->
         <div id="formulario-modal" class="modal oculto">
             <div class="form-publicar">
                 <h3>Publicar Juego</h3>
@@ -183,32 +154,42 @@
 
 <script>
 const CODIGO_CREADOR = "2k8l";
-// 🔽 ANUNCIO DE DESBLOQUEO — PESTAÑA NUEVA 💰
 const ENLACE_ANUNCIO = "https://pl31361169.profitableratecpmnetwork.com/22/e5/ce/22e5ce45b7f08d83a957b7a61350ecf6.js";
 const JUEGOS_POR_PAGINA = 10;
 
-let juegos = [];
+// ==============================================
+// 🔥 AQUÍ SE GUARDAN TUS JUEGOS PARA TODOS
+// ==============================================
+let juegos = [
+    // Tus juegos aparecerán aquí automáticamente
+];
+
 let imagenSeleccionada = null;
 let desbloqueadoAhora = null;
 let paginaActual = 1;
-let listaFiltrada = [];
+let listaFiltrada = [...juegos];
 
-// CARGA Y GUARDO
-function cargarJuegos() {
-    const guardados = localStorage.getItem('juegos_compartidos');
-    if (guardados) juegos = JSON.parse(guardados);
+// Cargar juegos guardados
+function cargarGuardado() {
+    const guardado = localStorage.getItem('juegos_leonardo');
+    if (guardado) {
+        juegos = JSON.parse(guardado);
+        listaFiltrada = [...juegos];
+    }
+}
+
+// Guardar automáticamente
+function guardarTodo() {
+    localStorage.setItem('juegos_leonardo', JSON.stringify(juegos));
     listaFiltrada = [...juegos];
 }
-function guardarJuegos() {
-    localStorage.setItem('juegos_compartidos', JSON.stringify(juegos));
-    listaFiltrada = [...juegos];
-    mostrarJuegos();
-}
+
+cargarGuardado();
 
 function abrirBiblioteca() {
     document.getElementById('pagina-inicio').classList.add('oculto');
     document.getElementById('pagina-biblioteca').classList.remove('oculto');
-    cargarJuegos();
+    listaFiltrada = [...juegos];
     paginaActual = 1;
     mostrarJuegos();
 }
@@ -224,12 +205,16 @@ function verificarCodigo(e) {
     }
 }
 
+// Cargar imagen desde galería
 function cargarImagen(e) {
-    const f = e.target.files[0];
-    if (!f) return;
-    const r = new FileReader();
-    r.onload = x => { imagenSeleccionada = x.target.result; document.getElementById('vista-previa-img').src = imagenSeleccionada; };
-    r.readAsDataURL(f);
+    const archivo = e.target.files[0];
+    if (!archivo) return;
+    const lector = new FileReader();
+    lector.onload = function(resultado) {
+        imagenSeleccionada = resultado.target.result;
+        document.getElementById('vista-previa-img').src = imagenSeleccionada;
+    };
+    lector.readAsDataURL(archivo);
 }
 
 function abrirFormulario() { document.getElementById('formulario-modal').classList.remove('oculto'); }
@@ -241,22 +226,30 @@ function cerrarFormulario() {
     imagenSeleccionada = null;
 }
 
+// PUBLICAR — SIMPLE Y DIRECTO ✅
 function publicarJuego() {
     const nombre = document.getElementById('nombre-juego').value.trim();
     const enlace = document.getElementById('enlace-juego').value.trim();
-    if (!nombre || !enlace) return alert('Escribe nombre y enlace de descarga');
     
-    juegos.unshift({
+    if (!nombre) return alert('Pon el nombre del juego 🎮');
+    if (!enlace) return alert('Pon el enlace de descarga 🔗');
+    if (!imagenSeleccionada) return alert('Elige una imagen/logo 📷');
+    
+    const nuevo = {
         id: Date.now(),
-        nombre,
-        enlace,
-        imagen: imagenSeleccionada || '',
+        nombre: nombre,
+        enlace: enlace,
+        imagen: imagenSeleccionada,
         descargas: 0
-    });
-    guardarJuegos();
+    };
+    
+    juegos.unshift(nuevo);
+    guardarTodo();
     paginaActual = 1;
     cerrarFormulario();
-    alert('✅ Publicado! Refresca si no lo ves 🔥');
+    mostrarJuegos();
+    
+    alert('✅ ¡Publicado!\n\n🔄 Diles a tus amigos que refresquen la página y ya lo ven 🔥');
 }
 
 function formatoNumero(n) { return n >= 1000 ? (n/1000).toFixed(1) + ' mil' : n.toString(); }
@@ -275,14 +268,14 @@ function mostrarJuegos() {
     c.innerHTML = '';
 
     if (juegosPagina.length === 0) {
-        c.innerHTML = '<p style="text-align:center;color:#888;padding:30px;">No hay juegos publicados 🎮</p>';
+        c.innerHTML = '<p style="text-align:center;color:#777;padding:40px;">No hay juegos publicados todavía 🎮</p>';
     } else {
         juegosPagina.forEach(juego => {
             const yaDesbloqueado = desbloqueadoAhora === juego.id;
             const tarjeta = document.createElement('div');
             tarjeta.className = 'juego';
             tarjeta.innerHTML = `
-                <img class="juego-img" src="${juego.imagen || 'https://via.placeholder.com/60/222/2ecc71?text=🎮'}" alt="${juego.nombre}">
+                <img class="juego-img" src="${juego.imagen}" alt="${juego.nombre}">
                 <div class="juego-info">
                     <div class="juego-nombre">${juego.nombre}</div>
                     <div class="etapa">${yaDesbloqueado ? '✅ Listo' : '🔒 Toca para ver anuncio'}</div>
@@ -329,13 +322,16 @@ function irPagina(n) { paginaActual = n; window.scrollTo({top:0}); mostrarJuegos
 
 function sumarDescarga(id) {
     const juego = juegos.find(j => j.id === id);
-    if (juego) { juego.descargas += 1; guardarJuegos(); }
+    if (juego) {
+        juego.descargas += 1;
+        guardarTodo();
+        mostrarJuegos();
+    }
 }
 
-// 🔽 AL DESBLOQUEAR → SE ABRE EL ANUNCIO 💰
 function desbloquear(id) {
-    window.open(ENLACE_ANUNCIO, '_blank'); // Abre el anuncio
-    desbloqueadoAhora = id; // Desbloquea en esta sesión
+    window.open(ENLACE_ANUNCIO, '_blank');
+    desbloqueadoAhora = id;
     setTimeout(mostrarJuegos, 500);
 }
 
@@ -348,7 +344,6 @@ function filtrarJuegos(texto) {
     mostrarJuegos();
 }
 
-cargarJuegos();
 mostrarJuegos();
 </script>
 </body>
