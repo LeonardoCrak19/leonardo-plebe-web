@@ -6,24 +6,47 @@
     <title>Leonardo Plebe 🎮</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-        body { background: #000; color: #fff; min-height: 100vh; padding-bottom: 100px; }
+        body { 
+            background: #000; color: #fff; min-height: 100vh; 
+            display: flex; flex-direction: column;
+        }
         .oculto { display: none !important; }
 
-        /* --- INICIO --- */
-        .inicio { padding: 50px 20px; text-align: center; }
+        /* --- PANTALLA DE INICIO --- */
+        .inicio { 
+            flex: 1; display: flex; flex-direction: column; 
+            padding: 40px 20px 20px; text-align: center;
+        }
+        .zona-principal {
+            flex: 1; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding-bottom: 20px;
+        }
         .logo { font-size: 70px; margin-bottom: 10px; }
         h1 { color: #2ecc71; font-size: 42px; margin-bottom: 10px; }
-        .subtitulo { color: #ccc; font-size: 18px; margin-bottom: 50px; }
-        .btn { 
+        .subtitulo { color: #ccc; font-size: 18px; margin-bottom: 40px; }
+        
+        /* BOTÓN DE ENTRADA — BIEN ARRIBA Y LIBRE */
+        .btn-entrar { 
             background: #fff; color: #000; border: none; 
-            padding: 20px 40px; font-size: 22px; font-weight: bold; 
+            padding: 22px 40px; font-size: 22px; font-weight: bold; 
             border-radius: 16px; cursor: pointer; width: 85%; max-width: 340px;
-            transition: transform 0.2s; margin-bottom: 30px;
+            transition: transform 0.2s;
         }
-        .btn:hover { transform: scale(1.05); }
-        .anuncio { width: 90%; max-width: 400px; margin: 40px auto 20px; padding: 15px; border-top: 2px solid #2ecc71; border-bottom: 2px solid #2ecc71; min-height: 280px; }
+        .btn-entrar:hover { transform: scale(1.05); }
 
-        /* --- BÚSQUEDA --- */
+        /* ZONA DE ANUNCIOS — SOLO ABAJO, APARTADA */
+        .zona-anuncios {
+            width: 100%; padding: 20px; border-top: 1px solid #222;
+            margin-top: auto;
+        }
+        .anuncio {
+            width: 100%; max-width: 400px; margin: 0 auto;
+            min-height: 250px; display: flex;
+            align-items: center; justify-content: center;
+        }
+
+        /* --- BIBLIOTECA --- */
         .cabecera { padding: 20px; border-bottom: 1px solid #333; position: sticky; top: 0; background: #000; z-index: 50; }
         .barra-busqueda {
             width: 100%; padding: 14px 20px; border-radius: 12px; border: none;
@@ -31,7 +54,6 @@
         }
         .barra-busqueda::placeholder { color: #888; }
 
-        /* --- BIENVENIDA --- */
         .bienvenida {
             text-align: center; color: #2ecc71; padding: 12px; margin: 10px 20px;
             background: rgba(46, 204, 113, 0.1); border-radius: 10px;
@@ -42,15 +64,13 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- LISTA JUEGOS --- */
-        .lista-juegos { padding: 20px; }
+        .lista-juegos { padding: 20px; flex: 1; }
         .juego { display: flex; align-items: center; background: #111; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
         .juego-img { width: 60px; height: 60px; border-radius: 8px; background: #222; margin-right: 15px; object-fit: cover; }
         .juego-info { flex: 1; }
         .juego-nombre { font-weight: bold; margin-bottom: 4px; font-size: 16px; }
         .etapa { font-size: 11px; color: #888; margin-bottom: 4px; }
         
-        /* --- CONTADOR --- */
         .contador { 
             font-size: 12px; color: #2ecc71; font-weight: bold; 
             display: flex; align-items: center; gap: 5px;
@@ -60,7 +80,6 @@
             border-radius: 10px; font-size: 13px;
         }
         
-        /* BOTONES */
         .descargar-bloqueado { 
             background: #444; color: #888; border: none; padding: 10px 14px; 
             border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px;
@@ -71,10 +90,9 @@
             text-decoration: none;
         }
 
-        /* --- PAGINACIÓN LIMPIA --- */
         .paginacion {
             display: flex; justify-content: center; align-items: center; gap: 6px;
-            padding: 20px; margin-top: 10px; flex-wrap: wrap;
+            padding: 20px; border-top: 1px solid #111;
         }
         .pagina-texto { color: #888; font-size: 13px; margin-right: 8px; }
         .pagina-btn {
@@ -87,7 +105,6 @@
         .pagina-activa { background: #2ecc71; color: #000; font-weight: bold; }
         .puntos { color: #555; padding: 0 4px; }
 
-        /* --- BOTÓN + CREADOR --- */
         .boton-creador {
             position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px;
             border-radius: 50%; background: #2ecc71; color: #000; border: none;
@@ -95,7 +112,6 @@
             box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
         }
 
-        /* --- FORMULARIO --- */
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.92); display: flex; align-items: center; justify-content: center;
@@ -124,25 +140,31 @@
 <body>
 
     <!-- ================================== -->
-    <!-- INICIO -->
+    <!-- PANTALLA DE INICIO — BOTÓN ARRIBA LIBRE -->
     <!-- ================================== -->
     <div id="pagina-inicio" class="inicio">
-        <div class="logo">🎮</div>
-        <h1>Leonardo Plebe</h1>
-        <p class="subtitulo">Los mejores juegos — descarga gratis</p>
-        <button class="btn" onclick="abrirBiblioteca()">📚 Biblioteca de Juegos</button>
-        
-        <!-- ANUNCIO ADSTERRA -->
-        <div class="anuncio">
-            <script async="async" data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script>
-            <div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div>
+        <div class="zona-principal">
+            <div class="logo">🎮</div>
+            <h1>Leonardo Plebe</h1>
+            <p class="subtitulo">Los mejores juegos — descarga gratis</p>
+            
+            <!-- BOTÓN DE ENTRADA — NADA LO TAPA ✅ -->
+            <button class="btn-entrar" onclick="abrirBiblioteca()">📚 Biblioteca de Juegos</button>
+        </div>
+
+        <!-- ZONA DE ANUNCIOS — SOLO ABAJO, APARTADA ✅ -->
+        <div class="zona-anuncios">
+            <div class="anuncio">
+                <script async="async" data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script>
+                <div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div>
+            </div>
         </div>
     </div>
 
     <!-- ================================== -->
     <!-- BIBLIOTECA -->
     <!-- ================================== -->
-    <div id="pagina-biblioteca" class="oculto">
+    <div id="pagina-biblioteca" class="oculto" style="display: flex; flex-direction: column; min-height: 100vh;">
         <div class="cabecera">
             <input type="text" class="barra-busqueda" id="buscar" placeholder="Buscar juegos, apps y más..." oninput="filtrarJuegos(this.value)" onkeydown="verificarCodigo(event)">
         </div>
@@ -179,7 +201,7 @@
 <script>
 const CODIGO_CREADOR = "2k8l"; 
 const ENLACE_ANUNCIO = "https://pl31361169.profitableratecpmnetwork.com/22/e5/ce/22e5ce45b7f08d83a957b7a61350ecf6.js";
-const JUEGOS_POR_PAGINA = 10; // 👈 EXACTAMENTE 10 POR PÁGINA
+const JUEGOS_POR_PAGINA = 10;
 
 let juegos = [];
 let imagenSeleccionada = null;
@@ -187,7 +209,6 @@ let desbloqueadoAhora = null;
 let paginaActual = 1;
 let listaFiltrada = [];
 
-// --- CARGA Y GUARDO ---
 function cargarJuegos() {
     const guardados = localStorage.getItem('juegos_publicados');
     if (guardados) juegos = JSON.parse(guardados);
@@ -197,7 +218,6 @@ function guardarJuegos() {
     localStorage.setItem('juegos_publicados', JSON.stringify(juegos));
 }
 
-// --- ENTRAR ---
 function abrirBiblioteca() {
     document.getElementById('pagina-inicio').classList.add('oculto');
     document.getElementById('pagina-biblioteca').classList.remove('oculto');
@@ -207,7 +227,6 @@ function abrirBiblioteca() {
     mostrarJuegos();
 }
 
-// --- CÓDIGO CREADOR ---
 function verificarCodigo(event) {
     if (event.key === 'Enter') {
         const texto = document.getElementById('buscar').value.trim();
@@ -219,7 +238,6 @@ function verificarCodigo(event) {
     }
 }
 
-// --- IMAGEN ---
 function cargarImagen(e) {
     const f = e.target.files[0];
     if (!f) return;
@@ -231,7 +249,6 @@ function cargarImagen(e) {
     r.readAsDataURL(f);
 }
 
-// --- PUBLICAR ---
 function abrirFormulario() {
     document.getElementById('formulario-modal').classList.remove('oculto');
 }
@@ -261,13 +278,11 @@ function publicarJuego() {
     mostrarJuegos();
 }
 
-// --- FORMATO NÚMEROS ---
 function formatoNumero(n) {
     if (n >= 1000) return (n/1000).toFixed(1) + ' mil';
     return n.toString();
 }
 
-// --- MOSTRAR JUEGOS DE LA PÁGINA ---
 function mostrarJuegos() {
     const total = listaFiltrada.length;
     const totalPaginas = Math.ceil(total / JUEGOS_POR_PAGINA);
@@ -310,17 +325,14 @@ function mostrarJuegos() {
     dibujarPaginacion(totalPaginas);
 }
 
-// --- BOTONES DE PÁGINAS (LIMPIOS) ---
 function dibujarPaginacion(totalPaginas) {
     const c = document.getElementById('paginacion');
     if (totalPaginas <= 1) { c.innerHTML = ''; return; }
 
     let html = `<span class="pagina-texto">Pág ${paginaActual} de ${totalPaginas}</span>`;
     
-    // Anterior
     html += `<button class="pagina-btn" ${paginaActual === 1 ? 'disabled' : ''} onclick="irPagina(${paginaActual - 1})">←</button>`;
     
-    // Números: muestra pocos para no llenar
     const rango = 2;
     let mostrados = [];
     for (let i = 1; i <= totalPaginas; i++) {
@@ -339,20 +351,17 @@ function dibujarPaginacion(totalPaginas) {
         }
     });
     
-    // Siguiente
     html += `<button class="pagina-btn" ${paginaActual === totalPaginas ? 'disabled' : ''} onclick="irPagina(${paginaActual + 1})">→</button>`;
     
     c.innerHTML = html;
 }
 
-// --- CAMBIAR PÁGINA ---
 function irPagina(num) {
     paginaActual = num;
     window.scrollTo({ top: 0, behavior: 'smooth' });
     mostrarJuegos();
 }
 
-// --- SUMAR DESCARGA ---
 function sumarDescarga(id) {
     const juego = juegos.find(j => j.id === id);
     if (juego) {
@@ -363,7 +372,6 @@ function sumarDescarga(id) {
     }
 }
 
-// --- DESBLOQUEAR ---
 function desbloquear(idJuego) {
     window.open(ENLACE_ANUNCIO, '_blank');
     desbloqueadoAhora = idJuego;
@@ -373,7 +381,6 @@ function desbloquear(idJuego) {
     }, 500);
 }
 
-// --- BÚSQUEDA ---
 function normalizar(t) {
     return t.toLowerCase().replace(/[áéíóúñ]/g, m => ({á:'a',é:'e',í:'i',ó:'o',ú:'u',ñ:'n'}[m]));
 }
