@@ -92,10 +92,15 @@
             font-size: 15px;
         }
         .vista-previa { width: 90px; height: 90px; border-radius: 8px; margin: 0 auto 15px; background: #333; object-fit: cover; display: block; }
+        .codigo-salida {
+            background: #1a1a1a; border: 1px solid #2ecc71; padding: 12px; border-radius: 8px;
+            margin: 15px 0; font-family: monospace; font-size: 11px; word-break: break-all; color: #90ee90;
+        }
         .botones { display: flex; gap: 10px; margin-top: 8px; }
         .btn-cancelar { flex: 1; padding: 14px; border: none; border-radius: 8px; background: #444; color: #fff; font-weight: bold; cursor: pointer; font-size: 15px; }
         .btn-publicar { flex: 1; padding: 14px; border: none; border-radius: 8px; background: #2ecc71; color: #000; font-weight: bold; cursor: pointer; font-size: 15px; }
         input[type="file"] { display: none; }
+        .oculto { display: none !important; }
     </style>
 </head>
 <body>
@@ -144,47 +149,38 @@
                 <img id="vista-previa-img" class="vista-previa" src="" alt="Vista previa">
                 <input type="file" id="logo-juego" accept="image/*" onchange="cargarImagen(event)">
                 
+                <div id="caja-codigo" class="oculto">
+                    <p style="color:#90ee90; font-size:13px; margin:10px 0 5px 0;">📋 Copia este código y pégalo en tu archivo index.html donde dice: let juegos = [ AQUÍ ]</p>
+                    <div id="codigo-generado" class="codigo-salida"></div>
+                </div>
+                
                 <div class="botones">
                     <button class="btn-cancelar" onclick="cerrarFormulario()">Cancelar</button>
-                    <button class="btn-publicar" onclick="publicarJuego()">Publicar</button>
+                    <button id="btn-publicar-ahora" class="btn-publicar" onclick="generarCodigo()">Publicar</button>
                 </div>
             </div>
         </div>
     </div>
 
 <script>
-const CODIGO_CREADOR = "2k8l";
+const CODIGO_CREADOR = "2k8L";
 const ENLACE_ANUNCIO = "https://pl31361169.profitableratecpmnetwork.com/22/e5/ce/22e5ce45b7f08d83a957b7a61350ecf6.js";
 const JUEGOS_POR_PAGINA = 10;
 
 // ==============================================
-// 🔥 AQUÍ SE GUARDAN TUS JUEGOS PARA TODOS
+// AQUÍ VAN TUS JUEGOS — PEGA DEBAJO CADA NUEVO
 // ==============================================
 let juegos = [
-    // Tus juegos aparecerán aquí automáticamente
+    // EJEMPLO: {id: 1, nombre: "Juego", enlace: "https://...", imagen: "data...", descargas: 0}
 ];
 
 let imagenSeleccionada = null;
-let desbloqueadoAhora = null;
 let paginaActual = 1;
 let listaFiltrada = [...juegos];
 
-// Cargar juegos guardados
-function cargarGuardado() {
-    const guardado = localStorage.getItem('juegos_leonardo');
-    if (guardado) {
-        juegos = JSON.parse(guardado);
-        listaFiltrada = [...juegos];
-    }
-}
-
-// Guardar automáticamente
-function guardarTodo() {
-    localStorage.setItem('juegos_leonardo', JSON.stringify(juegos));
-    listaFiltrada = [...juegos];
-}
-
-cargarGuardado();
+// REINICIAR DESBLOQUEO AL CERRAR EL NAVEGADOR ✅
+let desbloqueadoAhora = sessionStorage.getItem('desbloqueado_juego');
+if (desbloqueadoAhora) desbloqueadoAhora = null;
 
 function abrirBiblioteca() {
     document.getElementById('pagina-inicio').classList.add('oculto');
@@ -205,7 +201,7 @@ function verificarCodigo(e) {
     }
 }
 
-// Cargar imagen desde galería
+// CARGAR IMAGEN DESDE GALERÍA ✅
 function cargarImagen(e) {
     const archivo = e.target.files[0];
     if (!archivo) return;
@@ -217,7 +213,12 @@ function cargarImagen(e) {
     lector.readAsDataURL(archivo);
 }
 
-function abrirFormulario() { document.getElementById('formulario-modal').classList.remove('oculto'); }
+function abrirFormulario() {
+    document.getElementById('formulario-modal').classList.remove('oculto');
+    document.getElementById('caja-codigo').classList.add('oculto');
+    document.getElementById('codigo-generado').textContent = '';
+}
+
 function cerrarFormulario() {
     document.getElementById('formulario-modal').classList.add('oculto');
     document.getElementById('nombre-juego').value = '';
@@ -226,8 +227,8 @@ function cerrarFormulario() {
     imagenSeleccionada = null;
 }
 
-// PUBLICAR — SIMPLE Y DIRECTO ✅
-function publicarJuego() {
+// GENERAR CÓDIGO AUTOMÁTICAMENTE ✅
+function generarCodigo() {
     const nombre = document.getElementById('nombre-juego').value.trim();
     const enlace = document.getElementById('enlace-juego').value.trim();
     
@@ -235,21 +236,19 @@ function publicarJuego() {
     if (!enlace) return alert('Pon el enlace de descarga 🔗');
     if (!imagenSeleccionada) return alert('Elige una imagen/logo 📷');
     
-    const nuevo = {
-        id: Date.now(),
-        nombre: nombre,
-        enlace: enlace,
-        imagen: imagenSeleccionada,
-        descargas: 0
-    };
+    const idNuevo = Date.now();
+    const codigoListo = `{id: ${idNuevo}, nombre: "${nombre}", enlace: "${enlace}", imagen: "${imagenSeleccionada}", descargas: 0}`;
     
-    juegos.unshift(nuevo);
-    guardarTodo();
-    paginaActual = 1;
-    cerrarFormulario();
-    mostrarJuegos();
+    // MOSTRAR CÓDIGO YA HECHO ✅
+    document.getElementById('codigo-generado').textContent = codigoListo;
+    document.getElementById('caja-codigo').classList.remove('oculto');
     
-    alert('✅ ¡Publicado!\n\n🔄 Diles a tus amigos que refresquen la página y ya lo ven 🔥');
+    // Copiar automáticamente
+    navigator.clipboard.writeText(codigoListo).then(() => {
+        alert('✅ ¡Copiado automáticamente!\n\n👉 Pégalo en tu código donde dice: let juegos = [ AQUÍ ]');
+    }).catch(() => {
+        alert('📋 Copia el código que aparece en verde y pégalo en tu código base');
+    });
 }
 
 function formatoNumero(n) { return n >= 1000 ? (n/1000).toFixed(1) + ' mil' : n.toString(); }
@@ -271,7 +270,7 @@ function mostrarJuegos() {
         c.innerHTML = '<p style="text-align:center;color:#777;padding:40px;">No hay juegos publicados todavía 🎮</p>';
     } else {
         juegosPagina.forEach(juego => {
-            const yaDesbloqueado = desbloqueadoAhora === juego.id;
+            const yaDesbloqueado = desbloqueadoAhora === String(juego.id);
             const tarjeta = document.createElement('div');
             tarjeta.className = 'juego';
             tarjeta.innerHTML = `
@@ -324,14 +323,14 @@ function sumarDescarga(id) {
     const juego = juegos.find(j => j.id === id);
     if (juego) {
         juego.descargas += 1;
-        guardarTodo();
         mostrarJuegos();
     }
 }
 
 function desbloquear(id) {
     window.open(ENLACE_ANUNCIO, '_blank');
-    desbloqueadoAhora = id;
+    desbloqueadoAhora = String(id);
+    sessionStorage.setItem('desbloqueado_juego', String(id));
     setTimeout(mostrarJuegos, 500);
 }
 
