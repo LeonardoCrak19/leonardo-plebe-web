@@ -1,97 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#071119">
-  <meta name="description" content="Leonardo Plebe: biblioteca de juegos y aplicaciones.">
-  <title>Leonardo Plebe 🎮</title>
-  <style>
-    :root{--bg:#050a10;--panel:#0d1725;--panel2:#111d2d;--green:#22c55e;--green2:#15803d;--red:#ff2d55;--red2:#ff4d6d;--blue:#2563eb;--text:#f8fafc;--muted:#9caabe;--line:rgba(255,255,255,.1);--shadow:0 18px 45px rgba(0,0,0,.42)}
-    *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,'Segoe UI',Roboto,Arial,sans-serif}
-    body{min-height:100vh;color:var(--text);background:radial-gradient(circle at 50% -10%,rgba(34,197,94,.18),transparent 35%),linear-gradient(145deg,#030609,#07111d 52%,#0d1b2c);overflow-x:hidden}
-    button,input{font:inherit}.hidden{display:none!important}.screen{min-height:100vh}
-    .home{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:28px 18px;text-align:center}
-    .brand{font-size:clamp(2rem,7vw,3.5rem);font-weight:900;letter-spacing:.03em;background:linear-gradient(90deg,#bbf7d0,#22c55e,#a3e635);-webkit-background-clip:text;background-clip:text;color:transparent}
-    .subtitle{color:var(--muted);max-width:500px;line-height:1.5}
-    .search{width:min(560px,100%);padding:15px 19px;border:1px solid rgba(96,165,250,.25);border-radius:16px;background:rgba(15,23,42,.82);color:var(--text);outline:0;font-size:1rem;transition:.2s}
-    .search:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(34,197,94,.12)}
-    .ad-slot{width:min(430px,100%);min-height:90px;border:1px solid var(--line);border-radius:16px;background:rgba(2,6,12,.55);display:flex;align-items:center;justify-content:center;overflow:hidden}
-    .primary{border:0;border-radius:15px;padding:15px 30px;background:linear-gradient(135deg,var(--green2),var(--green));color:#fff;font-weight:800;cursor:pointer;box-shadow:0 12px 28px rgba(34,197,94,.24);transition:.2s}
-    .primary:hover{transform:translateY(-2px);filter:brightness(1.06)}
-    .library{padding:24px 18px 100px}.top{max-width:780px;margin:0 auto 24px;text-align:center}.title{font-size:clamp(1.7rem,5vw,2.5rem);margin-bottom:15px;color:#dcfce7}.top .search{margin:0 auto 18px;display:block}.library-ad{margin:0 auto}
-    .grid{max-width:780px;margin:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.card{background:linear-gradient(180deg,rgba(15,29,47,.96),rgba(8,15,24,.96));border:1px solid var(--line);border-left:4px solid var(--red);border-radius:20px;padding:19px 15px;text-align:center;box-shadow:var(--shadow);transition:.2s}.card:hover{transform:translateY(-3px);border-color:var(--red2)}
-    .cover{display:block;width:88px;height:88px;object-fit:cover;margin:0 auto 13px;border-radius:18px;background:#1f2937;border:1px solid var(--line)}.name{min-height:42px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.05rem}.downloads{color:var(--muted);font-size:.84rem;margin:7px 0 15px}.download{width:100%;padding:12px;border:0;border-radius:11px;font-weight:800;cursor:pointer}.locked{background:#293548;color:#dbe5f1}.unlocked{background:linear-gradient(135deg,var(--green2),var(--green));color:white}
-    .pagination{max-width:780px;margin:25px auto 0;display:flex;align-items:center;justify-content:center;gap:14px}.pager{padding:10px 16px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:#fff;cursor:pointer;font-weight:700}.pager:disabled{opacity:.35;cursor:not-allowed}.page{min-width:65px;text-align:center;font-weight:800}
-    .fab{position:fixed;right:22px;bottom:22px;width:62px;height:62px;border:0;border-radius:50%;display:none;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-size:2rem;font-weight:800;cursor:pointer;box-shadow:0 15px 30px rgba(255,45,85,.3);z-index:50}body.creator .fab{display:flex}
-    .backdrop,.lock{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.86);display:flex;align-items:center;justify-content:center;padding:18px}.modal{width:min(440px,100%);padding:24px 20px 18px;border-radius:20px;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow)}.modal h3{text-align:center;color:#dcfce7;margin-bottom:18px;font-size:1.4rem}.field{display:block;width:100%;padding:13px 14px;margin-bottom:13px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:#fff;outline:0}.field:focus{border-color:var(--green)}.actions{display:flex;gap:10px;margin-top:8px}.actions button{flex:1;padding:12px;border:0;border-radius:10px;font-weight:800;cursor:pointer}.cancel{background:#374151;color:#fff}.save{background:linear-gradient(135deg,var(--green2),var(--green));color:#fff}
-    .lock{z-index:120;background:rgba(1,4,8,.97);flex-direction:column;text-align:center}.lock-box{width:min(470px,100%);padding:30px 20px}.lock h2{font-size:1.35rem;margin-bottom:12px}.lock p{color:var(--muted);line-height:1.5;margin-bottom:20px}.count{font-size:clamp(4rem,18vw,7rem);line-height:1;font-weight:900;color:var(--red);margin:15px 0 25px}.ad-open{display:inline-block;text-decoration:none;background:linear-gradient(135deg,#ef4444,var(--red));color:#fff;border-radius:12px;padding:14px 25px;font-weight:800;cursor:pointer}.unlock{display:none;margin-top:14px}.unlock.show{display:inline-block}.status{min-height:22px;color:var(--muted);font-size:.9rem;margin-top:14px}
-    .toast{position:fixed;z-index:200;top:50%;left:50%;transform:translate(-50%,-50%);padding:17px 23px;border-radius:14px;background:linear-gradient(135deg,var(--green2),var(--green));font-weight:800;box-shadow:var(--shadow);animation:pop .25s ease}@keyframes pop{from{opacity:0;transform:translate(-50%,-50%) scale(.8)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
-    @media(max-width:680px){.grid{grid-template-columns:1fr;max-width:430px}.card{padding:18px 15px}.library{padding-left:14px;padding-right:14px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071119">
+<title>Leonardo Plebe 🎮</title>
+<style>
+:root{--bg:#050a10;--panel:#0d1725;--green:#22c55e;--green2:#15803d;--red:#ff2d55;--text:#f8fafc;--muted:#9caabe;--line:#ffffff18}*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}body{min-height:100vh;color:var(--text);background:radial-gradient(circle at top,#12351f,#050a10 42%);overflow-x:hidden}.hidden{display:none!important}.home,.library{min-height:100vh}.home{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:25px;text-align:center}.brand{font-size:clamp(2rem,8vw,3.5rem);font-weight:900;background:linear-gradient(90deg,#bbf7d0,#22c55e,#a3e635);-webkit-background-clip:text;background-clip:text;color:transparent}.subtitle{color:var(--muted);font-size:1rem}.search{width:min(560px,100%);padding:15px 18px;border:1px solid #60a5fa44;border-radius:15px;background:#0f172ad9;color:#fff;outline:0;font-size:1rem}.search:focus{border-color:var(--green);box-shadow:0 0 0 3px #22c55e22}.ad-slot{width:min(430px,100%);min-height:90px;border:1px solid var(--line);border-radius:16px;background:#02060c99;display:flex;align-items:center;justify-content:center;overflow:hidden}.primary{border:0;border-radius:14px;padding:15px 30px;background:linear-gradient(135deg,var(--green2),var(--green));color:#fff;font-weight:bold;cursor:pointer;box-shadow:0 12px 28px #22c55e3d}.library{padding:24px 16px 90px}.top{max-width:780px;margin:auto;text-align:center}.title{margin-bottom:16px;color:#dcfce7;font-size:clamp(1.7rem,5vw,2.5rem)}.top .search{display:block;margin:0 auto 18px}.grid{max-width:780px;margin:25px auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.card{background:linear-gradient(180deg,#0f1d2ff5,#080f18f5);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:20px;padding:18px 15px;text-align:center;box-shadow:0 18px 45px #0007}.cover{display:block;width:88px;height:88px;object-fit:cover;margin:0 auto 13px;border-radius:18px;background:#1f2937}.name{min-height:42px;display:flex;align-items:center;justify-content:center;font-weight:bold}.downloads{color:var(--muted);font-size:.85rem;margin:8px 0 15px}.download{width:100%;padding:12px;border:0;border-radius:11px;font-weight:bold;cursor:pointer}.locked{background:#293548;color:#dbe5f1}.unlocked{background:linear-gradient(135deg,var(--green2),var(--green));color:#fff}.pagination{max-width:780px;margin:24px auto;display:flex;justify-content:center;align-items:center;gap:14px}.pager{padding:10px 16px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:#fff;cursor:pointer}.pager:disabled{opacity:.35;cursor:not-allowed}.page{min-width:60px;text-align:center;font-weight:bold}.fab{position:fixed;right:22px;bottom:22px;width:62px;height:62px;border:0;border-radius:50%;display:none;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--red),#ff4d6d);color:#fff;font-size:2rem;font-weight:bold;cursor:pointer}.creator .fab{display:flex}.backdrop,.lock{position:fixed;inset:0;z-index:10;background:#000d;display:flex;align-items:center;justify-content:center;padding:18px}.modal,.lock-box{width:min(440px,100%);padding:25px 20px;border-radius:20px;background:var(--panel);border:1px solid var(--line)}.modal h3,.lock h2{text-align:center;color:#dcfce7;margin-bottom:18px}.field{display:block;width:100%;padding:13px;margin-bottom:13px;border:1px solid var(--line);border-radius:11px;background:#111d2d;color:#fff}.actions{display:flex;gap:10px}.actions button{flex:1;padding:12px;border:0;border-radius:10px;font-weight:bold;cursor:pointer}.cancel{background:#374151;color:#fff}.save{background:var(--green);color:#fff}.lock{z-index:20;background:#010408f7;text-align:center}.lock p{color:var(--muted);line-height:1.5}.count{font-size:6rem;font-weight:900;color:var(--red);margin:20px}.unlock{display:none}.unlock.show{display:inline-block}.status{color:var(--muted);margin-top:15px;font-size:.9rem}@media(max-width:680px){.grid{grid-template-columns:1fr;max-width:430px}}
+</style>
 </head>
 <body>
-  <main id="home" class="screen home">
-    <h1 class="brand">Leonardo Plebe 🎮</h1>
-    <p class="subtitle">Tus juegos favoritos en un solo lugar</p>
-    <input id="homeSearch" class="search" type="search" placeholder="Buscar juegos..." autocomplete="off">
-    <div class="ad-slot" aria-label="Publicidad">
-      <script async data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script>
-      <div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div>
-    </div>
-    <button id="enter" class="primary">🎮 Ver biblioteca</button>
-  </main>
-
-  <main id="library" class="screen library hidden">
-    <section class="top">
-      <h2 class="title">Biblioteca de juegos</h2>
-      <input id="librarySearch" class="search" type="search" placeholder="Buscar por nombre..." autocomplete="off">
-      <!-- Se mantiene un único script de publicidad para evitar conflictos por IDs duplicados. -->
-      <div class="ad-slot library-ad"><span class="status">Publicidad</span></div>
-    </section>
-    <section id="grid" class="grid" aria-live="polite"></section>
-    <nav class="pagination" aria-label="Paginación">
-      <button id="prev" class="pager">← Anterior</button><span id="page" class="page">1 / 1</span><button id="next" class="pager">Siguiente →</button>
-    </nav>
-    <button id="fab" class="fab" title="Publicar juego" aria-label="Publicar juego">+</button>
-  </main>
-
-  <div id="addModal" class="backdrop hidden"><div class="modal">
-    <h3>Publicar juego 🎮</h3><input id="name" class="field" placeholder="Nombre del juego"><input id="link" class="field" placeholder="Enlace de descarga (https://...)" type="url"><input id="image" class="field" type="file" accept="image/*">
-    <div class="actions"><button id="cancel" class="cancel">Cancelar</button><button id="save" class="save">✅ Publicar</button></div>
-  </div></div>
-
-  <div id="lock" class="lock hidden"><div class="lock-box">
-    <h2>Desbloquear descarga</h2><p>Primero abre el anuncio en una pestaña nueva. Después espera 7 segundos aquí.</p>
-    <a id="adOpen" class="ad-open" href="https://www.profitableratecpmnetwork.com/zg26qqbwk3?key=9a7994b8893e7a6cc73b4cfdc2f064e9" target="_blank" rel="noopener noreferrer">🌐 Abrir anuncio</a>
-    <div id="count" class="count">—</div><button id="unlock" class="primary unlock">✅ Volver y descargar</button><div id="status" class="status">Pulsa “Abrir anuncio” para comenzar.</div>
-  </div></div>
-
-  <script>
-    const CREATOR_CODE='2k8L',PAGE_SIZE=6,STORAGE_KEY='leonardo_plebe_games_v3';
-    const FALLBACK_IMAGE='https://via.placeholder.com/88x88/20c55d/ffffff?text=🎮';
-    let games=[],page=1,query='',creator=false,pending=null,timer=null,unlocked=false;
-    const $=id=>document.getElementById(id);
-
-    function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(games))}
-    function load(){try{const raw=localStorage.getItem(STORAGE_KEY);games=raw?JSON.parse(raw):[]}catch{games=[]}if(!Array.isArray(games)||!games.length){games=[{id:Date.now(),name:'Minecraft',link:'https://www.mediafire.com/file/vmaz5vp7pf0fu34/minecraft-26-45-music.apk/file?dky=vo0ai7eoxz6&=583',image:'https://via.placeholder.com/88x88/20c55d/ffffff?text=MC',downloads:0}];save()}}
-    function filtered(){return games.filter(g=>String(g.name||'').toLowerCase().includes(query.toLowerCase()))}
-    function safe(value){const div=document.createElement('div');div.textContent=value;return div.innerHTML}
-    function render(){const list=filtered(),pages=Math.max(1,Math.ceil(list.length/PAGE_SIZE));page=Math.min(page,pages);const start=(page-1)*PAGE_SIZE;$("grid").innerHTML='';list.slice(start,start+PAGE_SIZE).forEach(g=>{const card=document.createElement('article');card.className='card';card.innerHTML=`<img class="cover" src="${g.image||FALLBACK_IMAGE}" alt="${safe(g.name)}" loading="lazy"><div class="name">${safe(g.name)}</div><div class="downloads">⬇️ ${g.downloads||0} descargas</div><button class="download ${creator||unlocked?'unlocked':'locked'}" data-id="${g.id}">${creator||unlocked?'✅ Descargar':'🔒 Ver anuncio'}</button>`;$("grid").appendChild(card)});$("page").textContent=`${page} / ${pages}`;$("prev").disabled=page<=1;$("next").disabled=page>=pages;document.querySelectorAll('.download').forEach(b=>b.addEventListener('click',download))}
-    function activateCreator(){if(creator){alert('✅ Ya eres creador');return}creator=true;document.body.classList.add('creator');const t=document.createElement('div');t.className='toast';t.textContent='✅ Bienvenido, Creador';document.body.appendChild(t);setTimeout(()=>t.remove(),1800);render()}
-    function download(e){const game=games.find(g=>g.id===Number(e.currentTarget.dataset.id));if(!game)return;if(creator||unlocked){openDownload(game);return}pending=game;openLock()}
-    function openDownload(game){const win=window.open(game.link,'_blank','noopener,noreferrer');if(!win){alert('El navegador bloqueó la descarga. Permite las ventanas emergentes para este sitio.');return}game.downloads=(game.downloads||0)+1;save();render()}
-    function openLock(){if(timer)clearInterval(timer);unlocked=false;$("lock").classList.remove('hidden');$("unlock").classList.remove('show');$("count").textContent='—';$("status").textContent='Pulsa “Abrir anuncio” para comenzar.'}
-    $("adOpen").addEventListener('click',()=>{if(timer)clearInterval(timer);let seconds=7;$("count").textContent=seconds;$("status").textContent='El anuncio se abrió en otra pestaña. Espera...';timer=setInterval(()=>{seconds--;$("count").textContent=seconds;if(seconds<=0){clearInterval(timer);timer=null;$("count").textContent='✅';$("unlock").classList.add('show');$("status").textContent='Ya puedes volver y descargar.'}},1000)})
-    $("unlock").addEventListener('click',()=>{if(!pending)return;const game=pending;pending=null;$("lock").classList.add('hidden');unlocked=true;openDownload(game)})
-    $("enter").addEventListener('click',()=>{$("home").classList.add('hidden');$("library").classList.remove('hidden');render()})
-    function checkCode(e){if(e.key==='Enter'&&e.target.value.trim()===CREATOR_CODE){activateCreator();e.target.value=''}}
-    $("homeSearch").addEventListener('keydown',checkCode);$("librarySearch").addEventListener('keydown',checkCode);$("librarySearch").addEventListener('input',e=>{query=e.target.value;page=1;render()})
-    $("prev").addEventListener('click',()=>{if(page>1){page--;render()}});$("next").addEventListener('click',()=>{if(page<Math.ceil(filtered().length/PAGE_SIZE)){page++;render()}})
-    $("fab").addEventListener('click',()=>$("addModal").classList.remove('hidden'));$("cancel").addEventListener('click',closeModal)
-    function closeModal(){$("addModal").classList.add('hidden');$("name").value='';$("link").value='';$("image").value=''}
-    $("save").addEventListener('click',()=>{const name=$("name").value.trim(),link=$("link").value.trim(),file=$("image").files[0];if(!name||!/^https?:\\/\\//i.test(link)){alert('⚠️ Escribe un nombre y un enlace válido que empiece por http:// o https://');return}const finish=image=>{games.unshift({id:Date.now(),name,link,image,downloads:0});save();page=1;render();closeModal();alert('✅ Juego publicado')};if(!file){finish(FALLBACK_IMAGE);return}const reader=new FileReader();reader.onload=e=>{const img=new Image();img.onload=()=>{const canvas=document.createElement('canvas');canvas.width=120;canvas.height=120;canvas.getContext('2d').drawImage(img,0,0,120,120);finish(canvas.toDataURL('image/jpeg',.72))};img.onerror=()=>finish(FALLBACK_IMAGE);img.src=e.target.result};reader.readAsDataURL(file)})
-    load();render();
-  </script>
+<main id="home" class="home">
+<h1 class="brand">Leonardo Plebe 🎮</h1><p class="subtitle">Tus juegos favoritos en un solo lugar</p>
+<input id="homeSearch" class="search" type="search" placeholder="Buscar juegos...">
+<div class="ad-slot"><script async data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script><div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div></div>
+<button id="enter" class="primary" type="button">🎮 Ver biblioteca</button>
+</main>
+<main id="library" class="library hidden"><section class="top"><h2 class="title">Biblioteca de juegos</h2><input id="librarySearch" class="search" type="search" placeholder="Buscar por nombre..."><div class="ad-slot"><span class="status">Publicidad</span></div></section><section id="grid" class="grid"></section><nav class="pagination"><button id="prev" class="pager" type="button">← Anterior</button><span id="page" class="page">1 / 1</span><button id="next" class="pager" type="button">Siguiente →</button></nav><button id="fab" class="fab" type="button">+</button></main>
+<div id="addModal" class="backdrop hidden"><div class="modal"><h3>Publicar juego 🎮</h3><input id="name" class="field" placeholder="Nombre del juego"><input id="link" class="field" placeholder="Enlace https://..."><input id="image" class="field" type="file" accept="image/*"><div class="actions"><button id="cancel" class="cancel" type="button">Cancelar</button><button id="save" class="save" type="button">✅ Publicar</button></div></div></div>
+<div id="lock" class="lock hidden"><div class="lock-box"><h2>Desbloquear descarga</h2><p>Abre el anuncio en otra pestaña y espera 7 segundos.</p><button id="adOpen" class="primary" type="button">🌐 Abrir anuncio</button><div id="count" class="count">—</div><button id="unlock" class="primary unlock" type="button">✅ Volver y descargar</button><div id="status" class="status">Pulsa “Abrir anuncio” para comenzar.</div></div></div>
+<script>
+'use strict';
+const CREATOR_CODE='2k8L',PAGE_SIZE=6,STORAGE='leonardo_plebe_games_v4',AD_URL='https://www.profitableratecpmnetwork.com/zg26qqbwk3?key=9a7994b8893e7a6cc73b4cfdc2f064e9',FALLBACK='https://via.placeholder.com/88x88/20c55d/ffffff?text=🎮';
+let games=[],currentPage=1,query='',creator=false,pending=null,unlocked=false,timer=null;
+const $=id=>document.getElementById(id);
+function save(){localStorage.setItem(STORAGE,JSON.stringify(games))}
+function load(){try{games=JSON.parse(localStorage.getItem(STORAGE)||'[]')}catch(e){games=[]}if(!Array.isArray(games)||!games.length){games=[{id:Date.now(),name:'Minecraft',link:'https://www.mediafire.com/file/vmaz5vp7pf0fu34/minecraft-26-45-music.apk/file?dky=vo0ai7eoxz6&=583',image:'https://via.placeholder.com/88x88/20c55d/ffffff?text=MC',downloads:0}];save()}}
+function list(){return games.filter(g=>String(g.name).toLowerCase().includes(query.toLowerCase()))}
+function render(){const all=list(),pages=Math.max(1,Math.ceil(all.length/PAGE_SIZE));currentPage=Math.min(currentPage,pages);const part=all.slice((currentPage-1)*PAGE_SIZE,currentPage*PAGE_SIZE);$('grid').innerHTML='';part.forEach(g=>{const card=document.createElement('article');card.className='card';const img=document.createElement('img');img.className='cover';img.src=g.image||FALLBACK;img.alt=g.name;img.loading='lazy';const name=document.createElement('div');name.className='name';name.textContent=g.name;const d=document.createElement('div');d.className='downloads';d.textContent='⬇️ '+(g.downloads||0)+' descargas';const b=document.createElement('button');b.type='button';b.className='download '+(creator||unlocked?'unlocked':'locked');b.dataset.id=g.id;b.textContent=creator||unlocked?'✅ Descargar':'🔒 Ver anuncio';b.addEventListener('click',download);card.append(img,name,d,b);$('grid').appendChild(card)});$('page').textContent=currentPage+' / '+pages;$('prev').disabled=currentPage<=1;$('next').disabled=currentPage>=pages}
+function showLibrary(){$('home').classList.add('hidden');$('library').classList.remove('hidden');render()}
+function activateCreator(){creator=true;document.body.classList.add('creator');render()}
+function download(e){const game=games.find(g=>g.id===Number(e.currentTarget.dataset.id));if(!game)return;if(creator||unlocked){openDownload(game);return}pending=game;openLock()}
+function openDownload(game){const win=window.open(game.link,'_blank');if(!win){alert('Activa las ventanas emergentes para permitir la descarga.');return}game.downloads=(game.downloads||0)+1;save();render()}
+function openLock(){if(timer)clearInterval(timer);unlocked=false;$('lock').classList.remove('hidden');$('count').textContent='—';$('unlock').classList.remove('show');$('status').textContent='Pulsa “Abrir anuncio” para comenzar.'}
+$('enter').addEventListener('click',showLibrary);
+$('homeSearch').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.value.trim()===CREATOR_CODE){activateCreator();e.target.value=''}});
+$('librarySearch').addEventListener('input',e=>{query=e.target.value;currentPage=1;render()});$('librarySearch').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.value.trim()===CREATOR_CODE){activateCreator();e.target.value=''}});
+$('prev').addEventListener('click',()=>{if(currentPage>1){currentPage--;render()}});$('next').addEventListener('click',()=>{if(currentPage<Math.ceil(list().length/PAGE_SIZE)){currentPage++;render()}});
+$('adOpen').addEventListener('click',()=>{window.open(AD_URL,'_blank');if(timer)clearInterval(timer);let n=7;$('count').textContent=n;$('status').textContent='Anuncio abierto. Espera...';timer=setInterval(()=>{n--;$('count').textContent=n;if(n<=0){clearInterval(timer);timer=null;$('count').textContent='✅';$('unlock').classList.add('show');$('status').textContent='Ya puedes descargar.'}},1000)});
+$('unlock').addEventListener('click',()=>{if(!pending)return;const game=pending;pending=null;$('lock').classList.add('hidden');unlocked=true;openDownload(game)});
+$('fab').addEventListener('click',()=>$('addModal').classList.remove('hidden'));$('cancel').addEventListener('click',()=>{$('addModal').classList.add('hidden')});
+$('save').addEventListener('click',()=>{const name=$('name').value.trim(),link=$('link').value.trim(),file=$('image').files[0];if(!name||!/^https?:\/\//i.test(link)){alert('Escribe un nombre y un enlace válido.');return}const finish=image=>{games.unshift({id:Date.now(),name,link,image,downloads:0});save();$('addModal').classList.add('hidden');$('name').value='';$('link').value='';$('image').value='';render()};if(!file){finish(FALLBACK);return}const reader=new FileReader();reader.onload=e=>finish(e.target.result);reader.readAsDataURL(file)});
+load();render();
+</script>
 </body>
 </html>
