@@ -3,143 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#000000">
     <title>Leonardo Plebe 🎮</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-        :root{--red:#ff0033;--green:#2ecc71;--blue:#1a1a2e;--black:#000;--dark:#111;--muted:#888;--white:#fff}
-        html,body{height:100%}
-        body{background:var(--black);color:var(--white);min-height:100vh;-webkit-tap-highlight-color:transparent}
-        .hidden{display:none!important}
-        .home{padding:50px 20px 20px;text-align:center;min-height:100vh;display:flex;flex-direction:column}
-        .main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px}
-        .logo{font-size:72px;line-height:1}
-        h1{color:var(--green);font-size:28px;line-height:1.2}
-        .subtitle{color:#a3a3a3;font-size:16px;margin-bottom:30px}
-        .enter-btn{background:#fff;color:#000;border:none;padding:16px 32px;font-size:18px;font-weight:bold;border-radius:12px;cursor:pointer;transition:transform .2s ease;box-shadow:0 8px 20px rgba(255,255,255,.12)}
-        .enter-btn:hover{transform:scale(1.04)}
-        .ad-section{padding:15px;border-top:1px solid #222;margin-top:20px}
-        .ad-container{max-width:400px;margin:0 auto;min-height:100px}
-        .header{padding:15px;border-bottom:1px solid #222;background:rgba(0,0,0,.96);position:sticky;top:0;z-index:50;backdrop-filter:blur(6px)}
-        .search-wrap{max-width:500px;margin:0 auto}
-        .search-bar{width:100%;padding:12px 16px;border-radius:12px;border:none;background:var(--blue);color:#fff;font-size:15px;text-align:center}
-        .search-bar::placeholder{color:var(--muted)}
-        .creator-badge{text-align:center;color:var(--green);padding:10px 10px 0;display:none;font-size:14px;font-weight:bold}
-        .library{min-height:100vh;display:flex;flex-direction:column}
-        .games-grid{padding:18px 14px 90px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;max-width:560px;width:100%;margin:0 auto}
-        .game-card{background:var(--dark);border-radius:14px;padding:14px 12px;text-align:center;border-left:3px solid var(--red);display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:220px;box-shadow:0 8px 20px rgba(0,0,0,.18)}
-        .game-icon{width:68px;height:68px;border-radius:10px;object-fit:cover;margin-bottom:10px;background:#222}
-        .game-name{font-weight:bold;margin-bottom:6px;font-size:14px;line-height:1.3;min-height:36px;display:flex;align-items:center;justify-content:center;width:100%}
-        .game-dls{font-size:11px;color:#aaa;margin-bottom:10px}
-        .dl-btn{background:#444;color:#999;border:none;padding:10px 12px;border-radius:10px;width:100%;font-weight:bold;transition:all .2s ease;margin-bottom:6px;cursor:pointer}
-        .dl-btn.locked{background:#2a2a2a;color:#fff}
-        .dl-btn.unlocked{background:var(--green);color:#000}
-        .dl-btn.unlocked:hover{filter:brightness(1.06)}
-        .creator-actions{display:flex;gap:6px;width:100%}
-        .edit-btn{flex:1;background:#ffcc00;color:#000;border:none;padding:8px;border-radius:8px;font-weight:bold;cursor:pointer;font-size:12px}
-        .del-btn{flex:1;background:#ff3333;color:#fff;border:none;padding:8px;border-radius:8px;font-weight:bold;cursor:pointer;font-size:12px}
-        .pagination{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;padding:8px 14px 20px;max-width:560px;width:100%;margin:0 auto}
-        .page-btn{background:#1d1d1d;color:#fff;border:none;border-radius:8px;min-width:36px;height:36px;padding:0 10px;cursor:pointer;font-weight:bold;transition:all .2s ease}
-        .page-btn:hover{background:#2a2a2a}
-        .page-btn.active{background:var(--green);color:#000}
-        .page-btn:disabled{background:#151515;color:#555;cursor:not-allowed}
-        .add-btn{position:fixed;bottom:20px;right:20px;width:62px;height:62px;border-radius:50%;background:var(--green);color:#000;border:none;font-size:30px;font-weight:bold;cursor:pointer;box-shadow:0 6px 16px rgba(46,204,113,.35);display:none;z-index:100}
-        .ad-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;padding:20px}
-        .modal-content{text-align:center;padding:30px 18px;max-width:400px;width:100%}
-        .modal-title{font-size:22px;margin-bottom:15px;color:var(--green)}
-        .ad-desc{margin-bottom:25px;color:#aaa;line-height:1.5}
-        .ad-link-btn{background:var(--red);color:#fff;border:none;padding:15px 30px;font-size:18px;font-weight:bold;border-radius:10px;cursor:pointer;margin-bottom:15px;width:100%}
-        .back-btn{background:var(--green);color:#000;border:none;padding:12px 25px;font-size:16px;font-weight:bold;border-radius:10px;cursor:pointer;display:none;width:100%}
-        .code-result{background:#1a1a1a;border:1px solid #333;border-radius:10px;padding:15px;margin-top:20px;text-align:left;max-width:100%;word-break:break-all}
-        .code-text{color:#2ecc71;font-size:12px;user-select:all;white-space:pre-wrap}
-        .copy-btn{background:#2ecc71;color:#000;border:none;padding:8px 16px;border-radius:6px;margin-top:10px;cursor:pointer;font-weight:bold}
-        .form-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);display:flex;justify-content:center;align-items:center;z-index:9999;padding:20px;overflow-y:auto}
-        .form-box{background:var(--dark);padding:25px;border-radius:12px;width:100%;max-width:360px}
-        .form-title{text-align:center;margin-bottom:20px;color:var(--green)}
-        .form-input{width:100%;padding:12px;margin-bottom:12px;border-radius:8px;border:none;background:#222;color:#fff;font-size:14px}
-        .form-buttons{display:flex;gap:10px;margin-top:10px}
-        .save-btn{flex:1;background:var(--green);color:#000;border:none;padding:12px;border-radius:8px;font-weight:bold;cursor:pointer}
-        .cancel-btn{flex:1;background:#444;color:#fff;border:none;padding:12px;border-radius:8px;font-weight:bold;cursor:pointer}
-        .optimizing{color:#ffcc00;padding:8px;text-align:center;font-size:13px;display:none}
-        @media (max-width: 520px){.games-grid{grid-template-columns:1fr;max-width:420px}}
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
+        :root {
+            --negro: #050505;
+            --fondo-tarjeta: #0f1729;
+            --verde: #15803d;
+            --verde-claro: #22c55e;
+            --rojo-acento: #ff0033;
+            --azul-busqueda: #0f1729;
+            --borde-azul: #1e3a8a;
+            --texto: #ffffff;
+            --texto-sutil: #9ca3af;
+            --sombra: 0 4px 20px rgba(0,0,0,0.6);
+            --sombra-verde: 0 0 15px rgba(34, 197, 94, 0.25);
+        }
+        body { background: linear-gradient(145deg, #000000, #0f1729); color: var(--texto); min-height: 100vh; }
+        .oculto { display: none !important; }
+        .inicio { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 20px; }
+        .logo-titulo { font-size: 34px; font-weight: 800; margin-bottom: 45px; text-align: center; background: linear-gradient(90deg, #22c55e, #15803d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .buscador-inicio { width: 100%; max-width: 460px; padding: 15px 22px; margin-bottom: 25px; background: var(--azul-busqueda); border: 2px solid var(--borde-azul); border-radius: 14px; color: var(--texto); font-size: 16px; outline: none; transition: 0.3s ease; }
+        .buscador-inicio:focus { border-color: var(--verde-claro); box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15); }
+        .anuncio-fila { width: 100%; max-width: 420px; min-height: 90px; margin-bottom: 35px; background: var(--fondo-tarjeta); border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid #1f2937; padding: 8px; }
+        .btn-entrar { background: linear-gradient(135deg, #15803d, #22c55e); border: none; color: white; padding: 16px 45px; font-size: 18px; font-weight: bold; border-radius: 14px; cursor: pointer; transition: transform 0.25s ease, box-shadow 0.25s ease; box-shadow: var(--sombra-verde); }
+        .btn-entrar:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(34, 197, 94, 0.35); }
+        .biblioteca { min-height: 100vh; padding: 25px 18px 100px; }
+        .cabecera { text-align: center; margin-bottom: 30px; }
+        .titulo-bib { font-size: 26px; font-weight: bold; margin-bottom: 15px; color: var(--verde-claro); }
+        .buscador-bib { width: 100%; max-width: 480px; padding: 14px 20px; margin-bottom: 18px; background: var(--azul-busqueda); border: 2px solid var(--borde-azul); border-radius: 12px; color: var(--texto); font-size: 16px; outline: none; }
+        .buscador-bib:focus { border-color: var(--verde-claro); }
+        .anuncio-bib { width: 100%; max-width: 420px; min-height: 85px; margin: 0 auto 25px; background: var(--fondo-tarjeta); border-radius: 10px; display: flex; align-items: center; justify-content: center; border: 1px solid #1f2937; }
+        .rejilla-juegos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 20px; max-width: 580px; margin: 0 auto; }
+        .tarjeta { background: var(--fondo-tarjeta); border: 2px solid var(--rojo-acento); border-radius: 16px; padding: 20px 15px; text-align: center; transition: all 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+        .tarjeta:hover { transform: translateY(-4px); border-color: #ff4d6d; box-shadow: 0 8px 25px rgba(255, 0, 51, 0.18); }
+        .logo { width: 85px; height: 85px; object-fit: cover; border-radius: 12px; margin-bottom: 14px; background: #1f2937; }
+        .nombre-juego { font-size: 16px; font-weight: bold; margin-bottom: 6px; }
+        .descargas { font-size: 13px; color: var(--texto-sutil); margin-bottom: 14px; }
+        .btn-desc { width: 100%; padding: 11px; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s ease; }
+        .bloqueado { background: #1f2937; color: #6b7280; cursor: not-allowed; }
+        .desbloqueado { background: linear-gradient(135deg, #15803d, #22c55e); color: white; }
+        .pie-pagina { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 35px; }
+        .btn-pag { background: var(--fondo-tarjeta); border: 1px solid var(--rojo-acento); color: white; padding: 10px 18px; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .btn-pag:hover:not(:disabled) { background: var(--rojo-acento); }
+        .btn-pag:disabled { opacity: 0.3; cursor: not-allowed; }
+        .num-pag { font-size: 16px; font-weight: bold; min-width: 60px; text-align: center; }
+        .boton-mas { position: fixed; bottom: 28px; right: 28px; width: 62px; height: 62px; border-radius: 50%; background: linear-gradient(135deg, #ff0033, #ff4d6d); border: none; color: white; font-size: 32px; cursor: pointer; display: none; z-index: 99; box-shadow: 0 4px 20px rgba(255, 0, 51, 0.35); transition: transform 0.2s ease; }
+        .boton-mas:hover { transform: scale(1.1); }
+        .modo-creador .boton-mas { display: flex; align-items: center; justify-content: center; }
+        .capa-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.92); display: flex; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
+        .caja-modal { background: var(--fondo-tarjeta); padding: 30px 25px; border-radius: 18px; border: 2px solid var(--rojo-acento); width: 100%; max-width: 420px; box-shadow: 0 10px 40px rgba(0,0,0,0.7); }
+        .tit-modal { font-size: 20px; font-weight: bold; margin-bottom: 22px; text-align: center; color: var(--verde-claro); }
+        .campo { width: 100%; padding: 13px 16px; margin-bottom: 14px; background: #1e293b; border: none; border-radius: 10px; color: white; font-size: 15px; }
+        .fila-botones { display: flex; gap: 12px; margin-top: 8px; }
+        .boton-modal { flex: 1; padding: 13px; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; }
+        .cancelar { background: #374151; color: white; }
+        .publicar { background: linear-gradient(135deg, #15803d, #22c55e); color: white; }
+        .pantalla-bloqueo { position: fixed; inset: 0; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 300; padding: 30px; }
+        .aviso { font-size: 19px; margin-bottom: 35px; text-align: center; color: #d1d5db; }
+        .contador-grande { font-size: 70px; font-weight: 800; color: var(--rojo-acento); margin-bottom: 35px; }
+        .boton-desc-ya { background: linear-gradient(135deg, #15803d, #22c55e); border: none; color: white; padding: 16px 35px; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; display: none; }
+        .boton-desc-ya.activo { display: block; }
+        .saludo { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #15803d, #22c55e); padding: 22px 35px; border-radius: 14px; font-size: 20px; font-weight: bold; z-index: 400; animation: aparece 0.4s ease; box-shadow: 0 6px 25px rgba(34, 197, 94, 0.3); }
+        @keyframes aparece { from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
     </style>
 </head>
 <body>
-<div id="home-screen" class="home">
-    <div class="main">
-        <div class="logo">🎮</div>
-        <h1>Leonardo Plebe 🎮</h1>
-        <p class="subtitle">Tus juegos favoritos en un solo lugar</p>
-        <button class="enter-btn" onclick="openLibrary()">📚 Biblioteca de Juegos</button>
+<div id="pant-inicio" class="inicio">
+    <h1 class="logo-titulo">Leonardo Plebe 🎮</h1>
+    <input type="text" id="bus-inicio" class="buscador-inicio" placeholder="Buscar juegos...">
+    <div class="anuncio-fila">
+        <script async="async" data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script>
+        <div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div>
     </div>
-    <div class="ad-section">
-        <div class="ad-container">
+    <button id="btn-ver-bib" class="btn-entrar">🎮 Ver Biblioteca de Juegos</button>
+</div>
+<div id="pant-bib" class="biblioteca oculto">
+    <div class="cabecera">
+        <h2 class="titulo-bib">Biblioteca de Juegos</h2>
+        <input type="text" id="bus-bib" class="buscador-bib" placeholder="Buscar juegos por nombre...">
+        <div class="anuncio-bib">
             <script async="async" data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script>
             <div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div>
         </div>
     </div>
+    <div id="rejilla" class="rejilla-juegos"></div>
+    <div class="pie-pagina">
+        <button id="btn-antes" class="btn-pag">← Anterior</button>
+        <span id="etq-pag" class="num-pag">1 / 1</span>
+        <button id="btn-despues" class="btn-pag">Siguiente →</button>
+    </div>
+    <button id="agregar-juego" class="boton-mas">+</button>
 </div>
-<div id="library-screen" class="hidden library">
-    <div class="header">
-        <div class="search-wrap">
-            <input type="text" class="search-bar" id="search-input" placeholder="Buscar juegos, aplicaciones y más..." oninput="filterGames(this.value)">
-            <div class="creator-badge" id="creator-badge">✅ Bienvenido, Creador 🔥</div>
+<div id="modal-publicar" class="capa-modal oculto">
+    <div class="caja-modal">
+        <h3 class="tit-modal">Publicar Nuevo Juego 🎮</h3>
+        <input type="text" id="campo-nombre" class="campo" placeholder="Nombre del juego">
+        <input type="text" id="campo-enlace" class="campo" placeholder="Enlace de descarga (MediaFire, etc.)">
+        <input type="file" id="campo-logo" accept="image/*" class="campo">
+        <div class="fila-botones">
+            <button id="btn-cancelar-pub" class="boton-modal cancelar">Cancelar</button>
+            <button id="btn-guardar-pub" class="boton-modal publicar">✅ Publicar</button>
         </div>
     </div>
-    <div class="games-grid" id="games-container"></div>
-    <div class="pagination" id="pagination"></div>
-    <button class="add-btn" id="add-btn" onclick="openForm()">+</button>
 </div>
-<div id="ad-modal" class="ad-modal hidden">
-    <div class="modal-content">
-        <h2 class="modal-title">🔓 Desbloquear Descarga</h2>
-        <p class="ad-desc">Se abrirá el anuncio → al regresar podrás descargar ✅</p>
-        <button class="ad-link-btn" id="ad-link-btn" onclick="goToAd()">🌐 Ver Anuncio</button>
-        <button class="back-btn" id="back-btn" onclick="checkUnlocked()">← Ya regresé, Descargar</button>
-    </div>
-</div>
-<div id="form-modal" class="form-modal hidden">
-    <div class="form-box">
-        <h3 class="form-title" id="form-title">➕ Agregar Juego</h3>
-        <input type="text" class="form-input" id="game-name" placeholder="Nombre del juego">
-        <input type="text" class="form-input" id="game-link" placeholder="Enlace de descarga">
-        <input type="file" class="form-input" id="game-icon" accept="image/*" onchange="optimizeImage(this)">
-        <div class="optimizing" id="optimizing">⚙️ Optimizando imagen...</div>
-        <input type="hidden" id="optimized-img">
-        <input type="hidden" id="editing-id">
-        <div class="form-buttons">
-            <button class="cancel-btn" onclick="closeForm()">Cancelar</button>
-            <button class="save-btn" onclick="generateGameCode()">✅ Generar Código</button>
-        </div>
-        <div class="code-result hidden" id="code-result-box">
-            <p style="color:#2ecc71;font-weight:bold;margin-bottom:8px;">📋 Código del juego — Cópialo:</p>
-            <code class="code-text" id="game-code-display"></code>
-            <button class="copy-btn" onclick="copyGameCode()">📋 Copiar Todo</button>
-        </div>
-    </div>
+<div id="pant-bloqueo" class="pantalla-bloqueo oculto">
+    <p class="aviso">⏳ Espera 7 segundos para desbloquear la descarga</p>
+    <div id="cuenta-atras" class="contador-grande">7</div>
+    <button id="boton-descargar-ya" class="boton-desc-ya">← Volver y Descargar</button>
 </div>
 <script>
-const CREATOR_CODE="2k8L",AD_URL="https://pl31361169.profitableratecpmnetwork.com/22/e5/ce/22e5ce45b7f08d83a957b7a61350ecf6.js",PAGE_SIZE=8;
-const GAMES_FROM_CODE=[{id:1,name:"Minecraft",link:"https://www.mediafire.com/file/vmaz5vp7pf0fu34/minecraft-26-45-music.apk/file?dky=vo0ai7eoxz6&=583",image:"",downloads:1}];
-let games=[...GAMES_FROM_CODE],sessionUnlockedIds=[],isCreator=false,currentGame=null,currentPage=1,filteredGames=[...games];
-document.getElementById('search-input').addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()===CREATOR_CODE){isCreator=true;document.getElementById('add-btn').style.display='block';document.getElementById('creator-badge').style.display='block';e.target.value='';renderGames()}});
-function openLibrary(){document.getElementById('home-screen').classList.add('hidden');document.getElementById('library-screen').classList.remove('hidden');currentPage=1;filteredGames=[...games];renderGames()}
-function renderGames(){const container=document.getElementById('games-container'),start=(currentPage-1)*PAGE_SIZE,pageGames=filteredGames.slice(start,start+PAGE_SIZE);container.innerHTML='';if(!pageGames.length){container.innerHTML='<div style="text-align:center;color:#777;padding:40px 10px;grid-column:1/-1;">No se encontraron juegos 🎮</div>';renderPagination();return}pageGames.forEach(game=>{const unlocked=isCreator||sessionUnlockedIds.includes(game.id),imgSrc=game.image||'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23222" width="100" height="100"/><text x="50" y="60" text-anchor="middle" fill="%23888" font-size="40">🎮</text></svg>';container.innerHTML+=`<div class="game-card"><img src="${imgSrc}" class="game-icon" alt="${game.name}"><div class="game-name">${game.name}</div><div class="game-dls">🔥 ${game.downloads} descarga${game.downloads!==1?'s':''}</div><button class="dl-btn ${unlocked?'unlocked':'locked'}" onclick="${unlocked?`downloadDirect('${game.link}')`:`openAdModal(${game.id})`}">${unlocked?'⬇️ Descargar':'🔒 Desbloquear'}</button>${isCreator?`<div class="creator-actions"><button class="edit-btn" onclick="editGame(${game.id})">✏️ Editar</button><button class="del-btn" onclick="deleteGame(${game.id})">🗑️ Eliminar</button></div>`:''}</div>`});renderPagination()}
-function renderPagination(){const totalPages=Math.ceil(filteredGames.length/PAGE_SIZE),container=document.getElementById('pagination');container.innerHTML='';if(totalPages<=1)return;container.innerHTML+=`<button class="page-btn" ${currentPage===1?'disabled':''} onclick="changePage(${currentPage-1})">←</button>`;for(let i=1;i<=totalPages;i++)container.innerHTML+=`<button class="page-btn ${i===currentPage?'active':''}" onclick="changePage(${i})">${i}</button>`;container.innerHTML+=`<button class="page-btn" ${currentPage===totalPages?'disabled':''} onclick="changePage(${currentPage+1})">→</button>`}
-function changePage(page){currentPage=page;renderGames()}
-function filterGames(text){const search=text.toLowerCase().trim();filteredGames=search===''?[...games]:games.filter(g=>g.name.toLowerCase().includes(search));currentPage=1;renderGames()}
-function openAdModal(gameId){currentGame=games.find(g=>g.id===gameId);if(!currentGame)return;document.getElementById('ad-modal').classList.remove('hidden');document.getElementById('back-btn').style.display='none';setTimeout(()=>{document.getElementById('back-btn').style.display='inline-block'},5000)}
-function goToAd(){window.open(AD_URL,'_blank');document.getElementById('back-btn').style.display='inline-block'}
-function checkUnlocked(){if(!currentGame)return;if(!sessionUnlockedIds.includes(currentGame.id)){sessionUnlockedIds.push(currentGame.id);currentGame.downloads++}document.getElementById('ad-modal').classList.add('hidden');renderGames();window.open(currentGame.link,'_blank')}
-function downloadDirect(link){window.open(link,'_blank')}
-function generateGameCode(){const name=document.getElementById('game-name').value.trim(),link=document.getElementById('game-link').value.trim(),img=document.getElementById('optimized-img').value;if(!name||!link){alert('Escribe el nombre y el enlace ✅');return}const newId=Date.now(),imageCode=img?`"${img}"`:'""',gameCode=`{\n        id: ${newId},\n        name: "${name}",\n        link: "${link}",\n        image: ${imageCode},\n        downloads: 0\n    }`;document.getElementById('game-code-display').textContent=gameCode;document.getElementById('code-result-box').classList.remove('hidden');games.push({id:newId,name,link,image:img,downloads:0});filteredGames=[...games];renderGames()}
-function copyGameCode(){const codeText=document.getElementById('game-code-display').textContent;navigator.clipboard.writeText(codeText).then(()=>alert('✅ ¡Copiado! Pégalo en la lista de juegos del código principal 🔥')).catch(()=>alert('Selecciona y copia manualmente ✅'))}
-function editGame(id){alert('Edita directamente en el código copiando el bloque del juego ✅')}
-function deleteGame(id){if(!confirm('Eliminar este juego? Ve al código y borra su bloque ✅'))return;games=games.filter(g=>g.id!==id);filteredGames=filteredGames.filter(g=>g.id!==id);renderGames()}
-function openForm(){document.getElementById('form-title').textContent='➕ Agregar Juego';document.getElementById('game-name').value='';document.getElementById('game-link').value='';document.getElementById('optimized-img').value='';document.getElementById('game-icon').value='';document.getElementById('code-result-box').classList.add('hidden');document.getElementById('form-modal').classList.remove('hidden')}
-function closeForm(){document.getElementById('form-modal').classList.add('hidden');document.getElementById('code-result-box').classList.add('hidden')}
-function optimizeImage(input){if(!input.files||!input.files[0])return;document.getElementById('optimizing').style.display='block';const reader=new FileReader();reader.onload=e=>{const img=new Image();img.onload=()=>{const maxSize=128;let w=img.width,h=img.height;if(w>h&&w>maxSize){h=Math.round(h*maxSize/w);w=maxSize}else if(h>maxSize){w=Math.round(w*maxSize/h);h=maxSize}const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(img,0,0,w,h);document.getElementById('optimized-img').value=canvas.toDataURL('image/jpeg',.7);document.getElementById('optimizing').style.display='none'};img.src=e.target.result};reader.readAsDataURL(input.files[0])}
-renderGames();
+const CODIGO_CRE = '2k8L';
+const POR_PAG = 10;
+const ENLACE_ANUNCIO = 'https://www.profitableratecpmnetwork.com/zg26qqbwk3?key=9a7994b8893e7a6cc73b4cfdc2f064e9';
+let soyCreador = false;
+let listaJuegos = [];
+let pagina = 1;
+let juegoEnEspera = null;
+let desbloqueado = false;
+function cargar() {
+    const guardado = localStorage.getItem('juegos_publicos');
+    if (guardado) {
+        listaJuegos = JSON.parse(guardado);
+    } else {
+        listaJuegos = [{
+            id: Date.now(),
+            nombre: "Minecraft",
+            enlace: "https://www.mediafire.com/file/vmaz5vp7pf0fu34/minecraft-26-45-music.apk/file?dky=vo0ai7eoxz6&=583",
+            imagen: "https://via.placeholder.com/85x85/15803d/ffffff?text=MC",
+            descargas: 0
+        }];
+        guardarTodo();
+    }
+    dibujar();
+}
+function guardarTodo() { localStorage.setItem('juegos_publicos', JSON.stringify(listaJuegos)); }
+document.getElementById('bus-inicio').addEventListener('keypress', e => {
+    if (e.key === 'Enter' && e.target.value.trim() === CODIGO_CRE) { activarCreador(); e.target.value = ''; }
+});
+document.getElementById('bus-bib').addEventListener('keypress', e => {
+    if (e.key === 'Enter' && e.target.value.trim() === CODIGO_CRE) { activarCreador(); e.target.value = ''; }
+});
+function activarCreador() {
+    if (soyCreador) { alert('✅ Ya eres creador'); return; }
+    soyCreador = true;
+    document.body.classList.add('modo-creador');
+    const aviso = document.createElement('div');
+    aviso.className = 'saludo';
+    aviso.textContent = '✅ Bienvenido, Creador!';
+    document.body.appendChild(aviso);
+    setTimeout(() => aviso.remove(), 2500);
+}
+document.getElementById('btn-ver-bib').addEventListener('click', () => {
+    document.getElementById('pant-inicio').classList.add('oculto');
+    document.getElementById('pant-bib').classList.remove('oculto');
+    dibujar();
+});
+function dibujar(busqueda = '') {
+    const caja = document.getElementById('rejilla');
+    caja.innerHTML = '';
+    let filtro = listaJuegos.filter(j => j.nombre.toLowerCase().includes(busqueda.toLowerCase()));
+    const totalPag = Math.ceil(filtro.length / POR_PAG) || 1;
+    if (pagina > totalPag) pagina = totalPag;
+    const desde = (pagina - 1) * POR_PAG;
+    const lote = filtro.slice(desde, desde + POR_PAG);
+    lote.forEach(juego => {
+        const tarjeta = document.createElement('div');
+        tarjeta.className = 'tarjeta';
+        tarjeta.innerHTML = `
+            <img src="${juego.imagen}" class="logo" alt="${juego.nombre}">
+            <h3 class="nombre-juego">${juego.nombre}</h3>
+            <p class="descargas">⬇️ ${juego.descargas || 0} descargas</p>
+            <button class="btn-desc ${desbloqueado || soyCreador ? 'desbloqueado' : 'bloqueado'}" data-id="${juego.id}">
+                ${desbloqueado || soyCreador ? '✅ Descargar' : '🔒 Ver Anuncio'}
+            </button>
+        `;
+        caja.appendChild(tarjeta);
+    });
+    document.getElementById('etq-pag').textContent = `${pagina} / ${totalPag}`;
+    document.getElementById('btn-antes').disabled = pagina <= 1;
+    document.getElementById('btn-despues').disabled = pagina >= totalPag;
+    document.querySelectorAll('.btn-desc').forEach(b => b.addEventListener('click', alDescargar));
+}
+function alDescargar(e) {
+    const id = parseInt(e.target.dataset.id);
+    const juego = listaJuegos.find(j => j.id === id);
+    if (!juego) return;
+    if (soyCreador || desbloqueado) {
+        window.open(juego.enlace, '_blank');
+        juego.descargas = (juego.descargas || 0) + 1;
+        guardarTodo();
+        dibujar(document.getElementById('bus-bib').value);
+    } else {
+        juegoEnEspera = juego;
+        iniciarCuentaAtras();
+    }
+}
+function iniciarCuentaAtras() {
+    desbloqueado = false;
+    const pantalla = document.getElementById('pant-bloqueo');
+    const cuenta = document.getElementById('cuenta-atras');
+    const boton = document.getElementById('boton-descargar-ya');
+    pantalla.classList.remove('oculto');
+    boton.classList.remove('activo');
+    cuenta.textContent = '7';
+    window.open(ENLACE_ANUNCIO, '_blank');
+    let seg = 7;
+    const temporizador = setInterval(() => {
+        seg--;
+        cuenta.textContent = seg;
+        if (seg <= 0) {
+            clearInterval(temporizador);
+            cuenta.textContent = '✅';
+            boton.classList.add('activo');
+        }
+    }, 1000);
+}
+document.getElementById('boton-descargar-ya').addEventListener('click', () => {
+    desbloqueado = true;
+    document.getElementById('pant-bloqueo').classList.add('oculto');
+    if (juegoEnEspera) {
+        window.open(juegoEnEspera.enlace, '_blank');
+        juegoEnEspera.descargas = (juegoEnEspera.descargas || 0) + 1;
+        guardarTodo();
+        juegoEnEspera = null;
+    }
+    dibujar(document.getElementById('bus-bib').value);
+});
+document.getElementById('bus-bib').addEventListener('input', e => { pagina = 1; dibujar(e.target.value); });
+document.getElementById('btn-antes').addEventListener('click', () => { if (pagina > 1) { pagina--; dibujar(); } });
+document.getElementById('btn-despues').addEventListener('click', () => { pagina++; dibujar(); });
+document.getElementById('agregar-juego').addEventListener('click', () => { document.getElementById('modal-publicar').classList.remove('oculto'); });
+document.getElementById('btn-cancelar-pub').addEventListener('click', () => { document.getElementById('modal-publicar').classList.add('oculto'); limpiarCampos(); });
+document.getElementById('btn-guardar-pub').addEventListener('click', () => {
+    const nom = document.getElementById('campo-nombre').value.trim();
+    const enl = document.getElementById('campo-enlace').value.trim();
+    const arch = document.getElementById('campo-logo').files[0];
+    if (!nom || !enl) { alert('⚠️ Escribe nombre y enlace'); return; }
+    function guardar(imagen) {
+        listaJuegos.unshift({ id: Date.now(), nombre: nom, enlace: enl, imagen: imagen, descargas: 0 });
+        guardarTodo();
+        dibujar();
+        document.getElementById('modal-publicar').classList.add('oculto');
+        limpiarCampos();
+        alert('✅ ¡Publicado! Todos lo ven');
+    }
+    if (arch) {
+        const lector = new FileReader();
+        lector.onload = e => {
+            const img = new Image();
+            img.onload = () => {
+                const lienzo = document.createElement('canvas');
+                lienzo.width = 100;
+                lienzo.height = 100;
+                const ctx = lienzo.getContext('2d');
+                ctx.drawImage(img, 0, 0, 100, 100);
+                guardar(lienzo.toDataURL('image/jpeg', 0.7));
+            };
+            img.src = e.target.result;
+        };
+        lector.readAsDataURL(arch);
+    } else { guardar('https://via.placeholder.com/85x85/15803d/ffffff?text=🎮'); }
+});
+function limpiarCampos() {
+    document.getElementById('campo-nombre').value = '';
+    document.getElementById('campo-enlace').value = '';
+    document.getElementById('campo-logo').value = '';
+}
+window.addEventListener('beforeunload', () => { desbloqueado = false; soyCreador = false; document.body.classList.remove('modo-creador'); });
+cargar();
 </script>
 </body>
 </html>
