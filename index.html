@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
-    <title>Your Favorite Games Here</title>
+    <title>Leonardo Plebe 🎮</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-        :root{--red:#ff0033;--green:#2ecc71;--blue:#1a1a2e;--black:#000;--dark:#111;--soft:#171717;--muted:#888;--white:#fff}
+        :root{--red:#ff0033;--green:#2ecc71;--blue:#1a1a2e;--black:#000;--dark:#111;--muted:#888;--white:#fff}
         html,body{height:100%}
         body{background:var(--black);color:var(--white);min-height:100vh;-webkit-tap-highlight-color:transparent}
         .hidden{display:none!important}
@@ -15,7 +15,7 @@
         .main-area{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px}
         .logo{font-size:72px;line-height:1}
         h1{color:var(--green);font-size:28px;line-height:1.2}
-        .subtitle{color:#a3a3a3;font-size:16px}
+        .subtitle{color:#a3a3a3;font-size:16px;margin-bottom:30px}
         .btn-enter{background:#fff;color:#000;border:none;padding:16px 32px;font-size:18px;font-weight:bold;border-radius:12px;cursor:pointer;transition:transform .2s ease;box-shadow:0 8px 20px rgba(255,255,255,.12)}
         .btn-enter:hover{transform:scale(1.04)}
         .ads-area{padding:15px;border-top:1px solid #222;margin-top:auto}
@@ -42,7 +42,6 @@
         .page-btn:hover{background:#2a2a2a}
         .page-btn.active{background:var(--green);color:#000}
         .page-btn:disabled{background:#151515;color:#555;cursor:not-allowed}
-        .page-label{color:#999;font-size:12px;margin-right:4px}
         .add-btn{position:fixed;bottom:20px;right:20px;width:62px;height:62px;border-radius:50%;background:var(--green);color:#000;border:none;font-size:30px;font-weight:bold;cursor:pointer;box-shadow:0 6px 16px rgba(46,204,113,.35);display:none;z-index:100}
         .ad-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;padding:20px}
         .modal-content{text-align:center;padding:30px 18px;max-width:400px;width:100%}
@@ -50,7 +49,6 @@
         .timer{font-size:48px;font-weight:bold;margin:20px 0;color:var(--red)}
         .btn-go-ad{background:var(--red);color:#fff;border:none;padding:15px 30px;font-size:18px;font-weight:bold;border-radius:10px;cursor:pointer;margin-bottom:15px}
         .btn-back{background:var(--green);color:#000;border:none;padding:12px 25px;font-size:16px;font-weight:bold;border-radius:10px;cursor:pointer;display:none}
-        .ad-number{font-size:12px;color:#666;margin-bottom:10px}
         .form-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);display:flex;justify-content:center;align-items:center;z-index:9999;padding:20px}
         .form-box{background:var(--dark);padding:25px;border-radius:12px;width:100%;max-width:360px}
         .form-title{text-align:center;margin-bottom:20px;color:var(--green)}
@@ -59,50 +57,49 @@
         .btn-save{flex:1;background:var(--green);color:#000;border:none;padding:12px;border-radius:8px;font-weight:bold;cursor:pointer}
         .btn-cancel{flex:1;background:#444;color:#fff;border:none;padding:12px;border-radius:8px;font-weight:bold;cursor:pointer}
         .optimizing{color:#ffcc00;padding:8px;text-align:center;font-size:13px;display:none}
-        @media (max-width:520px){
-            .home{padding-top:36px}.logo{font-size:60px}h1{font-size:24px}.btn-enter{width:100%;max-width:300px}
-            .games-grid{grid-template-columns:1fr;max-width:420px;padding-left:18px;padding-right:18px}.game-card{min-height:180px}
-            .game-img{width:60px;height:60px}.add-btn{bottom:18px;right:18px;width:58px;height:58px}.timer{font-size:42px}
+        @media (max-width: 520px){
+            .games-grid{grid-template-columns:1fr;max-width:420px}
         }
     </style>
 </head>
 <body>
 <div id="page-home" class="home">
-    <div class="main-area"><div class="logo">🎮</div><h1>Your Favorite Games Here</h1><p class="subtitle">Free downloads — all the best games</p><button class="btn-enter" onclick="openLibrary()">📚 Game Library</button></div>
+    <div class="main-area">
+        <div class="logo">🎮</div><h1>Leonardo Plebe 🎮</h1><p class="subtitle">Tus juegos favoritos en un solo lugar</p>
+        <button class="btn-enter" onclick="openLibrary()">📚 Biblioteca de Juegos</button>
+    </div>
     <div class="ads-area"><div class="ad-unit"><script async="async" data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script><div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div></div></div>
 </div>
 <div id="page-library" class="hidden">
-    <div class="header"><div class="search-wrapper"><input type="text" class="search-bar" id="search-input" placeholder="Search games, apps, and more..." oninput="filterGames(this.value)"><div class="creator-badge" id="creator-msg">✅ Welcome, Creator 🔥</div></div></div>
+    <div class="header"><div class="search-wrapper"><input type="text" class="search-bar" id="search-input" placeholder="Buscar juegos, aplicaciones y más..." oninput="filterGames(this.value)"><div class="creator-badge" id="creator-msg">✅ Bienvenido, Creador 🔥</div></div></div>
     <div class="games-grid" id="games-container"></div><div class="pagination" id="pagination"></div><button class="add-btn" id="add-game-btn" onclick="openForm()">+</button>
 </div>
-<div id="ad-popup" class="ad-modal hidden"><div class="modal-content"><p class="ad-number" id="ad-number">Ad #1</p><p class="modal-title">🔓 Unlock Download</p><p>Watch the ad to download for free</p><div class="timer" id="countdown">7</div><button class="btn-go-ad" id="go-ad-btn" onclick="openAdTab()">🌐 Watch Ad</button><button class="btn-back" id="back-btn" onclick="closeAdModal()">← I've seen it, Download</button></div></div>
-<div id="form-popup" class="form-modal hidden"><div class="form-box"><h3 class="form-title" id="form-title">➕ Add New Game</h3><input type="text" class="form-input" id="game-name" placeholder="Game Name"><input type="text" class="form-input" id="game-link" placeholder="Download Link"><input type="file" class="form-input" id="game-icon" accept="image/*" onchange="optimizeImage(this)"><div class="optimizing" id="opt-text">⚙️ Optimizing image... ⏳</div><input type="hidden" id="optimized-img"><input type="hidden" id="editing-id"><div class="form-buttons"><button class="btn-cancel" onclick="closeForm()">Cancel</button><button class="btn-save" id="save-btn" onclick="saveGame()">Save Game</button></div></div></div>
+<div id="ad-popup" class="ad-modal hidden"><div class="modal-content"><p class="modal-title">🔓 Desbloquear Descarga</p><p>Ver el anuncio para descargar gratis</p><div class="timer" id="countdown">7</div><button class="btn-go-ad" id="go-ad-btn" onclick="openAdTab()">🌐 Ver Anuncio</button><button class="btn-back" id="back-btn" onclick="closeAdModal()">← Ya lo vi, Descargar</button></div></div>
+<div id="form-popup" class="form-modal hidden"><div class="form-box"><h3 class="form-title" id="form-title">➕ Agregar Juego</h3><input type="text" class="form-input" id="game-name" placeholder="Nombre del juego"><input type="text" class="form-input" id="game-link" placeholder="Enlace de descarga"><input type="file" class="form-input" id="game-icon" accept="image/*" onchange="optimizeImage(this)"><div class="optimizing" id="opt-text">⚙️ Optimizando imagen...</div><input type="hidden" id="optimized-img"><input type="hidden" id="editing-id"><div class="form-buttons"><button class="btn-cancel" onclick="closeForm()">Cancelar</button><button class="btn-save" onclick="saveGame()">Guardar</button></div></div></div>
 <script>
 const CREATOR_CODE="2k8L",AD_LINK="https://pl31361169.profitableratecpmnetwork.com/22/e5/ce/22e5ce45b7f08d83a957b7a61350ecf6.js",PAGE_SIZE=8;
-const ADS=[{id:1,name:"Offer 1"},{id:2,name:"Offer 2"},{id:3,name:"Offer 3"},{id:4,name:"Offer 4"}];
-let games=JSON.parse(localStorage.getItem('games')||'[]'),downloadedIds=JSON.parse(localStorage.getItem('downloadedIds')||'[]');
-let isCreator=false,currentGame=null,editingGameId=null,currentPage=1,filteredGames=[],currentAdIndex=0;
-if(games.length===0){games=[{id:Date.now(),name:"Minecraft",link:"https://www.mediafire.com/file/vmaz5vp7pf0fu34/minecraft-26-45-music.apk/file?dky=vo0ai7eoxz6&=583",image:"",downloads:0,unlocked:false}];saveGames()}
+const ADS=[{id:1},{id:2},{id:3},{id:4}];
+let games=JSON.parse(localStorage.getItem('games')||'[]'),sessionUnlockedIds=[];
+let isCreator=false,currentGame=null,editingGameId=null,currentPage=1,filteredGames=[];
+function saveGames(){localStorage.setItem('games',JSON.stringify(games))}
+if(games.length===0){games=[{id:Date.now(),name:"Minecraft",link:"https://www.mediafire.com/file/vmaz5vp7pf0fu34/minecraft-26-45-music.apk/file?dky=vo0ai7eoxz6&=583",image:"",downloads:0}];saveGames()}
 filteredGames=[...games];
 document.getElementById('search-input').addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()===CREATOR_CODE){isCreator=true;document.getElementById('add-game-btn').style.display='block';document.getElementById('creator-msg').style.display='block';e.target.value='';renderGames()}});
-function saveGames(){localStorage.setItem('games',JSON.stringify(games))}function saveDownloadedIds(){localStorage.setItem('downloadedIds',JSON.stringify(downloadedIds))}
 function openLibrary(){document.getElementById('page-home').classList.add('hidden');document.getElementById('page-library').classList.remove('hidden');currentPage=1;renderGames()}
-function getTotalPages(list){return Math.max(1,Math.ceil(list.length/PAGE_SIZE))}
 function getAdForPosition(position){const cycle=ADS.length*2,posInCycle=(position-1)%cycle;return posInCycle<ADS.length?ADS[posInCycle]:ADS[cycle-posInCycle-1]}
-function renderPagination(list){const totalPages=getTotalPages(list),container=document.getElementById('pagination');if(totalPages<=1){container.innerHTML='';return}let html='<span class="page-label">Page '+currentPage+' / '+totalPages+'</span>';html+='<button class="page-btn" '+(currentPage===1?'disabled':'')+' onclick="changePage('+(currentPage-1)+')">←</button>';const start=Math.max(1,currentPage-1),end=Math.min(totalPages,currentPage+1);for(let i=start;i<=end;i++)html+='<button class="page-btn '+(i===currentPage?'active':'')+'" onclick="changePage('+i+')">'+i+'</button>';html+='<button class="page-btn" '+(currentPage===totalPages?'disabled':'')+' onclick="changePage('+(currentPage+1)+')">→</button>';container.innerHTML=html}
-function changePage(page){currentPage=Math.min(Math.max(1,page),getTotalPages(filteredGames));renderGames()}
-function renderGames(list=filteredGames){filteredGames=list;currentPage=filteredGames.length?Math.min(currentPage,getTotalPages(filteredGames)):1;const container=document.getElementById('games-container'),start=(currentPage-1)*PAGE_SIZE,items=filteredGames.slice(start,start+PAGE_SIZE);container.innerHTML='';if(!items.length){container.innerHTML='<div style="text-align:center;color:#777;padding:40px 10px;width:100%;grid-column:1/-1;">No games found 🎮</div>';renderPagination(filteredGames);return}items.forEach((game,index)=>{const ad=getAdForPosition(start+index+1),imgSrc=game.image||'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23222" width="100" height="100"/><text x="50" y="60" text-anchor="middle" fill="%23888" font-size="40">🎮</text></svg>',unlocked=game.unlocked||isCreator||downloadedIds.includes(game.id);container.innerHTML+=`<div class="game-card" data-ad-id="${ad.id}"><img src="${imgSrc}" class="game-img" alt="${game.name}"><div class="game-name">${game.name}</div><div class="game-dls">🔥 ${game.downloads} downloads</div><button class="btn-dl ${unlocked?'unlocked':''}" onclick="startDownload(${game.id},${ad.id})">${unlocked?'⬇️ Download':'🔒 Unlock First'}</button>${isCreator?`<div class="creator-actions"><button class="btn-edit" onclick="editGame(${game.id})">✏️ Edit</button><button class="btn-delete" onclick="deleteGame(${game.id})">🗑️ Delete</button></div>`:''}</div>`});renderPagination(filteredGames)}
-function filterGames(text){const search=text.toLowerCase().trim();currentPage=1;renderGames(search===''?[...games]:games.filter(g=>g.name.toLowerCase().includes(search)))}
-function startDownload(id,adId){currentGame=games.find(g=>g.id===id);if(!currentGame)return;if(currentGame.unlocked||isCreator||downloadedIds.includes(currentGame.id)){doDownload();return}document.getElementById('ad-number').textContent=`Ad #${adId}`;document.getElementById('ad-popup').classList.remove('hidden');let timeLeft=7;document.getElementById('countdown').textContent=timeLeft;document.getElementById('go-ad-btn').style.display='inline-block';document.getElementById('back-btn').style.display='none';const timer=setInterval(()=>{timeLeft--;document.getElementById('countdown').textContent=timeLeft;if(timeLeft<=0){clearInterval(timer);document.getElementById('go-ad-btn').style.display='none';document.getElementById('back-btn').style.display='inline-block'}},1000)}
+function renderPagination(list){const totalPages=Math.max(1,Math.ceil(list.length/PAGE_SIZE)),container=document.getElementById('pagination');if(totalPages<=1){container.innerHTML='';return}let html=`<span style="color:#999;font-size:12px">Página ${currentPage} / ${totalPages}</span>`;html+=`<button class="page-btn" ${currentPage===1?'disabled':''} onclick="changePage(${currentPage-1})">←</button>`;for(let i=1;i<=totalPages;i++)html+=`<button class="page-btn ${i===currentPage?'active':''}" onclick="changePage(${i})">${i}</button>`;html+=`<button class="page-btn" ${currentPage===totalPages?'disabled':''} onclick="changePage(${currentPage+1})">→</button>`;container.innerHTML=html}
+function changePage(page){currentPage=Math.min(Math.max(1,page),Math.max(1,Math.ceil(filteredGames.length/PAGE_SIZE)));renderGames()}
+function renderGames(list=filteredGames){filteredGames=list;const container=document.getElementById('games-container'),start=(currentPage-1)*PAGE_SIZE,items=filteredGames.slice(start,start+PAGE_SIZE);container.innerHTML='';if(!items.length){container.innerHTML='<div style="text-align:center;color:#777;padding:40px 10px;grid-column:1/-1;">No se encontraron juegos 🎮</div>';renderPagination(filteredGames);return}items.forEach((game,index)=>{const ad=getAdForPosition(start+index+1),imgSrc=game.image||'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23222" width="100" height="100"/><text x="50" y="60" text-anchor="middle" fill="%23888" font-size="40">🎮</text></svg>',unlocked=isCreator||sessionUnlockedIds.includes(game.id);container.innerHTML+=`<div class="game-card"><img src="${imgSrc}" class="game-img" alt="${game.name}"><div class="game-name">${game.name}</div><div class="game-dls">🔥 ${game.downloads} descarga${game.downloads!==1?'s':''}</div><button class="btn-dl ${unlocked?'unlocked':''}" onclick="startDownload(${game.id},${ad.id})">${unlocked?'⬇️ Descargar':'🔒 Desbloquear'}</button>${isCreator?`<div class="creator-actions"><button class="btn-edit" onclick="editGame(${game.id})">✏️ Editar</button><button class="btn-delete" onclick="deleteGame(${game.id})">🗑️ Eliminar</button></div>`:''}</div>`});renderPagination(filteredGames)}
+function filterGames(text){const search=text.toLowerCase().trim();filteredGames=search===''?[...games]:games.filter(g=>g.name.toLowerCase().includes(search));currentPage=1;renderGames()}
+function startDownload(id,adId){currentGame=games.find(g=>g.id===id);if(!currentGame)return;if(isCreator||sessionUnlockedIds.includes(currentGame.id)){window.open(currentGame.link,'_blank');return}document.getElementById('ad-popup').classList.remove('hidden');let timeLeft=7;document.getElementById('countdown').textContent=timeLeft;document.getElementById('go-ad-btn').style.display='inline-block';document.getElementById('back-btn').style.display='none';const timer=setInterval(()=>{timeLeft--;document.getElementById('countdown').textContent=timeLeft;if(timeLeft<=0){clearInterval(timer);document.getElementById('go-ad-btn').style.display='none';document.getElementById('back-btn').style.display='inline-block'}},1000)}
 function openAdTab(){window.open(AD_LINK,'_blank')}
-function closeAdModal(){if(currentGame&&!downloadedIds.includes(currentGame.id)){downloadedIds.push(currentGame.id);saveDownloadedIds();currentGame.downloads++;saveGames()}document.getElementById('ad-popup').classList.add('hidden');renderGames(filteredGames)}
-function doDownload(){if(!currentGame)return;const esNuevo=!downloadedIds.includes(currentGame.id);if(esNuevo&&!isCreator&&!currentGame.unlocked){downloadedIds.push(currentGame.id);saveDownloadedIds();currentGame.downloads++;saveGames()}renderGames(filteredGames);window.open(currentGame.link,'_blank')}
-function editGame(id){const game=games.find(g=>g.id===id);if(!game)return;editingGameId=id;document.getElementById('form-title').textContent='✏️ Update Game';document.getElementById('game-name').value=game.name;document.getElementById('game-link').value=game.link;document.getElementById('optimized-img').value=game.image||'';document.getElementById('editing-id').value=id;document.getElementById('form-popup').classList.remove('hidden')}
-function deleteGame(id){if(!confirm('Delete this game? ✅'))return;games=games.filter(g=>g.id!==id);downloadedIds=downloadedIds.filter(did=>did!==id);saveGames();saveDownloadedIds();renderGames([...games])}
+function closeAdModal(){if(currentGame&&!sessionUnlockedIds.includes(currentGame.id)){sessionUnlockedIds.push(currentGame.id);currentGame.downloads++;saveGames()}document.getElementById('ad-popup').classList.add('hidden');renderGames(filteredGames)}
+function editGame(id){const game=games.find(g=>g.id===id);if(!game)return;editingGameId=id;document.getElementById('form-title').textContent='✏️ Editar Juego';document.getElementById('game-name').value=game.name;document.getElementById('game-link').value=game.link;document.getElementById('optimized-img').value=game.image||'';document.getElementById('editing-id').value=id;document.getElementById('form-popup').classList.remove('hidden')}
+function deleteGame(id){if(!confirm('¿Eliminar este juego? ✅'))return;games=games.filter(g=>g.id!==id);saveGames();renderGames([...games])}
 function optimizeImage(input){const file=input.files[0];if(!file)return;document.getElementById('opt-text').style.display='block';const reader=new FileReader();reader.onload=e=>{const img=new Image();img.onload=()=>{const maxSize=128;let w=img.width,h=img.height;if(w>h&&w>maxSize){h=Math.round(h*maxSize/w);w=maxSize}else if(h>maxSize){w=Math.round(w*maxSize/h);h=maxSize}const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(img,0,0,w,h);document.getElementById('optimized-img').value=canvas.toDataURL('image/jpeg',.7);document.getElementById('opt-text').style.display='none'};img.src=e.target.result};reader.readAsDataURL(file)}
-function openForm(){editingGameId=null;document.getElementById('form-title').textContent='➕ Add New Game';document.getElementById('editing-id').value='';document.getElementById('game-name').value='';document.getElementById('game-link').value='';document.getElementById('optimized-img').value='';document.getElementById('game-icon').value='';document.getElementById('form-popup').classList.remove('hidden')}
+function openForm(){editingGameId=null;document.getElementById('form-title').textContent='➕ Agregar Juego';document.getElementById('game-name').value='';document.getElementById('game-link').value='';document.getElementById('optimized-img').value='';document.getElementById('game-icon').value='';document.getElementById('form-popup').classList.remove('hidden')}
 function closeForm(){document.getElementById('form-popup').classList.add('hidden');editingGameId=null}
-function saveGame(){const name=document.getElementById('game-name').value.trim(),link=document.getElementById('game-link').value.trim(),img=document.getElementById('optimized-img').value;if(!name||!link)return alert('Fill in name and link ✅');if(editingGameId){const game=games.find(g=>g.id===editingGameId);if(game){game.name=name;game.link=link;if(img)game.image=img}}else games.push({id:Date.now(),name,link,image:img,downloads:0,unlocked:false});saveGames();closeForm();renderGames([...games])}
+function saveGame(){const name=document.getElementById('game-name').value.trim(),link=document.getElementById('game-link').value.trim(),img=document.getElementById('optimized-img').value;if(!name||!link)return alert('Escribe el nombre y el enlace ✅');if(editingGameId){const game=games.find(g=>g.id===editingGameId);if(game){game.name=name;game.link=link;if(img)game.image=img}}else games.push({id:Date.now(),name,link,image:img,downloads:0});saveGames();closeForm();renderGames([...games])}
 renderGames([...games]);
 </script>
 </body>
