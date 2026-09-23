@@ -5,33 +5,244 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#071119">
 <title>Leonardo Plebe 🎮</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#050a10;--panel:#0d1725;--green:#22c55e;--green2:#15803d;--text:#f8fafc;--muted:#9caabe;--line:#ffffff1f}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(180deg,#050a10,#0b1220);color:var(--text);font-family:Arial,sans-serif}button,input{font:inherit}.hidden{display:none!important}.home,.library{max-width:1150px;margin:auto;padding:28px 18px 55px}.brand{text-align:center;font-size:clamp(2.2rem,6vw,4rem);margin:20px 0 8px}.subtitle{text-align:center;color:var(--muted);margin:0 0 22px}.search{display:block;width:min(100%,520px);margin:0 auto 18px;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:#0f172acc;color:var(--text);outline:0}.ad-slot{min-height:120px;max-width:720px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:14px;overflow:hidden}.primary,.download-btn,.fab,.modal-btn{border:0;border-radius:11px;cursor:pointer}.primary{display:block;margin:auto;padding:13px 22px;background:linear-gradient(135deg,var(--green),var(--green2));color:#04110d;font-weight:700}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}.title{margin:0}.top .search{width:min(100%,360px);margin:0}.toolbar{display:flex;justify-content:space-between;align-items:center;color:var(--muted);margin-bottom:14px}.pager{display:flex;gap:9px;align-items:center}.pager button{padding:8px 12px;border:1px solid var(--line);border-radius:9px;background:#ffffff08;color:var(--text);cursor:pointer}.pager button:disabled{opacity:.4;cursor:not-allowed}.games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}.card{overflow:hidden;border:1px solid var(--line);border-radius:16px;background:#111f2df2;box-shadow:0 10px 30px #0005}.thumb{display:block;width:100%;height:160px;object-fit:cover;background:#101c2b}.card-body{padding:14px}.card h3{min-height:42px;margin:0 0 10px;font-size:1.08rem}.meta{color:var(--muted);font-size:.85rem;margin-bottom:12px}.download-btn{width:100%;padding:11px;background:linear-gradient(135deg,var(--green),var(--green2));color:#04110d;font-weight:700}.fab{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green2));font-size:1.8rem;font-weight:700;z-index:20}.backdrop,.lock{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;background:#000b;z-index:40}.modal,.lock-box{width:min(100%,430px);padding:20px;border:1px solid var(--line);border-radius:18px;background:var(--panel);box-shadow:0 10px 35px #0008}.modal h3,.lock-box h2{margin:0 0 16px}.field{width:100%;padding:12px;margin-bottom:11px;border:1px solid var(--line);border-radius:10px;background:#ffffff05;color:var(--text)}.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:5px}.modal-btn{padding:10px 15px;background:#ffffff0d;color:var(--text);border:1px solid var(--line)}.primary-btn{background:linear-gradient(135deg,var(--green),var(--green2));color:#04110d;border:0;font-weight:700}.lock-box{text-align:center}.lock-box p{color:var(--muted);line-height:1.45}.count{display:block;color:var(--green);font-size:2.2rem;font-weight:700;margin:12px}.unlock-btn{display:none;margin:auto;padding:12px 18px;border:0;border-radius:11px;background:linear-gradient(135deg,var(--green),var(--green2));font-weight:700;cursor:pointer}.unlock-btn.show{display:block}@media(max-width:620px){.top{display:block}.top .search{margin-top:12px}.toolbar{display:block}.pager{margin-top:12px}}
-</style>
+:root{--bg:#050a10;--panel:#0d1725;--green:#22c55e;--green2:#15803d;--red:#ff2d55;--text:#f8fafc;--muted:#9caabe;--line:#ffffff18}*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}body{min-height:100vh;background:radial-gradient(circle at top,rgba(34,197,94,.18),transparent 18%),linear-gradient(180deg,#050a10,#0b1220);color:var(--text)}button,input,textarea{font:inherit}input,textarea{outline:none}.hidden{display:none!important}.home,.library{max-width:1200px;margin:0 auto;padding:28px 18px 48px}.brand{text-align:center;font-size:clamp(2.2rem,6vw,4rem);margin:18px 0 8px}.subtitle{text-align:center;color:var(--muted);margin:0 0 22px}.search{display:block;width:min(100%,520px);margin:0 auto 18px;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:rgba(15,23,42,.72);color:var(--text)}.search::placeholder{color:var(--muted)}.ad-slot{max-width:720px;margin:0 auto 18px;min-height:120px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02);display:flex;align-items:center;justify-content:center;overflow:hidden}.primary,.download-btn,.fab,.modal-btn,.copy-btn{border:none;border-radius:12px;cursor:pointer;transition:transform .12s ease}.primary:hover,.download-btn:hover,.fab:hover,.modal-btn:hover,.copy-btn:hover{transform:translateY(-1px)}.primary{display:block;margin:0 auto;padding:14px 22px;background:linear-gradient(135deg,var(--green),var(--green2));color:#04110d;font-weight:700}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px}.title{margin:0}.top .search{width:min(100%,360px);margin:0}.toolbar{display:flex;justify-content:space-between;align-items:center;color:var(--muted);margin-bottom:14px}.pager{display:flex;gap:10px;align-items:center}.pager button{padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.03);color:var(--text);cursor:pointer}.pager button:disabled{opacity:.45;cursor:not-allowed}.games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}.card{background:linear-gradient(180deg,rgba(17,31,45,.96),rgba(15,18,28,.96));border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.35)}.thumb{width:100%;height:160px;object-fit:cover;background:#101c2b;display:block}.card-body{padding:14px}.card h3{min-height:42px;margin:0 0 12px}.meta{color:var(--muted);font-size:.85rem;margin-bottom:12px}.download-btn{width:100%;padding:11px;background:linear-gradient(135deg,var(--green),var(--green2));color:#04110d;font-weight:700}.fab{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green2));font-size:1.8rem;font-weight:700;color:#04110d;box-shadow:0 10px 30px rgba(0,0,0,.4);z-index:20}.backdrop,.lock{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;padding:20px;z-index:40}.modal,.lock-box{width:min(100%,430px);padding:20px;border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:0 10px 35px rgba(0,0,0,.45)}.modal h3,.lock-box h2{margin:0 0 16px}.field{width:100%;padding:12px 13px;margin-bottom:11px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.03);color:var(--text)}.field::placeholder{color:var(--muted)}.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:5px}.modal-btn{padding:10px 15px;background:rgba(255,255,255,.05);color:var(--text);border:1px solid var(--line)}.primary-btn{background:linear-gradient(135deg,var(--green),var(--green2));color:#04110d;border:none;font-weight:700}.lock-box{text-align:center}.lock-box p{margin:0 0 14px;color:var(--muted);line-height:1.5}.count{display:block;font-size:2.2rem;font-weight:700;color:var(--green);margin:0 0 18px}.unlock-btn{display:none;margin:0 auto;padding:12px 18px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--green),var(--green2));font-weight:700;color:#04110d;cursor:pointer}.unlock-btn.show{display:block}.code-panel{max-width:1200px;margin:0 auto;padding:0 18px 40px}.code-box{background:#0c1620;border:1px solid var(--line);border-radius:16px;padding:14px}.code-box h3{margin:0 0 10px}.code-box textarea{width:100%;min-height:220px;background:#071018;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;resize:vertical}.copy-btn{display:block;margin-top:12px;padding:10px 16px;background:linear-gradient(135deg,var(--green),var(--green2));color:#04110d;font-weight:700}@media(max-width:620px){.top{display:block}.top .search{margin-top:12px}.toolbar{display:block}.pager{margin-top:12px}}</style>
 </head>
 <body>
-<main id="home" class="home"><h1 class="brand">Leonardo Plebe 🎮</h1><p class="subtitle">Tus juegos favoritos en un solo lugar</p><input id="homeSearch" class="search" type="search" placeholder="Buscar juegos..."><div class="ad-slot"><script async data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script><div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div></div><button id="enter" class="primary" type="button">🎮 Ver biblioteca</button></main>
-<main id="library" class="library hidden"><section class="top"><h2 class="title">Biblioteca de juegos</h2><input id="librarySearch" class="search" type="search" placeholder="Buscar por nombre..."></section><div class="toolbar"><span id="totalGames">0 juegos</span><div class="pager"><button id="prev" type="button">←</button><span id="pageInfo">1/1</span><button id="next" type="button">→</button></div></div><div id="gamesGrid" class="games-grid"></div></main>
-<div id="addModal" class="backdrop hidden"><div class="modal"><h3>Publicar juego 🎮</h3><input id="name" class="field" placeholder="Nombre del juego"><input id="link" class="field" type="url" placeholder="Enlace del juego"><input id="image" class="field" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><div class="modal-actions"><button id="cancel" class="modal-btn" type="button">Cancelar</button><button id="save" class="modal-btn primary-btn" type="button">Guardar</button></div></div></div>
-<div id="lock" class="lock hidden"><div class="lock-box"><h2>Desbloquear descarga</h2><p>Abre el anuncio en otra pestaña y espera 7 segundos.</p><div id="count" class="count">—</div><button id="adOpen" class="primary" type="button">🌐 Abrir anuncio</button><button id="unlock" class="unlock-btn" type="button">✅ Desbloquear</button></div></div><button id="fab" class="fab" type="button" title="Añadir juego">+</button>
+<main id="home" class="home">
+  <h1 class="brand">Leonardo Plebe 🎮</h1>
+  <p class="subtitle">Tus juegos favoritos en un solo lugar</p>
+  <input id="homeSearch" class="search" type="search" placeholder="Buscar juegos...">
+  <div class="ad-slot">
+    <script async data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script>
+    <div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div>
+  </div>
+  <button id="enter" class="primary" type="button">🎮 Ver biblioteca</button>
+</main>
+
+<main id="library" class="library hidden">
+  <section class="top">
+    <h2 class="title">Biblioteca de juegos</h2>
+    <input id="librarySearch" class="search" type="search" placeholder="Buscar por nombre...">
+  </section>
+  <div class="toolbar">
+    <span id="totalGames">0 juegos</span>
+    <div class="pager">
+      <button id="prev" type="button">←</button>
+      <span id="pageInfo">1/1</span>
+      <button id="next" type="button">→</button>
+    </div>
+  </div>
+  <div id="gamesGrid" class="games-grid"></div>
+</main>
+
+<div class="code-panel">
+  <div class="code-box">
+    <h3>Código para pegar en el sitio</h3>
+    <textarea id="generatedCode" readonly></textarea>
+    <button id="copyCode" class="copy-btn" type="button">📋 Copiar código</button>
+  </div>
+</div>
+
+<div id="addModal" class="backdrop hidden">
+  <div class="modal">
+    <h3>Publicar juego 🎮</h3>
+    <input id="name" class="field" type="text" placeholder="Nombre del juego">
+    <input id="link" class="field" type="url" placeholder="Enlace del juego">
+    <input id="image" class="field" type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+    <div class="modal-actions">
+      <button id="cancel" class="modal-btn" type="button">Cancelar</button>
+      <button id="save" class="modal-btn primary-btn" type="button">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div id="lock" class="lock hidden">
+  <div class="lock-box">
+    <h2>Desbloquear descarga</h2>
+    <p>Abre el anuncio en otra pestaña y espera 7 segundos.</p>
+    <div id="count" class="count">—</div>
+    <button id="adOpen" class="primary" type="button">🌐 Abrir anuncio</button>
+    <button id="unlock" class="unlock-btn" type="button">✅ Desbloquear</button>
+  </div>
+</div>
+
+<button id="fab" class="fab" type="button" title="Añadir juego">+</button>
+
 <script>
 'use strict';
-const CREATOR_CODE='2k8L',PAGE_SIZE=6,STORAGE='leonardo_plebe_games_v4',BUCKET='game-images',AD_URL='https://www.profitableratecpmnetwork.com/zg26qqbwk3?key=9a7994b8893e7a6cc73b4cfdc2f064e9',FALLBACK='https://via.placeholder.com/600x350/0d1725/ffffff?text=Juego',SUPABASE_URL='https://gpoxseorfxqifuoarupt.supabase.co',SUPABASE_ANON_KEY='sb_publishable_jsiB9GUjEQdb1RYCUokkIw_x-iYLEkw';
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);let games=[],currentPage=1,query='',creator=false,pending=null,unlocked=false,timer=null;const $=id=>document.getElementById(id);
+const CREATOR_CODE='2k8L',PAGE_SIZE=6,STORAGE='leonardo_plebe_games_v4',AD_URL='https://www.profitableratecpmnetwork.com/zg26qqbwk3?key=9a7994b8893e7a6cc73b4cfdc2f064e9',FALLBACK='https://via.placeholder.com/600x350/0d1725/ffffff?text=Juego';
+let games=[],currentPage=1,query='',creator=false,pending=null,unlocked=false,timer=null;
+const $=id=>document.getElementById(id);
+
 function localSave(){localStorage.setItem(STORAGE,JSON.stringify(games))}
-async function cloudSave(){const rows=games.map(g=>({id:Number(g.id),name:g.name,link:g.link,downloads:Number(g.downloads||0),image_url:g.image_url||FALLBACK}));const{error}=await db.from('games').upsert(rows,{onConflict:'id'});if(error)throw error}
-async function load(){try{games=JSON.parse(localStorage.getItem(STORAGE)||'[]');if(!Array.isArray(games))games=[]}catch(e){games=[]}const{data,error}=await db.from('games').select('*').order('created_at',{ascending:false});if(!error&&Array.isArray(data)&&data.length){games=data.map(g=>({id:Number(g.id),name:g.name,link:g.link,downloads:Number(g.downloads||0),image_url:g.image_url||FALLBACK}));localSave()}if(!games.length){games=[{id:Date.now(),name:'Minecraft',link:'https://www.mediafire.com/',downloads:0,image_url:FALLBACK}];localSave();try{await cloudSave()}catch(e){console.error(e)}}}
-function filtered(){return games.filter(g=>String(g.name).toLowerCase().includes(query.toLowerCase()))}
-function esc(value){return String(value).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-function render(){const all=filtered(),pages=Math.max(1,Math.ceil(all.length/PAGE_SIZE));currentPage=Math.min(currentPage,pages);const part=all.slice((currentPage-1)*PAGE_SIZE,currentPage*PAGE_SIZE);$('gamesGrid').innerHTML=part.map(g=>`<article class="card"><img class="thumb" src="${esc(g.image_url||FALLBACK)}" alt="${esc(g.name)}"><div class="card-body"><h3>${esc(g.name)}</h3><div class="meta">📥 ${g.downloads||0} descargas</div><button class="download-btn" data-id="${g.id}" type="button">Descargar</button></div></article>`).join('');$('totalGames').textContent=`${all.length} juegos`;$('pageInfo').textContent=`${currentPage}/${pages}`;$('prev').disabled=currentPage<=1;$('next').disabled=currentPage>=pages;document.querySelectorAll('.download-btn').forEach(b=>b.addEventListener('click',download))}
-function showLibrary(){$('home').classList.add('hidden');$('library').classList.remove('hidden');render()}function activateCreator(){creator=true;document.body.classList.add('creator');showLibrary()}
-function download(e){const game=games.find(g=>g.id===Number(e.currentTarget.dataset.id));if(!game)return;if(creator||unlocked)openDownload(game);else{pending=game;openLock()}}
-function openDownload(game){const win=window.open(game.link,'_blank');if(!win){alert('Activa las ventanas emergentes para permitir la descarga.');return}game.downloads=(game.downloads||0)+1;localSave();cloudSave().catch(console.error);render()}
-function openLock(){if(timer)clearInterval(timer);unlocked=false;$('lock').classList.remove('hidden');$('count').textContent='—';$('unlock').classList.remove('show')}
-async function uploadImage(file,id){if(!file)return FALLBACK;if(file.size>5*1024*1024)throw new Error('La imagen no puede superar 5 MB.');const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';const path=`${id}-${crypto.randomUUID()}.${ext}`;const{error}=await db.storage.from(BUCKET).upload(path,file,{upsert:false,contentType:file.type||'image/jpeg'});if(error)throw error;return db.storage.from(BUCKET).getPublicUrl(path).data.publicUrl}
-$('enter').addEventListener('click',showLibrary);$('homeSearch').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.value.trim()===CREATOR_CODE){e.target.value='';activateCreator()}});$('librarySearch').addEventListener('input',e=>{query=e.target.value;currentPage=1;render()});$('librarySearch').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.value.trim()===CREATOR_CODE){e.target.value='';activateCreator()}});$('prev').addEventListener('click',()=>{if(currentPage>1){currentPage--;render()}});$('next').addEventListener('click',()=>{if(currentPage<Math.ceil(filtered().length/PAGE_SIZE)){currentPage++;render()}});
-$('adOpen').addEventListener('click',()=>{window.open(AD_URL,'_blank');if(timer)clearInterval(timer);let n=7;$('count').textContent=n;timer=setInterval(()=>{n--;$('count').textContent=n;if(n<=0){clearInterval(timer);timer=null;$('unlock').classList.add('show')}},1000)});$('unlock').addEventListener('click',()=>{if(!pending)return;const game=pending;pending=null;$('lock').classList.add('hidden');unlocked=true;openDownload(game)});$('fab').addEventListener('click',()=>$('addModal').classList.remove('hidden'));$('cancel').addEventListener('click',()=>$('addModal').classList.add('hidden'));
-$('save').addEventListener('click',async()=>{const button=$('save'),name=$('name').value.trim(),link=$('link').value.trim(),file=$('image').files[0];if(!name||!/^https?:\/\//i.test(link)){alert('Escribe un nombre y un enlace válido.');return}button.disabled=true;button.textContent='Guardando...';try{const id=Date.now(),image_url=await uploadImage(file,id);const game={id,name,link,downloads:0,image_url};games.unshift(game);localSave();await cloudSave();render();$('addModal').classList.add('hidden');$('name').value='';$('link').value='';$('image').value=''}catch(error){console.error(error);alert('No se pudo guardar. Revisa la tabla, el bucket y los permisos de Supabase.')}finally{button.disabled=false;button.textContent='Guardar'}});
-load().then(render).catch(error=>{console.error(error);render()});
-</script></body></html>
+
+function makeGeneratedCode(){
+  const rows=games.map(g=>({
+    id:Number(g.id),
+    name:String(g.name),
+    link:String(g.link),
+    image:String(g.image || g.image_url || FALLBACK),
+    downloads:Number(g.downloads||0)
+  }));
+  return `const GAMES = ${JSON.stringify(rows, null, 2)};`;
+}
+
+function refreshGeneratedCode(){
+  $('generatedCode').value = makeGeneratedCode();
+}
+
+function blobToBase64(blob){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onloadend=()=>resolve(String(reader.result).split(',')[1]);
+    reader.onerror=reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+function compressImage(file,maxWidth=700,quality=0.72){
+  return new Promise((resolve,reject)=>{
+    if(!file){resolve(null);return}
+    const img=new Image();
+    const url=URL.createObjectURL(file);
+    img.onload=()=>{
+      const canvas=document.createElement('canvas');
+      const scale=Math.min(1,maxWidth/img.width);
+      canvas.width=Math.max(1,Math.round(img.width*scale));
+      canvas.height=Math.max(1,Math.round(img.height*scale));
+      const ctx=canvas.getContext('2d');
+      ctx.drawImage(img,0,0,canvas.width,canvas.height);
+      canvas.toBlob(blob=>{
+        URL.revokeObjectURL(url);
+        if(!blob){reject(new Error('No se pudo comprimir la imagen'));return}
+        resolve(blob);
+      },'image/webp',quality);
+    };
+    img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('No se pudo leer la imagen'));};
+    img.src=url;
+  });
+}
+
+async function makeGameObject(name,link,file){
+  let image=FALLBACK;
+  if(file){
+    const blob=await compressImage(file,700,0.72);
+    if(blob){image=`data:image/webp;base64,${await blobToBase64(blob)}`;}
+  }
+  return {id:Date.now(),name,link,image,downloads:0};
+}
+
+function load(){
+  try{games=JSON.parse(localStorage.getItem(STORAGE)||'[]')}catch(e){games=[]}
+  if(!Array.isArray(games))games=[];
+  if(!games.length){
+    games=[{
+      id:Date.now(),
+      name:'Minecraft',
+      link:'https://www.mediafire.com/',
+      image:FALLBACK,
+      downloads:0
+    }];
+  }
+  localSave();
+  refreshGeneratedCode();
+}
+
+function list(){return games.filter(g=>String(g.name).toLowerCase().includes(query.toLowerCase()))}
+
+function render(){
+  const all=list();
+  const pages=Math.max(1,Math.ceil(all.length/PAGE_SIZE));
+  currentPage=Math.min(currentPage,pages);
+  const part=all.slice((currentPage-1)*PAGE_SIZE,currentPage*PAGE_SIZE);
+  $('gamesGrid').innerHTML=part.map(game=>`
+    <article class="card">
+      <img class="thumb" src="${game.image||FALLBACK}" alt="${game.name}">
+      <div class="card-body">
+        <h3>${game.name}</h3>
+        <div class="meta">📥 ${game.downloads||0} descargas</div>
+        <button class="download-btn" data-id="${game.id}" type="button">Descargar</button>
+      </div>
+    </article>
+  `).join('');
+  $('totalGames').textContent=`${all.length} juegos`;
+  $('pageInfo').textContent=`${currentPage}/${pages}`;
+  $('prev').disabled=currentPage<=1;
+  $('next').disabled=currentPage>=pages;
+  document.querySelectorAll('.download-btn').forEach(btn=>btn.addEventListener('click',download));
+}
+
+function showLibrary(){
+  $('home').classList.add('hidden');
+  $('library').classList.remove('hidden');
+  render();
+}
+
+function activateCreator(){
+  creator=true;
+  document.body.classList.add('creator');
+  render();
+}
+
+function download(e){
+  const game=games.find(g=>g.id===Number(e.currentTarget.dataset.id));
+  if(!game)return;
+  if(creator||unlocked){openDownload(game);return}
+  pending=game;openLock();
+}
+
+function openDownload(game){
+  const win=window.open(game.link,'_blank');
+  if(!win){alert('Activa las ventanas emergentes para permitir la descarga.');return}
+  game.downloads=(game.downloads||0)+1;
+  localSave();
+  refreshGeneratedCode();
+  render();
+}
+
+function openLock(){
+  if(timer)clearInterval(timer);unlocked=false;$('lock').classList.remove('hidden');$('count').textContent='—';$('unlock').classList.remove('show');
+}
+
+$('enter').addEventListener('click',showLibrary);
+$('homeSearch').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.value.trim()===CREATOR_CODE){activateCreator();e.target.value=''}});
+$('librarySearch').addEventListener('input',e=>{query=e.target.value;currentPage=1;render()});
+$('librarySearch').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.value.trim()===CREATOR_CODE){activateCreator();e.target.value=''}});
+$('prev').addEventListener('click',()=>{if(currentPage>1){currentPage--;render()}});
+$('next').addEventListener('click',()=>{if(currentPage<Math.ceil(list().length/PAGE_SIZE)){currentPage++;render()}});
+$('adOpen').addEventListener('click',()=>{window.open(AD_URL,'_blank');if(timer)clearInterval(timer);let n=7;$('count').textContent=n;timer=setInterval(()=>{n--; $('count').textContent=n; if(n<=0){clearInterval(timer);timer=null;$('unlock').classList.add('show')}},1000)});
+$('unlock').addEventListener('click',()=>{if(!pending)return;const game=pending;pending=null;$('lock').classList.add('hidden');unlocked=true;openDownload(game)});
+$('fab').addEventListener('click',()=>{$('addModal').classList.remove('hidden')});
+$('cancel').addEventListener('click',()=>{$('addModal').classList.add('hidden')});
+$('copyCode').addEventListener('click',async()=>{
+  try{await navigator.clipboard.writeText($('generatedCode').value);$('copyCode').textContent='✅ Copiado';setTimeout(()=>$('copyCode').textContent='📋 Copiar código',1200)}catch(e){$('generatedCode').select();document.execCommand('copy');$('copyCode').textContent='✅ Copiado';setTimeout(()=>$('copyCode').textContent='📋 Copiar código',1200)}
+});
+$('save').addEventListener('click',async()=>{
+  const name=$('name').value.trim();
+  const link=$('link').value.trim();
+  const file=$('image').files[0];
+  if(!name||!/^https?:\/\//i.test(link)){alert('Escribe un nombre y un enlace válido.');return}
+  const button=$('save');
+  button.disabled=true;button.textContent='Guardando...';
+  try{
+    const game=await makeGameObject(name,link,file);
+    games.unshift(game);
+    localSave();
+    refreshGeneratedCode();
+    render();
+    $('addModal').classList.add('hidden');
+    $('name').value='';
+    $('link').value='';
+    $('image').value='';
+  }catch(err){
+    console.error(err);
+    alert('No se pudo guardar el juego. Intenta con otra imagen.');
+  } finally {
+    button.disabled=false;button.textContent='Guardar';
+  }
+});
+load();render();
+</script>
+</body>
+</html>
