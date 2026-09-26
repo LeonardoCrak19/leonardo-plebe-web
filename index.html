@@ -8,808 +8,715 @@
   <style>
     :root{
       --bg:#050a10;
-      --panel:#0d1725;
+      --card:#0d1725;
       --green:#22c55e;
       --green2:#15803d;
-      --red:#ff2d55;
+      --blue:#1e40af;
+      --red:#ef4444;
       --text:#f8fafc;
-      --muted:#9caabe;
-      --line:#ffffff20;
+      --muted:#94a3b8;
+      --line:#ffffff15;
     }
 
     *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
     body{
       min-height:100vh;
-      background:radial-gradient(circle at top,#123b2a 0,#050a10 28%);
+      background:var(--bg);
       color:var(--text);
+      padding-bottom:30px;
     }
-    button,input,textarea{font:inherit}
-    button{cursor:pointer}
-    input,textarea{outline:0}
+    button,input{font:inherit}
+    button{cursor:pointer;border:0}
+    input{outline:0;border:1px solid var(--line)}
     .hidden{display:none!important}
 
-    .home,.library,.code-panel{
+    /* === INICIO === */
+    .home{
       max-width:1200px;
-      margin:auto;
-      padding:28px 18px 48px;
-    }
-
-    .brand{
+      margin:0 auto;
+      padding:40px 20px;
       text-align:center;
-      font-size:clamp(2.2rem,6vw,4rem);
-      margin:18px 0 8px;
     }
-
-    .subtitle{
-      text-align:center;
-      color:var(--muted);
-      margin-bottom:20px;
-    }
-
-    .search-row{
+    .brand{font-size:clamp(2rem,5vw,3.5rem);margin-bottom:10px}
+    .subtitle{color:var(--muted);margin-bottom:30px}
+    .search-bar{
       display:flex;
-      gap:8px;
-      width:min(100%,560px);
-      margin:0 auto 18px;
+      gap:10px;
+      max-width:500px;
+      margin:0 auto 30px;
     }
-
     .search{
-      width:100%;
-      padding:13px 15px;
-      border:1px solid var(--line);
+      flex:1;
+      padding:14px 18px;
       border-radius:12px;
-      background:#0f172acc;
+      background:var(--card);
       color:var(--text);
-    }
-
-    .search::placeholder{color:var(--muted)}
-
-    .primary,.download-btn,.fab,.modal-btn,.copy-btn,.edit-btn,.delete-btn{
-      border:0;
-      border-radius:11px;
-    }
-
-    .primary{
-      display:block;
-      margin:auto;
-      padding:13px 22px;
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#04110d;
-      font-weight:700;
-    }
-
-    .search-row .primary{
-      margin:0;
-      white-space:nowrap;
-      padding:0 16px;
-    }
-
-    .ad-slot{
-      min-height:120px;
-      max-width:720px;
-      margin:0 auto 18px;
       border:1px solid var(--line);
-      border-radius:14px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      background:#ffffff05;
-    }
-
-    .top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:16px;
-    }
-
-    .top .search-row{
-      margin:0;
-      width:min(100%,400px);
-    }
-
-    .toolbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      color:var(--muted);
-      margin-bottom:14px;
-    }
-
-    .pager{
-      display:flex;
-      gap:9px;
-      align-items:center;
-    }
-
-    .pager button{
-      padding:8px 12px;
-      border:1px solid var(--line);
-      border-radius:9px;
-      background:#ffffff08;
-      color:var(--text);
-    }
-
-    .pager button:disabled{opacity:.4}
-
-    .games-grid{
-      display:flex;
-      flex-wrap:wrap;
-      gap:20px;
-    }
-
-    .card{
-      width:calc(50% - 10px);
-      padding:16px;
-      overflow:hidden;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:#111f2df2;
-      box-shadow:0 10px 30px #0005;
-      transition:transform 0.3s ease;
-    }
-
-    .card:hover{transform:translateY(-5px)}
-
-    .thumb{
-      display:block;
-      width:120px;
-      height:120px;
-      object-fit:cover;
-      border-radius:14px;
-      margin:0 auto 12px;
-      background:#101c2b;
-    }
-
-    .card-body{
-      text-align:center;
-    }
-
-    .card h3{
-      min-height:42px;
-      margin-bottom:10px;
       font-size:16px;
     }
-
-    .meta{
-      color:var(--muted);
-      font-size:.85rem;
-      margin-bottom:12px;
-    }
-
-    .download-btn{
-      width:100%;
-      padding:11px;
+    .btn-primary{
+      padding:14px 24px;
+      border-radius:12px;
       background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#04110d;
+      color:#000;
       font-weight:700;
-      transition:opacity 0.2s;
+      font-size:16px;
+    }
+    .ad-space{
+      max-width:720px;
+      margin:0 auto 30px;
+      padding:20px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:#ffffff05;
+    }
+    .enter-btn{
+      padding:16px 40px;
+      font-size:18px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--green),var(--green2));
+      color:#000;
+      font-weight:700;
     }
 
-    .creator-tools{
+    /* === BIBLIOTECA === */
+    .library{
+      max-width:1200px;
+      margin:0 auto;
+      padding:30px 20px;
+    }
+    .header-top{
       display:flex;
-      gap:7px;
-      margin-top:10px;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:25px;
+      flex-wrap:wrap;
+      gap:15px;
     }
-
-    .edit-btn,.delete-btn{
+    .back-btn{
+      background:transparent;
+      color:var(--muted);
+      font-size:16px;
+      padding:8px 12px;
+    }
+    .back-btn:hover{color:var(--text)}
+    .page-title{font-size:clamp(1.5rem,3vw,2rem)}
+    .library-search{
+      display:flex;
+      gap:10px;
+      margin-bottom:30px;
+    }
+    .games-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+      gap:25px;
+    }
+    .game-card{
+      background:var(--card);
+      border-radius:16px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      transition:transform .2s,border-color .2s;
+    }
+    .game-card:hover{
+      transform:translateY(-4px);
+      border-color:var(--green);
+    }
+    .game-img{
+      width:100%;
+      height:200px;
+      object-fit:cover;
+      background:#1a2e35;
+    }
+    .game-info{padding:18px}
+    .game-name{font-size:18px;font-weight:700;margin-bottom:8px}
+    .game-meta{
+      color:var(--muted);
+      font-size:14px;
+      margin-bottom:15px;
+    }
+    .btn-download{
+      width:100%;
+      padding:12px;
+      border-radius:10px;
+      background:linear-gradient(135deg,var(--green),var(--green2));
+      color:#000;
+      font-weight:700;
+      font-size:15px;
+      margin-bottom:10px;
+    }
+    .btn-locked{
+      background:#333;
+      color:#888;
+      cursor:not-allowed
+    }
+    .creator-actions{
+      display:flex;
+      gap:8px;
+      margin-top:10px
+    }
+    .btn-edit{
       flex:1;
-      padding:9px;
+      padding:10px;
+      border-radius:8px;
+      background:var(--blue);
       color:#fff;
+      font-weight:600
     }
-
-    .edit-btn{background:#2563eb}
-    .delete-btn{background:var(--red)}
-
-    .fab{
+    .btn-delete{
+      flex:1;
+      padding:10px;
+      border-radius:8px;
+      background:var(--red);
+      color:#fff;
+      font-weight:600
+    }
+    .fab-add{
       position:fixed;
-      right:20px;
-      bottom:20px;
-      width:58px;
-      height:58px;
+      bottom:25px;
+      right:25px;
+      width:60px;
+      height:60px;
       border-radius:50%;
       background:linear-gradient(135deg,var(--green),var(--green2));
-      font-size:1.8rem;
+      color:#000;
+      font-size:28px;
       font-weight:700;
-      color:#04110d;
-      box-shadow:0 10px 30px #0006;
-      z-index:20;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 4px 15px #0006;
+      z-index:100
     }
+    .pagination{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:20px;
+      margin-top:40px
+    }
+    .page-btn{
+      padding:10px 16px;
+      border-radius:8px;
+      background:var(--card);
+      color:var(--text);
+      border:1px solid var(--line)
+    }
+    .page-btn:disabled{opacity:.4;cursor:not-allowed}
 
-    .backdrop,.lock{
+    /* === MODAL === */
+    .modal-backdrop{
       position:fixed;
       inset:0;
-      background:#000b;
+      background:#000c;
       display:flex;
       align-items:center;
       justify-content:center;
       padding:20px;
-      z-index:40;
+      z-index:200
     }
-
-    .modal,.lock-box{
-      width:min(100%,430px);
-      padding:20px;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:var(--panel);
-      box-shadow:0 10px 35px #0008;
-    }
-
-    .modal h3,.lock-box h2{
-      margin-bottom:16px;
-      text-align:center;
-    }
-
-    .field{
+    .modal{
+      background:var(--card);
+      border-radius:16px;
+      padding:25px;
+      max-width:450px;
       width:100%;
-      padding:12px;
-      margin-bottom:11px;
-      border:1px solid var(--line);
-      border-radius:10px;
-      background:#ffffff08;
-      color:var(--text);
+      border:1px solid var(--line)
     }
-
+    .modal h3{margin-bottom:20px;text-align:center}
+    .modal input{
+      width:100%;
+      padding:12px 15px;
+      margin-bottom:12px;
+      border-radius:10px;
+      background:#0003;
+      color:var(--text);
+      border:1px solid var(--line);
+      font-size:15px
+    }
     .modal-actions{
       display:flex;
-      justify-content:flex-end;
-      gap:9px;
+      gap:10px;
+      margin-top:10px
     }
-
-    .modal-btn{
-      padding:10px 15px;
-      background:#ffffff0d;
-      color:var(--text);
-      border:1px solid var(--line);
+    .btn-cancel{
+      flex:1;
+      padding:12px;
+      border-radius:10px;
+      background:#333;
+      color:#fff;
+      font-weight:600
     }
-
-    .primary-btn,.copy-btn{
+    .btn-save{
+      flex:1;
+      padding:12px;
+      border-radius:10px;
       background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#04110d;
-      font-weight:700;
+      color:#000;
+      font-weight:700
     }
 
-    .image-picker{
-      display:block;
-      width:100%;
-      padding:13px;
-      text-align:center;
-      border:1px dashed var(--green);
-      border-radius:10px;
-      color:var(--green);
-      cursor:pointer;
-      margin-bottom:10px;
+    /* === ANUNCIO / BLOQUEO === */
+    .lock-modal{
+      position:fixed;
+      inset:0;
+      background:#000e;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index:300
     }
-
-    .image-picker input{
-      display:block;
-      width:100%;
-      margin-top:8px;
-      color:var(--text);
-    }
-
-    .preview{
-      display:block;
-      width:100%;
-      max-height:150px;
-      object-fit:contain;
-      border-radius:10px;
-      margin-bottom:10px;
-      background:#071018;
-    }
-
-    .count{
-      display:block;
-      color:var(--green);
-      font-size:2.2rem;
-      text-align:center;
-      margin:14px;
-    }
-
-    .unlock-btn{
-      display:none;
-      margin:auto;
-      padding:12px;
-      border:0;
-      border-radius:11px;
-      background:var(--green);
-      color:#04110d;
-      font-weight:700;
-    }
-
-    .unlock-btn.show{display:block}
-
-    .code-box{
-      background:#0d1725;
-      border:1px solid var(--line);
+    .lock-box{
+      background:var(--card);
       border-radius:16px;
-      padding:14px;
-      margin-top:20px;
-    }
-
-    .code-help{
-      color:var(--muted);
-      font-size:.85rem;
-      margin:5px 0 10px;
-    }
-
-    .code-box textarea{
+      padding:30px;
+      max-width:400px;
       width:100%;
-      min-height:120px;
-      background:#071018;
-      color:var(--text);
-      border:1px solid var(--line);
+      text-align:center;
+      border:1px solid var(--line)
+    }
+    .lock-count{
+      font-size:3rem;
+      font-weight:700;
+      color:var(--green);
+      margin:20px 0
+    }
+    .btn-ad{
+      width:100%;
+      padding:14px;
       border-radius:10px;
-      padding:12px;
-      resize:vertical;
+      background:linear-gradient(135deg,#f97316,#ea580c);
+      color:#fff;
+      font-weight:700;
+      font-size:16px;
+      margin-bottom:12px
     }
-
-    .copy-btn{
-      display:block;
-      margin-top:10px;
-      padding:10px 16px;
+    .btn-unlock{
+      width:100%;
+      padding:14px;
+      border-radius:10px;
+      background:var(--green);
+      color:#000;
+      font-weight:700;
+      font-size:16px;
+      display:none
     }
-
-    @media (max-width:620px){
-      .games-grid{
-        display:grid;
-        grid-template-columns:1fr;
-        gap:18px;
-      }
-      .card{width:100%}
-      .top{display:block}
-      .top .search-row{margin-top:12px}
-      .toolbar{display:block}
-      .pager{margin-top:12px}
-      .search-row{width:100%}
-    }
+    .btn-unlock.visible{display:block}
   </style>
 </head>
 <body>
-  <main id="home" class="home">
+
+  <!-- === PÁGINA DE INICIO === -->
+  <div id="homePage" class="home">
     <h1 class="brand">Leonardo Plebe 🎮</h1>
     <p class="subtitle">Tus juegos favoritos en un solo lugar</p>
-    <div class="search-row">
-      <input id="homeSearch" class="search" type="search" placeholder="Buscar juegos...">
-      <button id="homeSearchBtn" class="primary" type="button">Buscar</button>
+    
+    <div class="search-bar">
+      <input id="homeSearch" class="search" type="text" placeholder="Buscar juegos...">
+      <button id="homeSearchBtn" class="btn-primary">Buscar</button>
     </div>
 
-    <div class="ad-slot">
+    <div class="ad-space">
       <script async data-cfasync="false" src="https://pl31361168.profitableratecpmnetwork.com/f780a5aa4949d61cec3a7c2d2611e014/invoke.js"></script>
       <div id="container-f780a5aa4949d61cec3a7c2d2611e014"></div>
     </div>
 
-    <button id="enter" class="primary" type="button">🎮 Ver biblioteca</button>
-  </main>
+    <button id="enterBtn" class="enter-btn">🎮 Ver Biblioteca</button>
+  </div>
 
-  <main id="library" class="library hidden">
-    <section class="top">
-      <h2>Biblioteca de juegos</h2>
-      <div class="search-row">
-        <input id="librarySearch" class="search" type="search" placeholder="Buscar por nombre...">
-        <button id="librarySearchBtn" class="primary" type="button">Buscar</button>
-      </div>
-    </section>
+  <!-- === BIBLIOTECA === -->
+  <div id="libraryPage" class="library hidden">
+    <div class="header-top">
+      <button id="backHome" class="back-btn">← Volver</button>
+      <h2 class="page-title">Biblioteca de Juegos</h2>
+      <span id="gameCount" class="muted">0 juegos</span>
+    </div>
 
-    <div class="toolbar">
-      <span id="totalGames">0 juegos</span>
-      <div class="pager">
-        <button id="prev" type="button">←</button>
-        <span id="pageInfo">1/1</span>
-        <button id="next" type="button">→</button>
-      </div>
+    <div class="library-search">
+      <input id="libSearch" class="search" type="text" placeholder="Buscar por nombre...">
+      <button id="libSearchBtn" class="btn-primary">Buscar</button>
     </div>
 
     <div id="gamesGrid" class="games-grid"></div>
 
-    <section id="codePanel" class="code-panel hidden">
-      <div class="code-box">
-        <h3>Código del juego</h3>
-        <p class="code-help">Copia este código para compartir o respaldar.</p>
-        <textarea id="generatedCode" readonly></textarea>
-        <button id="copyCode" class="copy-btn" type="button">📋 Copiar código</button>
-      </div>
-    </section>
-  </main>
+    <div class="pagination">
+      <button id="prevPage" class="page-btn">←</button>
+      <span id="pageInfo">1 / 1</span>
+      <button id="nextPage" class="page-btn">→</button>
+    </div>
 
-  <div id="addModal" class="backdrop hidden">
+    <button id="fabAdd" class="fab-add hidden">+</button>
+  </div>
+
+  <!-- === MODAL AGREGAR/EDITAR === -->
+  <div id="gameModal" class="modal-backdrop hidden">
     <div class="modal">
-      <h3 id="modalTitle">Publicar juego 🎮</h3>
-      <input id="name" class="field" placeholder="Nombre del juego">
-      <input id="link" class="field" type="url" placeholder="Enlace de descarga">
-      <input id="imageUrl" class="field" type="url" placeholder="🔗 Enlace directo de imagen (recomendado)">
-
-      <label class="image-picker">
-        🖼️ O elegir imagen de la galería
-        <input id="image" type="file" accept="image/*">
-      </label>
-
-      <img id="preview" class="preview hidden" alt="Vista previa">
-
+      <h3 id="modalTitle">Agregar Juego 🎮</h3>
+      <input id="gameName" type="text" placeholder="Nombre del juego">
+      <input id="gameLink" type="url" placeholder="Enlace de descarga">
+      <input id="gameImageUrl" type="url" placeholder="🔗 Enlace directo de imagen">
+      <input id="gameImageFile" type="file" accept="image/*">
+      <img id="imgPreview" class="hidden" style="width:100%;border-radius:10px;margin:10px 0" alt="Vista previa">
       <div class="modal-actions">
-        <button id="cancel" class="modal-btn" type="button">Cancelar</button>
-        <button id="save" class="modal-btn primary-btn" type="button">Guardar</button>
+        <button id="modalCancel" class="btn-cancel">Cancelar</button>
+        <button id="modalSave" class="btn-save">Guardar</button>
       </div>
     </div>
   </div>
 
-  <div id="lock" class="lock hidden">
+  <!-- === BLOQUEO DE ANUNCIO === -->
+  <div id="lockModal" class="lock-modal hidden">
     <div class="lock-box">
-      <h2>Desbloquear descarga</h2>
-      <p>Abre el anuncio en otra pestaña y espera 7 segundos.</p>
-      <div id="count" class="count">—</div>
-      <button id="adOpen" class="primary" type="button">🌐 Abrir anuncio</button>
-      <button id="unlock" class="unlock-btn" type="button">✅ Ya vi el anuncio</button>
+      <h2>🔒 Desbloquear Descarga</h2>
+      <p>Ve el anuncio para obtener el enlace</p>
+      <div id="lockCount" class="lock-count">7</div>
+      <button id="goAdBtn" class="btn-ad">🌐 Abrir Anuncio</button>
+      <button id="unlockBtn" class="btn-unlock">✅ Ya lo vi — Descargar</button>
     </div>
   </div>
 
-  <button id="fab" class="fab hidden" type="button">+</button>
+<script>
+'use strict';
 
-  <script>
-    'use strict';
+const CREATOR_CODE = '2k8L';
+const PAGE_SIZE = 6;
+const AD_URL = 'https://www.profitableratecpmnetwork.com/zg26qqbwk3?key=9a7994b8893e7a6cc73b4cfdc2f064e9';
+const FALLBACK_IMG = 'https://via.placeholder.com/280x200/0d1725/ffffff?text=🎮';
 
-    const CREATOR_CODE = '2k8L';
-    const PAGE_SIZE = 6;
-    const STORAGE = 'leonardo_plebe_games_v6';
-    const AD_URL = 'https://www.profitableratecpmnetwork.com/zg26qqbwk3?key=9a7994b8893e7a6cc73b4cfdc2f064e9';
-    const FALLBACK_IMAGE = 'https://via.placeholder.com/120x120/0d1725/ffffff?text=🎮';
+let games = [];
+let currentPage = 1;
+let searchQuery = '';
+let isCreator = false;
+let pendingGame = null;
+let isUnlocked = false;
+let countdownTimer = null;
+let editingId = null;
 
-    let games = [];
-    let currentPage = 1;
-    let searchQuery = '';
-    let isCreator = false;
-    let pendingGame = null;
-    let isUnlocked = false;
-    let countdownTimer = null;
-    let editingGameId = null;
+const $ = id => document.getElementById(id);
 
-    const $ = id => document.getElementById(id);
+// === JUEGOS INCLUIDOS DESDE EL INICIO ===
+const DEFAULT_GAMES = [
+  {
+    id: 1789934945734,
+    name: "Minecraft",
+    link: "https://www.mediafire.com/file/cim5n289rfeguzn/mc%201.26.45.1%20-%20espacioapk.com.apk/file?dkey=l5wy06u4df0&r=577",
+    image: "https://i.imgur.com/I4f3CVY.jpg",
+    downloads: 3
+  },
+  {
+    id: 1789935000001,
+    name: "Bulma Adventure 3",
+    link: "https://www.mediafire.com/file/tjoxvvu7hg7g0j6/Bulma%20Adventure%203%20v1.0%20-%20espacioapk.com.apk/file?dkey=ek6a12ukl68&r=1259",
+    image: "https://i.imgur.com/vHLKb6n.jpg",
+    downloads: 0
+  },
+  {
+    id: 1789935000002,
+    name: "Bulma Adventure",
+    link: "https://espacioapk.co/apk/Bulma%20Adventure%201%20v1.00%20-%20espacioapk.com.apk",
+    image: "https://i.imgur.com/3QMpOBC.jpg",
+    downloads: 0
+  },
+  {
+    id: 1789935000003,
+    name: "Five Nights in Anime RX Edition",
+    link: "https://download2391.mediafire.com/7ozvcnr8dkwgaejggLepLRuFXKM7UhReZSwIJNYVWTHU3dofbyYp8DkQueNnljEJvsgpqFUjHVM388TVfyYnSfPx4cIUBEwEddxavDtmyJfW0VLqMWSCmpkugM1cXGWaZMaPEvWOmBMccZMYhW7q6TD30zWeGp5H8vCRS-xQEdHI0g/xss34jppa8wufgt/FNIA+RX+v1.5+-+espacioapk.com.apk",
+    image: "https://i.imgur.com/pl7HGVi.jpg",
+    downloads: 0
+  },
+  {
+    id: 1789935000004,
+    name: "Ho My Waifu",
+    link: "https://www.mediafire.com/file/h22r0k79uxaldic/OMW+(1).apk/file",
+    image: "https://i.imgur.com/IuHm7vE.jpg",
+    downloads: 0
+  }
+];
 
-    function saveGames() {
-      try {
-        localStorage.setItem(STORAGE, JSON.stringify(games));
-        return true;
-      } catch (e) {
-        console.error('Error al guardar:', e);
-        return false;
-      }
+// === CARGA Y GUARDADO ===
+function saveGames() {
+  localStorage.setItem('leonardoGames', JSON.stringify(games));
+}
+
+function loadGames() {
+  const stored = localStorage.getItem('leonardoGames');
+  if (stored) {
+    try { games = JSON.parse(stored); }
+    catch { games = [...DEFAULT_GAMES]; }
+  } else {
+    games = [...DEFAULT_GAMES];
+  }
+  renderGames();
+}
+
+// === FILTRO Y PAGINACIÓN ===
+function getFilteredGames() {
+  if (!searchQuery) return games;
+  const q = searchQuery.toLowerCase();
+  return games.filter(g => g.name.toLowerCase().includes(q));
+}
+
+function renderGames() {
+  const filtered = getFilteredGames();
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  if (currentPage > totalPages) currentPage = totalPages;
+
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const pageGames = filtered.slice(start, start + PAGE_SIZE);
+  const grid = $('gamesGrid');
+
+  if (pageGames.length === 0) {
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px">No se encontraron juegos</p>';
+  } else {
+    grid.innerHTML = pageGames.map(game => `
+      <div class="game-card">
+        <img class="game-img" src="${game.image || FALLBACK_IMG}" alt="${game.name}" onerror="this.src='${FALLBACK_IMG}'">
+        <div class="game-info">
+          <h3 class="game-name">${game.name}</h3>
+          <p class="game-meta">📥 ${game.downloads || 0} descargas</p>
+          <button class="btn-download ${(!isCreator && !isUnlocked) ? 'btn-locked' : ''}" data-id="${game.id}">
+            ${(!isCreator && !isUnlocked) ? '🔒 Ver Anuncio' : '✅ Descargar'}
+          </button>
+          ${isCreator ? `
+            <div class="creator-actions">
+              <button class="btn-edit" data-edit="${game.id}">✏️ Editar</button>
+              <button class="btn-delete" data-del="${game.id}">🗑️ Eliminar</button>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  $('gameCount').textContent = `${filtered.length} juego${filtered.length !== 1 ? 's' : ''}`;
+  $('pageInfo').textContent = `${currentPage} / ${totalPages}`;
+  $('prevPage').disabled = currentPage <= 1;
+  $('nextPage').disabled = currentPage >= totalPages;
+}
+
+// === NAVEGACIÓN ===
+function showHome() {
+  $('homePage').classList.remove('hidden');
+  $('libraryPage').classList.add('hidden');
+  searchQuery = '';
+  $('homeSearch').value = '';
+  // Detectar código de creador en búsqueda
+}
+
+function showLibrary() {
+  $('homePage').classList.add('hidden');
+  $('libraryPage').classList.remove('hidden');
+  $('fabAdd').classList.toggle('hidden', !isCreator);
+  currentPage = 1;
+  renderGames();
+}
+
+// === ANUNCIO Y DESCARGA ===
+function openLockModal(game) {
+  pendingGame = game;
+  isUnlocked = false;
+  $('unlockBtn').classList.remove('visible');
+  $('lockCount').textContent = '7';
+  $('lockModal').classList.remove('hidden');
+  
+  if (countdownTimer) clearInterval(countdownTimer);
+  let sec = 7;
+  countdownTimer = setInterval(() => {
+    sec--;
+    $('lockCount').textContent = sec;
+    if (sec <= 0) {
+      clearInterval(countdownTimer);
+      $('unlockBtn').classList.add('visible');
     }
+  }, 1000);
+}
 
-    function loadGames() {
-      try {
-        const stored = localStorage.getItem(STORAGE);
-        if (stored) {
-          games = JSON.parse(stored);
-          if (!Array.isArray(games)) games = [];
-        }
-      } catch (e) {
-        games = [];
-      }
+function doDownload(game) {
+  game.downloads = (game.downloads || 0) + 1;
+  saveGames();
+  window.open(game.link, '_blank');
+  renderGames();
+}
 
-      if (games.length === 0) {
-        games = [{
-          id: 1789934945734,
-          name: "Minecraft",
-          link: "https://www.mediafire.com/file/cim5n289rfeguzn/mc%201.26.45.1%20-%20espacioapk.com.apk/file?dkey=l5wy06u4df0&r=577",
-          image: "https://www.mediafire.com/direct/file/qsfepf2eto52juy/2b9fb9043dc5fa89a89ccc23b88427b2+(1).jpg",
-          downloads: 3
-        }];
-        saveGames();
-      }
-    }
+// === MODAL ===
+function openAddModal() {
+  editingId = null;
+  $('modalTitle').textContent = 'Agregar Juego 🎮';
+  $('gameName').value = '';
+  $('gameLink').value = '';
+  $('gameImageUrl').value = '';
+  $('gameImageFile').value = '';
+  $('imgPreview').classList.add('hidden');
+  $('gameModal').classList.remove('hidden');
+}
 
-    function getFilteredGames() {
-      if (!searchQuery) return games;
-      return games.filter(g =>
-        g.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
+function openEditModal(game) {
+  editingId = game.id;
+  $('modalTitle').textContent = 'Editar Juego ✏️';
+  $('gameName').value = game.name;
+  $('gameLink').value = game.link;
+  $('gameImageUrl').value = '';
+  $('gameImageFile').value = '';
+  $('imgPreview').src = game.image || FALLBACK_IMG;
+  $('imgPreview').classList.remove('hidden');
+  $('gameModal').classList.remove('hidden');
+}
 
-    function renderLibrary() {
-      const grid = $('gamesGrid');
-      const filtered = getFilteredGames();
-      const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-      
-      if (currentPage > totalPages) currentPage = totalPages;
-      
-      const start = (currentPage - 1) * PAGE_SIZE;
-      const pageGames = filtered.slice(start, start + PAGE_SIZE);
+function closeModal() {
+  $('gameModal').classList.add('hidden');
+  editingId = null;
+}
 
-      grid.innerHTML = pageGames.map(game => `
-        <article class="card">
-          <img class="thumb" src="${game.image || FALLBACK_IMAGE}" alt="${game.name}" loading="lazy" onerror="this.src='${FALLBACK_IMAGE}'">
-          <div class="card-body">
-            <h3>${game.name}</h3>
-            <div class="meta">📥 ${game.downloads || 0} descargas</div>
-            <button class="download-btn" data-id="${game.id}">
-              ${isCreator || isUnlocked ? '✅ Descargar' : '🔒 Ver anuncio'}
-            </button>
-            ${isCreator ? `
-              <div class="creator-tools">
-                <button class="edit-btn" data-edit="${game.id}">✏️ Editar</button>
-                <button class="delete-btn" data-delete="${game.id}">🗑️ Eliminar</button>
-              </div>
-            ` : ''}
-          </div>
-        </article>
-      `).join('');
+async function saveGameData() {
+  const name = $('gameName').value.trim();
+  const link = $('gameLink').value.trim();
+  const imgUrl = $('gameImageUrl').value.trim();
+  const imgFile = $('gameImageFile').files[0];
 
-      $('totalGames').textContent = `${filtered.length} juegos`;
-      $('pageInfo').textContent = `${currentPage}/${totalPages}`;
-      $('prev').disabled = currentPage <= 1;
-      $('next').disabled = currentPage >= totalPages;
+  if (!name || !link) {
+    alert('⚠️ Nombre y enlace son obligatorios');
+    return;
+  }
 
-      grid.querySelectorAll('.download-btn').forEach(btn => {
-        btn.addEventListener('click', handleDownload);
-      });
-      if (isCreator) {
-        grid.querySelectorAll('.edit-btn').forEach(btn => {
-          btn.addEventListener('click', () => openEditModal(Number(btn.dataset.edit)));
-        });
-        grid.querySelectorAll('.delete-btn').forEach(btn => {
-          btn.addEventListener('click', () => confirmDelete(Number(btn.dataset.delete)));
-        });
-      }
-
-      if (isCreator) {
-        $('codePanel').classList.remove('hidden');
-        $('generatedCode').value = `const GAMES = ${JSON.stringify(games, null, 2)};`;
-      } else {
-        $('codePanel').classList.add('hidden');
-      }
-    }
-
-    function showLibrary() {
-      $('home').classList.add('hidden');
-      $('library').classList.remove('hidden');
-      renderLibrary();
-    }
-
-    function activateCreator() {
-      if (isCreator) {
-        alert('✅ Ya eres creador');
-        return;
-      }
-      isCreator = true;
-      $('fab').classList.remove('hidden');
-      showLibrary();
-      alert('✅ Bienvenido Creador! El botón + abajo a la derecha es para agregar juegos');
-    }
-
-    function handleHomeSearch() {
-      const val = $('homeSearch').value.trim();
-      if (val === CREATOR_CODE) {
-        $('homeSearch').value = '';
-        activateCreator();
-        return;
-      }
-      searchQuery = val;
-      currentPage = 1;
-      showLibrary();
-    }
-
-    function handleLibrarySearch() {
-      const val = $('librarySearch').value.trim();
-      if (val === CREATOR_CODE) {
-        $('librarySearch').value = '';
-        activateCreator();
-        return;
-      }
-      searchQuery = val;
-      currentPage = 1;
-      renderLibrary();
-    }
-
-    function handleDownload(e) {
-      const gameId = Number(e.target.dataset.id);
-      const game = games.find(g => g.id === gameId);
-      if (!game) return;
-
-      if (isCreator || isUnlocked) {
-        openGameDownload(game);
-      } else {
-        pendingGame = game;
-        showAdLock();
-      }
-    }
-
-    function openGameDownload(game) {
-      window.open(game.link, '_blank');
-      game.downloads = (game.downloads || 0) + 1;
-      saveGames();
-      renderLibrary();
-    }
-
-    function showAdLock() {
-      if (countdownTimer) clearInterval(countdownTimer);
-      isUnlocked = false;
-      $('lock').classList.remove('hidden');
-      $('count').textContent = '7';
-      $('unlock').classList.remove('show');
-    }
-
-    function startAdCountdown() {
-      window.open(AD_URL, '_blank');
-      let seconds = 7;
-      $('count').textContent = seconds;
-      
-      countdownTimer = setInterval(() => {
-        seconds--; 
-        $('count').textContent = seconds;
-        if (seconds <= 0) {
-          clearInterval(countdownTimer);
-          $('unlock').classList.add('show');
-        }
-      }, 1000);
-    }
-
-    function unlockAndDownload() {
-      if (!pendingGame) return;
-      const game = pendingGame;
-      pendingGame = null;
-      $('lock').classList.add('hidden');
-      isUnlocked = true;
-      openGameDownload(game);
-    }
-
-    function openAddModal() {
-      editingGameId = null;
-      $('modalTitle').textContent = 'Publicar juego 🎮';
-      $('name').value = '';
-      $('link').value = '';
-      $('imageUrl').value = '';
-      $('image').value = '';
-      $('preview').classList.add('hidden');
-      $('addModal').classList.remove('hidden');
-    }
-
-    function openEditModal(gameId) {
-      const game = games.find(g => g.id === gameId);
-      if (!game) return;
-      
-      editingGameId = gameId;
-      $('modalTitle').textContent = 'Editar juego 🎮';
-      $('name').value = game.name;
-      $('link').value = game.link;
-      $('imageUrl').value = '';
-      $('preview').src = game.image || FALLBACK_IMAGE;
-      $('preview').classList.remove('hidden');
-      $('addModal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-      $('addModal').classList.add('hidden');
-      editingGameId = null;
-      $('image').value = '';
-      $('imageUrl').value = '';
-      $('preview').classList.add('hidden');
-    }
-
-    function confirmDelete(gameId) {
-      const game = games.find(g => g.id === gameId);
-      if (!game) return;
-      if (!confirm(`¿Eliminar "${game.name}"? Esta acción no se puede deshacer.`)) return;
-      
-      games = games.filter(g => g.id !== gameId);
-      saveGames();
-      renderLibrary();
-    }
-
-    async function saveGame() {
-      const name = $('name').value.trim();
-      const link = $('link').value.trim();
-      const imageUrlInput = $('imageUrl').value.trim();
-      const imageFile = $('image').files[0];
-
-      if (!name || !link) {
-        alert('⚠️ Escribe el nombre y el enlace del juego');
-        return;
-      }
-      if (!link.startsWith('http://') && !link.startsWith('https://')) {
-        alert('⚠️ El enlace debe empezar con http:// o https://');
-        return;
-      }
-
-      let imageUrl = FALLBACK_IMAGE;
-      
-      if (imageUrlInput && (imageUrlInput.startsWith('http://') || imageUrlInput.startsWith('https://'))) {
-        imageUrl = imageUrlInput;
-      } else if (imageFile) {
-        try {
-          imageUrl = await new Promise(resolve => {
-            const reader = new FileReader();
-            reader.onload = e => resolve(e.target.result);
-            reader.readAsDataURL(imageFile);
-          });
-        } catch {
-          imageUrl = FALLBACK_IMAGE;
-        }
-      } else if (editingGameId) {
-        const oldGame = games.find(g => g.id === editingGameId);
-        if (oldGame) imageUrl = oldGame.image;
-      }
-
-      if (editingGameId) {
-        games = games.map(g => {
-          if (g.id === editingGameId) {
-            return { ...g, name, link, image: imageUrl };
-          }
-          return g;
-        });
-      } else {
-        games.unshift({
-          id: Date.now(),
-          name,
-          link,
-          image: imageUrl,
-          downloads: 0
-        });
-      }
-
-      saveGames();
-      closeModal();
-      renderLibrary();
-      alert('✅ ¡Guardado! Todos lo ven');
-    }
-
-    $('enter').addEventListener('click', showLibrary);
-    
-    $('homeSearchBtn').addEventListener('click', handleHomeSearch);
-    $('homeSearch').addEventListener('keydown', e => {
-      if (e.key === 'Enter') handleHomeSearch();
+  let image = FALLBACK_IMG;
+  if (imgUrl && imgUrl.startsWith('http')) {
+    image = imgUrl;
+  } else if (imgFile) {
+    image = await new Promise(res => {
+      const r = new FileReader();
+      r.onload = e => res(e.target.result);
+      r.readAsDataURL(imgFile);
     });
+  }
 
-    $('librarySearchBtn').addEventListener('click', handleLibrarySearch);
-    $('librarySearch').addEventListener('keydown', e => {
-      if (e.key === 'Enter') handleLibrarySearch();
+  if (editingId) {
+    const idx = games.findIndex(g => g.id === editingId);
+    if (idx !== -1) {
+      games[idx] = { ...games[idx], name, link, image };
+    }
+  } else {
+    games.unshift({
+      id: Date.now(),
+      name,
+      link,
+      image,
+      downloads: 0
     });
+  }
 
-    $('prev').addEventListener('click', () => {
-      if (currentPage > 1) { currentPage--; renderLibrary(); }
-    });
-    $('next').addEventListener('click', () => {
-      currentPage++; renderLibrary();
-    });
+  saveGames();
+  closeModal();
+  renderGames();
+}
 
-    $('adOpen').addEventListener('click', startAdCountdown);
-    $('unlock').addEventListener('click', unlockAndDownload);
+function deleteGame(id) {
+  if (!confirm('¿Eliminar este juego? No se puede deshacer.')) return;
+  games = games.filter(g => g.id !== id);
+  saveGames();
+  renderGames();
+}
 
-    $('fab').addEventListener('click', openAddModal);
-    $('cancel').addEventListener('click', closeModal);
-    $('save').addEventListener('click', saveGame);
+// === DETECTAR CÓDIGO CREADOR ===
+function checkCreatorCode(input) {
+  if (input.trim() === CREATOR_CODE) {
+    isCreator = true;
+    alert('✅ ¡Bienvenido Creador!');
+    showLibrary();
+    return true;
+  }
+  return false;
+}
 
-    $('image').addEventListener('change', e => {
-      const file = e.target.files[0];
-      if (!file) {
-        $('preview').classList.add('hidden');
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = e => {
-        $('preview').src = e.target.result;
-        $('preview').classList.remove('hidden');
-      };
-      reader.readAsDataURL(file);
-    });
+// === EVENTOS ===
+$('enterBtn').addEventListener('click', showLibrary);
+$('backHome').addEventListener('click', showHome);
 
-    $('copyCode').addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText($('generatedCode').value);
-        $('copyCode').textContent = '✅ Copiado';
-        setTimeout(() => {
-          $('copyCode').textContent = '📋 Copiar código';
-        }, 1500);
-      } catch {
-        $('generatedCode').select();
-        document.execCommand('copy');
-      }
-    });
+$('homeSearchBtn').addEventListener('click', () => {
+  const val = $('homeSearch').value.trim();
+  if (checkCreatorCode(val)) return;
+  searchQuery = val;
+  showLibrary();
+});
+$('homeSearch').addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const val = $('homeSearch').value.trim();
+    if (checkCreatorCode(val)) return;
+    searchQuery = val;
+    showLibrary();
+  }
+});
 
-    loadGames();
-  </script>
+$('libSearchBtn').addEventListener('click', () => {
+  searchQuery = $('libSearch').value.trim();
+  currentPage = 1;
+  renderGames();
+});
+$('libSearch').addEventListener('input', () => {
+  searchQuery = $('libSearch').value.trim();
+  currentPage = 1;
+  renderGames();
+});
+
+$('prevPage').addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderGames(); } });
+$('nextPage').addEventListener('click', () => { currentPage++; renderGames(); });
+
+$('fabAdd').addEventListener('click', openAddModal);
+$('modalCancel').addEventListener('click', closeModal);
+$('modalSave').addEventListener('click', saveGameData);
+
+$('gameImageFile').addEventListener('change', e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    $('imgPreview').src = ev.target.result;
+    $('imgPreview').classList.remove('hidden');
+  };
+  r.readAsDataURL(f);
+});
+
+// Delegar clics en tarjetas
+document.addEventListener('click', e => {
+  const dl = e.target.closest('.btn-download');
+  if (dl) {
+    const id = parseInt(dl.dataset.id);
+    const game = games.find(g => g.id === id);
+    if (!game) return;
+    if (isCreator || isUnlocked) {
+      doDownload(game);
+    } else {
+      openLockModal(game);
+    }
+  }
+
+  const ed = e.target.closest('[data-edit]');
+  if (ed) {
+    const id = parseInt(ed.dataset.edit);
+    const game = games.find(g => g.id === id);
+    if (game) openEditModal(game);
+  }
+
+  const de = e.target.closest('[data-del]');
+  if (de) {
+    const id = parseInt(de.dataset.del);
+    deleteGame(id);
+  }
+});
+
+// Anuncio
+$('goAdBtn').addEventListener('click', () => {
+  window.open(AD_URL, '_blank');
+});
+$('unlockBtn').addEventListener('click', () => {
+  isUnlocked = true;
+  $('lockModal').classList.add('hidden');
+  if (pendingGame) doDownload(pendingGame);
+  renderGames();
+});
+
+// Iniciar
+loadGames();
+</script>
 </body>
 </html>
