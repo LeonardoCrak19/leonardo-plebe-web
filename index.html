@@ -421,9 +421,10 @@
       <h3 id="modalTitle">Publicar juego 🎮</h3>
       <input id="name" class="field" placeholder="Nombre del juego">
       <input id="link" class="field" type="url" placeholder="Enlace de descarga">
+      <input id="imageUrl" class="field" type="url" placeholder="🔗 Enlace directo de imagen (recomendado)">
 
       <label class="image-picker">
-        🖼️ Elegir imagen de la galería
+        🖼️ O elegir imagen de la galería
         <input id="image" type="file" accept="image/*">
       </label>
 
@@ -453,7 +454,7 @@
 
     const CREATOR_CODE = '2k8L';
     const PAGE_SIZE = 6;
-    const STORAGE = 'leonardo_plebe_games_v5';
+    const STORAGE = 'leonardo_plebe_games_v6';
     const AD_URL = 'https://www.profitableratecpmnetwork.com/zg26qqbwk3?key=9a7994b8893e7a6cc73b4cfdc2f064e9';
     const FALLBACK_IMAGE = 'https://via.placeholder.com/120x120/0d1725/ffffff?text=🎮';
 
@@ -468,7 +469,6 @@
 
     const $ = id => document.getElementById(id);
 
-    // === GUARDAR Y CARGAR — ARREGLADO ===
     function saveGames() {
       try {
         localStorage.setItem(STORAGE, JSON.stringify(games));
@@ -487,24 +487,21 @@
           if (!Array.isArray(games)) games = [];
         }
       } catch (e) {
-        console.error('Error al cargar:', e);
         games = [];
       }
 
-      // Minecraft por defecto si está vacío
       if (games.length === 0) {
         games = [{
-          id: Date.now(),
+          id: 1789934945734,
           name: "Minecraft",
           link: "https://www.mediafire.com/file/cim5n289rfeguzn/mc%201.26.45.1%20-%20espacioapk.com.apk/file?dkey=l5wy06u4df0&r=577",
-          image: FALLBACK_IMAGE,
-          downloads: 0
+          image: "https://www.mediafire.com/direct/file/qsfepf2eto52juy/2b9fb9043dc5fa89a89ccc23b88427b2+(1).jpg",
+          downloads: 3
         }];
         saveGames();
       }
     }
 
-    // === FILTRAR JUEGOS ===
     function getFilteredGames() {
       if (!searchQuery) return games;
       return games.filter(g =>
@@ -512,7 +509,6 @@
       );
     }
 
-    // === RENDERIZAR BIBLIOTECA — ARREGLADO ===
     function renderLibrary() {
       const grid = $('gamesGrid');
       const filtered = getFilteredGames();
@@ -523,10 +519,9 @@
       const start = (currentPage - 1) * PAGE_SIZE;
       const pageGames = filtered.slice(start, start + PAGE_SIZE);
 
-      // Dibujar tarjetas
       grid.innerHTML = pageGames.map(game => `
         <article class="card">
-          <img class="thumb" src="${game.image || FALLBACK_IMAGE}" alt="${game.name}" loading="lazy">
+          <img class="thumb" src="${game.image || FALLBACK_IMAGE}" alt="${game.name}" loading="lazy" onerror="this.src='${FALLBACK_IMAGE}'">
           <div class="card-body">
             <h3>${game.name}</h3>
             <div class="meta">📥 ${game.downloads || 0} descargas</div>
@@ -543,13 +538,11 @@
         </article>
       `).join('');
 
-      // Info de paginación
       $('totalGames').textContent = `${filtered.length} juegos`;
       $('pageInfo').textContent = `${currentPage}/${totalPages}`;
       $('prev').disabled = currentPage <= 1;
       $('next').disabled = currentPage >= totalPages;
 
-      // Asignar eventos
       grid.querySelectorAll('.download-btn').forEach(btn => {
         btn.addEventListener('click', handleDownload);
       });
@@ -562,24 +555,20 @@
         });
       }
 
-      // Código compartible
       if (isCreator) {
         $('codePanel').classList.remove('hidden');
-        $('generatedCode').value = `// Copia y pega este código en tu página
-const GAMES = ${JSON.stringify(games, null, 2)};`;
+        $('generatedCode').value = `const GAMES = ${JSON.stringify(games, null, 2)};`;
       } else {
         $('codePanel').classList.add('hidden');
       }
     }
 
-    // === MOSTRAR BIBLIOTECA ===
     function showLibrary() {
       $('home').classList.add('hidden');
       $('library').classList.remove('hidden');
       renderLibrary();
     }
 
-    // === ACTIVAR MODO CREADOR ===
     function activateCreator() {
       if (isCreator) {
         alert('✅ Ya eres creador');
@@ -591,7 +580,6 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
       alert('✅ Bienvenido Creador! El botón + abajo a la derecha es para agregar juegos');
     }
 
-    // === BÚSQUEDA EN INICIO ===
     function handleHomeSearch() {
       const val = $('homeSearch').value.trim();
       if (val === CREATOR_CODE) {
@@ -604,7 +592,6 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
       showLibrary();
     }
 
-    // === BÚSQUEDA EN BIBLIOTECA ===
     function handleLibrarySearch() {
       const val = $('librarySearch').value.trim();
       if (val === CREATOR_CODE) {
@@ -617,7 +604,6 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
       renderLibrary();
     }
 
-    // === DESCARGAR ===
     function handleDownload(e) {
       const gameId = Number(e.target.dataset.id);
       const game = games.find(g => g.id === gameId);
@@ -638,7 +624,6 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
       renderLibrary();
     }
 
-    // === PANTALLA DE ANUNCIO ===
     function showAdLock() {
       if (countdownTimer) clearInterval(countdownTimer);
       isUnlocked = false;
@@ -653,7 +638,7 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
       $('count').textContent = seconds;
       
       countdownTimer = setInterval(() => {
-        seconds--;
+        seconds--; 
         $('count').textContent = seconds;
         if (seconds <= 0) {
           clearInterval(countdownTimer);
@@ -671,12 +656,12 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
       openGameDownload(game);
     }
 
-    // === MODAL: AGREGAR / EDITAR ===
     function openAddModal() {
       editingGameId = null;
       $('modalTitle').textContent = 'Publicar juego 🎮';
       $('name').value = '';
       $('link').value = '';
+      $('imageUrl').value = '';
       $('image').value = '';
       $('preview').classList.add('hidden');
       $('addModal').classList.remove('hidden');
@@ -690,6 +675,7 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
       $('modalTitle').textContent = 'Editar juego 🎮';
       $('name').value = game.name;
       $('link').value = game.link;
+      $('imageUrl').value = '';
       $('preview').src = game.image || FALLBACK_IMAGE;
       $('preview').classList.remove('hidden');
       $('addModal').classList.remove('hidden');
@@ -699,6 +685,7 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
       $('addModal').classList.add('hidden');
       editingGameId = null;
       $('image').value = '';
+      $('imageUrl').value = '';
       $('preview').classList.add('hidden');
     }
 
@@ -712,10 +699,10 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
       renderLibrary();
     }
 
-    // === GUARDAR JUEGO ===
     async function saveGame() {
       const name = $('name').value.trim();
       const link = $('link').value.trim();
+      const imageUrlInput = $('imageUrl').value.trim();
       const imageFile = $('image').files[0];
 
       if (!name || !link) {
@@ -729,8 +716,9 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
 
       let imageUrl = FALLBACK_IMAGE;
       
-      // Si seleccionó imagen, la cargamos
-      if (imageFile) {
+      if (imageUrlInput && (imageUrlInput.startsWith('http://') || imageUrlInput.startsWith('https://'))) {
+        imageUrl = imageUrlInput;
+      } else if (imageFile) {
         try {
           imageUrl = await new Promise(resolve => {
             const reader = new FileReader();
@@ -741,13 +729,11 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
           imageUrl = FALLBACK_IMAGE;
         }
       } else if (editingGameId) {
-        // Mantener imagen anterior si no cambia nada
         const oldGame = games.find(g => g.id === editingGameId);
         if (oldGame) imageUrl = oldGame.image;
       }
 
       if (editingGameId) {
-        // Actualizar existente
         games = games.map(g => {
           if (g.id === editingGameId) {
             return { ...g, name, link, image: imageUrl };
@@ -755,7 +741,6 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
           return g;
         });
       } else {
-        // Nuevo juego
         games.unshift({
           id: Date.now(),
           name,
@@ -771,7 +756,6 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
       alert('✅ ¡Guardado! Todos lo ven');
     }
 
-    // === EVENTOS ===
     $('enter').addEventListener('click', showLibrary);
     
     $('homeSearchBtn').addEventListener('click', handleHomeSearch);
@@ -798,7 +782,6 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
     $('cancel').addEventListener('click', closeModal);
     $('save').addEventListener('click', saveGame);
 
-    // Vista previa de imagen
     $('image').addEventListener('change', e => {
       const file = e.target.files[0];
       if (!file) {
@@ -813,7 +796,6 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
       reader.readAsDataURL(file);
     });
 
-    // Copiar código
     $('copyCode').addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText($('generatedCode').value);
@@ -827,13 +809,6 @@ const GAMES = ${JSON.stringify(games, null, 2)};`;
       }
     });
 
-    // Reiniciar estado al cerrar
-    window.addEventListener('beforeunload', () => {
-      isUnlocked = false;
-      // No cerramos sesión de creador para que no sea molesto
-    });
-
-    // === INICIAR TODO ===
     loadGames();
   </script>
 </body>
