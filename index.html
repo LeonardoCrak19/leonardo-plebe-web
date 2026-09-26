@@ -8,7 +8,7 @@
   <style>
     :root{
       --bg:#050a10;
-      --card:#0d1725;
+      --card:#0f172a;
       --green:#22c55e;
       --green2:#15803d;
       --blue:#1e40af;
@@ -23,240 +23,295 @@
       min-height:100vh;
       background:var(--bg);
       color:var(--text);
-      padding-bottom:30px;
+      padding-bottom:70px;
     }
     button,input{font:inherit}
     button{cursor:pointer;border:0}
     input{outline:0;border:1px solid var(--line)}
     .hidden{display:none!important}
 
-    /* === INICIO === */
+    /* === INICIO MÁS PEQUEÑO === */
     .home{
-      max-width:1200px;
+      max-width:420px;
       margin:0 auto;
-      padding:40px 20px;
+      padding:40px 16px 30px;
       text-align:center;
     }
-    .brand{font-size:clamp(2rem,5vw,3.5rem);margin-bottom:10px}
-    .subtitle{color:var(--muted);margin-bottom:30px}
+    .brand{font-size:clamp(1.6rem,5vw,2.2rem);margin-bottom:6px}
+    .subtitle{color:var(--muted);margin-bottom:24px;font-size:14px}
     .search-bar{
       display:flex;
-      gap:10px;
-      max-width:500px;
-      margin:0 auto 30px;
+      gap:8px;
+      margin-bottom:24px;
     }
     .search{
       flex:1;
-      padding:14px 18px;
-      border-radius:12px;
+      padding:12px 14px;
+      border-radius:10px;
       background:var(--card);
       color:var(--text);
       border:1px solid var(--line);
-      font-size:16px;
+      font-size:15px;
     }
     .btn-primary{
-      padding:14px 24px;
-      border-radius:12px;
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#000;
-      font-weight:700;
-      font-size:16px;
-    }
-    .ad-space{
-      max-width:720px;
-      margin:0 auto 30px;
-      padding:20px;
-      border-radius:16px;
-      border:1px solid var(--line);
-      background:#ffffff05;
-    }
-    .enter-btn{
-      padding:16px 40px;
-      font-size:18px;
-      border-radius:14px;
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#000;
-      font-weight:700;
-    }
-
-    /* === BIBLIOTECA === */
-    .library{
-      max-width:1200px;
-      margin:0 auto;
-      padding:30px 20px;
-    }
-    .header-top{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:25px;
-      flex-wrap:wrap;
-      gap:15px;
-    }
-    .back-btn{
-      background:transparent;
-      color:var(--muted);
-      font-size:16px;
-      padding:8px 12px;
-    }
-    .back-btn:hover{color:var(--text)}
-    .page-title{font-size:clamp(1.5rem,3vw,2rem)}
-    .library-search{
-      display:flex;
-      gap:10px;
-      margin-bottom:30px;
-    }
-    .games-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-      gap:25px;
-    }
-    .game-card{
-      background:var(--card);
-      border-radius:16px;
-      overflow:hidden;
-      border:1px solid var(--line);
-      transition:transform .2s,border-color .2s;
-    }
-    .game-card:hover{
-      transform:translateY(-4px);
-      border-color:var(--green);
-    }
-    .game-img{
-      width:100%;
-      height:200px;
-      object-fit:cover;
-      background:#1a2e35;
-    }
-    .game-info{padding:18px}
-    .game-name{font-size:18px;font-weight:700;margin-bottom:8px}
-    .game-meta{
-      color:var(--muted);
-      font-size:14px;
-      margin-bottom:15px;
-    }
-    .btn-download{
-      width:100%;
-      padding:12px;
+      padding:12px 16px;
       border-radius:10px;
       background:linear-gradient(135deg,var(--green),var(--green2));
       color:#000;
       font-weight:700;
       font-size:15px;
-      margin-bottom:10px;
     }
-    .btn-locked{
-      background:#333;
-      color:#888;
-      cursor:not-allowed
+    .ad-space{
+      margin:0 auto 24px;
+      padding:16px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:#ffffff05;
     }
-    .creator-actions{
+    .enter-btn{
+      padding:14px 32px;
+      font-size:16px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--green),var(--green2));
+      color:#000;
+      font-weight:700;
+    }
+
+    /* === BIBLIOTECA MÁS COMPACTA === */
+    .library{
+      max-width:420px;
+      margin:0 auto;
+      padding:18px 12px;
+    }
+    .lib-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:16px;
+    }
+    .back-btn{
+      background:transparent;
+      color:var(--muted);
+      font-size:15px;
+      padding:6px 0;
+    }
+    .page-title{font-size:1.3rem}
+    .game-count{color:var(--muted);font-size:13px}
+    
+    .lib-search{
       display:flex;
       gap:8px;
-      margin-top:10px
+      margin-bottom:18px;
+    }
+
+    /* === TARJETAS CUADRADAS MÁS PEQUEÑAS === */
+    .games-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+    .game-card{
+      background:var(--card);
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid transparent;
+      transition:border-color .2s,transform .2s;
+    }
+    .game-card:hover{
+      border-color:var(--green);
+      transform:translateY(-2px);
+    }
+    .game-img{
+      width:100%;
+      aspect-ratio:1/1;
+      object-fit:cover;
+      background:#1e293b;
+    }
+    .game-info{
+      padding:10px;
+    }
+    .game-name{
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:4px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .game-meta{
+      font-size:11px;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
+    .stars{
+      color:#facc15;
+      font-size:11px;
+      margin-bottom:8px;
+    }
+    .btn-download{
+      width:100%;
+      padding:9px;
+      border-radius:8px;
+      background:linear-gradient(135deg,var(--green),var(--green2));
+      color:#000;
+      font-weight:700;
+      font-size:13px;
+    }
+    .btn-locked{
+      background:#334155;
+      color:#94a3b8;
+      cursor:not-allowed;
+      background:none;
+      border:1px solid #334155;
+    }
+    .creator-buttons{
+      display:flex;
+      gap:6px;
+      margin-top:8px;
     }
     .btn-edit{
       flex:1;
-      padding:10px;
+      padding:8px;
       border-radius:8px;
-      background:var(--blue);
+      background:#1e40af;
       color:#fff;
-      font-weight:600
+      font-size:13px;
+      font-weight:600;
     }
     .btn-delete{
       flex:1;
-      padding:10px;
+      padding:8px;
       border-radius:8px;
-      background:var(--red);
+      background:#dc2626;
       color:#fff;
-      font-weight:600
+      font-size:13px;
+      font-weight:600;
     }
-    .fab-add{
-      position:fixed;
-      bottom:25px;
-      right:25px;
-      width:60px;
-      height:60px;
-      border-radius:50%;
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#000;
-      font-size:28px;
-      font-weight:700;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow:0 4px 15px #0006;
-      z-index:100
-    }
+
+    /* === PAGINACIÓN === */
     .pagination{
       display:flex;
       justify-content:center;
       align-items:center;
-      gap:20px;
-      margin-top:40px
+      gap:16px;
+      margin-top:24px;
     }
     .page-btn{
-      padding:10px 16px;
+      padding:9px 14px;
       border-radius:8px;
       background:var(--card);
       color:var(--text);
-      border:1px solid var(--line)
+      border:1px solid var(--line);
+      font-size:14px;
     }
     .page-btn:disabled{opacity:.4;cursor:not-allowed}
+
+    /* === BOTÓN AGREGAR === */
+    .fab-add{
+      position:fixed;
+      bottom:90px;
+      right:16px;
+      width:52px;
+      height:52px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--green),var(--green2));
+      color:#000;
+      font-size:24px;
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 4px 12px #0005;
+      z-index:90;
+    }
+
+    /* === BARRA DE NAVEGACIÓN INFERIOR === */
+    .nav-bar{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      background:var(--card);
+      border-top:1px solid var(--line);
+      display:flex;
+      justify-content:space-around;
+      padding:8px 0;
+      z-index:80;
+    }
+    .nav-btn{
+      background:transparent;
+      color:var(--muted);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:4px;
+      font-size:11px;
+    }
+    .nav-btn.active{color:var(--green)}
+    .nav-icon{font-size:20px}
 
     /* === MODAL === */
     .modal-backdrop{
       position:fixed;
       inset:0;
-      background:#000c;
+      background:#000e;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:20px;
-      z-index:200
+      padding:16px;
+      z-index:200;
     }
     .modal{
       background:var(--card);
       border-radius:16px;
-      padding:25px;
-      max-width:450px;
+      padding:20px;
+      max-width:380px;
       width:100%;
-      border:1px solid var(--line)
+      border:1px solid var(--line);
     }
-    .modal h3{margin-bottom:20px;text-align:center}
+    .modal h3{margin-bottom:16px;text-align:center;font-size:1.25rem}
     .modal input{
       width:100%;
-      padding:12px 15px;
-      margin-bottom:12px;
-      border-radius:10px;
+      padding:11px 13px;
+      margin-bottom:10px;
+      border-radius:9px;
       background:#0003;
       color:var(--text);
       border:1px solid var(--line);
-      font-size:15px
+      font-size:14px;
     }
     .modal-actions{
       display:flex;
       gap:10px;
-      margin-top:10px
+      margin-top:10px;
     }
     .btn-cancel{
       flex:1;
-      padding:12px;
-      border-radius:10px;
-      background:#333;
+      padding:11px;
+      border-radius:9px;
+      background:#334155;
       color:#fff;
-      font-weight:600
+      font-weight:600;
+      font-size:14px;
     }
     .btn-save{
       flex:1;
-      padding:12px;
-      border-radius:10px;
+      padding:11px;
+      border-radius:9px;
       background:linear-gradient(135deg,var(--green),var(--green2));
       color:#000;
-      font-weight:700
+      font-weight:700;
+      font-size:14px;
     }
+    .img-preview{
+      width:100%;
+      border-radius:10px;
+      margin:10px 0;
+      display:none;
+    }
+    .img-preview.show{display:block}
 
-    /* === ANUNCIO / BLOQUEO === */
+    /* === BLOQUEO DE ANUNCIO === */
     .lock-modal{
       position:fixed;
       inset:0;
@@ -264,43 +319,45 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:20px;
-      z-index:300
+      padding:16px;
+      z-index:300;
     }
     .lock-box{
       background:var(--card);
       border-radius:16px;
-      padding:30px;
-      max-width:400px;
+      padding:24px;
+      max-width:340px;
       width:100%;
       text-align:center;
-      border:1px solid var(--line)
+      border:1px solid var(--line);
     }
+    .lock-box h2{font-size:1.25rem;margin-bottom:8px}
+    .lock-box p{font-size:14px;color:var(--muted)}
     .lock-count{
-      font-size:3rem;
+      font-size:2.5rem;
       font-weight:700;
       color:var(--green);
-      margin:20px 0
+      margin:16px 0;
     }
     .btn-ad{
       width:100%;
-      padding:14px;
-      border-radius:10px;
+      padding:12px;
+      border-radius:9px;
       background:linear-gradient(135deg,#f97316,#ea580c);
       color:#fff;
       font-weight:700;
-      font-size:16px;
-      margin-bottom:12px
+      font-size:15px;
+      margin-bottom:10px;
     }
     .btn-unlock{
       width:100%;
-      padding:14px;
-      border-radius:10px;
+      padding:12px;
+      border-radius:9px;
       background:var(--green);
       color:#000;
       font-weight:700;
-      font-size:16px;
-      display:none
+      font-size:15px;
+      display:none;
     }
     .btn-unlock.visible{display:block}
   </style>
@@ -310,7 +367,7 @@
   <!-- === PÁGINA DE INICIO === -->
   <div id="homePage" class="home">
     <h1 class="brand">Leonardo Plebe 🎮</h1>
-    <p class="subtitle">Tus juegos favoritos en un solo lugar</p>
+    <p class="subtitle">Tus juegos favoritos aquí</p>
     
     <div class="search-bar">
       <input id="homeSearch" class="search" type="text" placeholder="Buscar juegos...">
@@ -327,27 +384,48 @@
 
   <!-- === BIBLIOTECA === -->
   <div id="libraryPage" class="library hidden">
-    <div class="header-top">
-      <button id="backHome" class="back-btn">← Volver</button>
-      <h2 class="page-title">Biblioteca de Juegos</h2>
-      <span id="gameCount" class="muted">0 juegos</span>
+    <div class="lib-header">
+      <button id="backHome" class="back-btn">← Inicio</button>
+      <h2 class="page-title">Juegos</h2>
+      <span id="gameCount" class="game-count">0</span>
     </div>
 
-    <div class="library-search">
-      <input id="libSearch" class="search" type="text" placeholder="Buscar por nombre...">
-      <button id="libSearchBtn" class="btn-primary">Buscar</button>
+    <div class="lib-search">
+      <input id="libSearch" class="search" type="text" placeholder="Buscar...">
+      <button id="libSearchBtn" class="btn-primary">🔍</button>
     </div>
 
     <div id="gamesGrid" class="games-grid"></div>
 
     <div class="pagination">
       <button id="prevPage" class="page-btn">←</button>
-      <span id="pageInfo">1 / 1</span>
+      <span id="pageInfo">1/1</span>
       <button id="nextPage" class="page-btn">→</button>
     </div>
-
-    <button id="fabAdd" class="fab-add hidden">+</button>
   </div>
+
+  <!-- === BOTÓN AGREGAR === -->
+  <button id="fabAdd" class="fab-add hidden">+</button>
+
+  <!-- === BARRA DE NAVEGACIÓN === -->
+  <nav id="navBar" class="nav-bar hidden">
+    <button class="nav-btn active" data-view="games">
+      <span class="nav-icon">🎮</span>
+      Juegos
+    </button>
+    <button class="nav-btn" data-view="apps">
+      <span class="nav-icon">📱</span>
+      Apps
+    </button>
+    <button class="nav-btn" data-view="popular">
+      <span class="nav-icon">🔥</span>
+      Popular
+    </button>
+    <button class="nav-btn" data-view="skins">
+      <span class="nav-icon">🎨</span>
+      Skins
+    </button>
+  </nav>
 
   <!-- === MODAL AGREGAR/EDITAR === -->
   <div id="gameModal" class="modal-backdrop hidden">
@@ -355,9 +433,9 @@
       <h3 id="modalTitle">Agregar Juego 🎮</h3>
       <input id="gameName" type="text" placeholder="Nombre del juego">
       <input id="gameLink" type="url" placeholder="Enlace de descarga">
-      <input id="gameImageUrl" type="url" placeholder="🔗 Enlace directo de imagen">
-      <input id="gameImageFile" type="file" accept="image/*">
-      <img id="imgPreview" class="hidden" style="width:100%;border-radius:10px;margin:10px 0" alt="Vista previa">
+      <input id="gameImageUrl" type="url" placeholder="🔗 Enlace de imagen (Imgur)">
+      <input id="gameImageFile" type="file" accept="image/*" placeholder="O sube desde galería">
+      <img id="imgPreview" class="img-preview" alt="Vista previa">
       <div class="modal-actions">
         <button id="modalCancel" class="btn-cancel">Cancelar</button>
         <button id="modalSave" class="btn-save">Guardar</button>
@@ -380,9 +458,9 @@
 'use strict';
 
 const CREATOR_CODE = '2k8L';
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 8;
 const AD_URL = 'https://www.profitableratecpmnetwork.com/zg26qqbwk3?key=9a7994b8893e7a6cc73b4cfdc2f064e9';
-const FALLBACK_IMG = 'https://via.placeholder.com/280x200/0d1725/ffffff?text=🎮';
+const FALLBACK_IMG = 'https://via.placeholder.com/300/0f172a/f8fafc?text=🎮';
 
 let games = [];
 let currentPage = 1;
@@ -395,46 +473,56 @@ let editingId = null;
 
 const $ = id => document.getElementById(id);
 
-// === JUEGOS INCLUIDOS DESDE EL INICIO ===
+// === JUEGOS INICIALES ===
 const DEFAULT_GAMES = [
   {
     id: 1789934945734,
     name: "Minecraft",
     link: "https://www.mediafire.com/file/cim5n289rfeguzn/mc%201.26.45.1%20-%20espacioapk.com.apk/file?dkey=l5wy06u4df0&r=577",
     image: "https://i.imgur.com/I4f3CVY.jpg",
-    downloads: 3
+    downloads: 3,
+    version: "1.26.45.1",
+    date: "26 sep 2026"
   },
   {
     id: 1789935000001,
     name: "Bulma Adventure 3",
     link: "https://www.mediafire.com/file/tjoxvvu7hg7g0j6/Bulma%20Adventure%203%20v1.0%20-%20espacioapk.com.apk/file?dkey=ek6a12ukl68&r=1259",
     image: "https://i.imgur.com/vHLKb6n.jpg",
-    downloads: 0
+    downloads: 0,
+    version: "v1.0",
+    date: "26 sep 2026"
   },
   {
     id: 1789935000002,
     name: "Bulma Adventure",
     link: "https://espacioapk.co/apk/Bulma%20Adventure%201%20v1.00%20-%20espacioapk.com.apk",
     image: "https://i.imgur.com/3QMpOBC.jpg",
-    downloads: 0
+    downloads: 0,
+    version: "v1.00",
+    date: "26 sep 2026"
   },
   {
     id: 1789935000003,
-    name: "Five Nights in Anime RX Edition",
+    name: "Five Nights in Anime RX",
     link: "https://download2391.mediafire.com/7ozvcnr8dkwgaejggLepLRuFXKM7UhReZSwIJNYVWTHU3dofbyYp8DkQueNnljEJvsgpqFUjHVM388TVfyYnSfPx4cIUBEwEddxavDtmyJfW0VLqMWSCmpkugM1cXGWaZMaPEvWOmBMccZMYhW7q6TD30zWeGp5H8vCRS-xQEdHI0g/xss34jppa8wufgt/FNIA+RX+v1.5+-+espacioapk.com.apk",
     image: "https://i.imgur.com/pl7HGVi.jpg",
-    downloads: 0
+    downloads: 0,
+    version: "v1.5",
+    date: "26 sep 2026"
   },
   {
     id: 1789935000004,
     name: "Ho My Waifu",
     link: "https://www.mediafire.com/file/h22r0k79uxaldic/OMW+(1).apk/file",
     image: "https://i.imgur.com/IuHm7vE.jpg",
-    downloads: 0
+    downloads: 0,
+    version: "1.0",
+    date: "26 sep 2026"
   }
 ];
 
-// === CARGA Y GUARDADO ===
+// === GUARDADO ===
 function saveGames() {
   localStorage.setItem('leonardoGames', JSON.stringify(games));
 }
@@ -450,13 +538,21 @@ function loadGames() {
   renderGames();
 }
 
-// === FILTRO Y PAGINACIÓN ===
+// === FILTROS ===
 function getFilteredGames() {
   if (!searchQuery) return games;
   const q = searchQuery.toLowerCase();
   return games.filter(g => g.name.toLowerCase().includes(q));
 }
 
+// === ESTRELLITAS ===
+function renderStars(rating = 4) {
+  let s = '';
+  for (let i=0; i<5; i++) s += i < rating ? '★' : '☆';
+  return s;
+}
+
+// === RENDERIZADO PRINCIPAL ===
 function renderGames() {
   const filtered = getFilteredGames();
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
@@ -467,21 +563,22 @@ function renderGames() {
   const grid = $('gamesGrid');
 
   if (pageGames.length === 0) {
-    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px">No se encontraron juegos</p>';
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px">No hay juegos</p>';
   } else {
     grid.innerHTML = pageGames.map(game => `
       <div class="game-card">
         <img class="game-img" src="${game.image || FALLBACK_IMG}" alt="${game.name}" onerror="this.src='${FALLBACK_IMG}'">
         <div class="game-info">
           <h3 class="game-name">${game.name}</h3>
-          <p class="game-meta">📥 ${game.downloads || 0} descargas</p>
+          <p class="game-meta">${game.version || ''}<br>${game.date || ''}</p>
+          <div class="stars">${renderStars()}</div>
           <button class="btn-download ${(!isCreator && !isUnlocked) ? 'btn-locked' : ''}" data-id="${game.id}">
             ${(!isCreator && !isUnlocked) ? '🔒 Ver Anuncio' : '✅ Descargar'}
           </button>
           ${isCreator ? `
-            <div class="creator-actions">
-              <button class="btn-edit" data-edit="${game.id}">✏️ Editar</button>
-              <button class="btn-delete" data-del="${game.id}">🗑️ Eliminar</button>
+            <div class="creator-buttons">
+              <button class="btn-edit" data-edit="${game.id}">✏️</button>
+              <button class="btn-delete" data-del="${game.id}">🗑️</button>
             </div>
           ` : ''}
         </div>
@@ -489,8 +586,8 @@ function renderGames() {
     `).join('');
   }
 
-  $('gameCount').textContent = `${filtered.length} juego${filtered.length !== 1 ? 's' : ''}`;
-  $('pageInfo').textContent = `${currentPage} / ${totalPages}`;
+  $('gameCount').textContent = `${filtered.length}`;
+  $('pageInfo').textContent = `${currentPage}/${totalPages}`;
   $('prevPage').disabled = currentPage <= 1;
   $('nextPage').disabled = currentPage >= totalPages;
 }
@@ -499,20 +596,22 @@ function renderGames() {
 function showHome() {
   $('homePage').classList.remove('hidden');
   $('libraryPage').classList.add('hidden');
+  $('navBar').classList.add('hidden');
+  $('fabAdd').classList.add('hidden');
   searchQuery = '';
   $('homeSearch').value = '';
-  // Detectar código de creador en búsqueda
 }
 
 function showLibrary() {
   $('homePage').classList.add('hidden');
   $('libraryPage').classList.remove('hidden');
+  $('navBar').classList.remove('hidden');
   $('fabAdd').classList.toggle('hidden', !isCreator);
   currentPage = 1;
   renderGames();
 }
 
-// === ANUNCIO Y DESCARGA ===
+// === ANUNCIO ===
 function openLockModal(game) {
   pendingGame = game;
   isUnlocked = false;
@@ -547,7 +646,8 @@ function openAddModal() {
   $('gameLink').value = '';
   $('gameImageUrl').value = '';
   $('gameImageFile').value = '';
-  $('imgPreview').classList.add('hidden');
+  $('imgPreview').src = '';
+  $('imgPreview').classList.remove('show');
   $('gameModal').classList.remove('hidden');
 }
 
@@ -559,7 +659,7 @@ function openEditModal(game) {
   $('gameImageUrl').value = '';
   $('gameImageFile').value = '';
   $('imgPreview').src = game.image || FALLBACK_IMG;
-  $('imgPreview').classList.remove('hidden');
+  $('imgPreview').classList.add('show');
   $('gameModal').classList.remove('hidden');
 }
 
@@ -590,6 +690,8 @@ async function saveGameData() {
     });
   }
 
+  const today = new Date().toLocaleDateString('es-ES', {day:'numeric', month:'short', year:'numeric'});
+
   if (editingId) {
     const idx = games.findIndex(g => g.id === editingId);
     if (idx !== -1) {
@@ -601,7 +703,9 @@ async function saveGameData() {
       name,
       link,
       image,
-      downloads: 0
+      downloads: 0,
+      version: "1.0",
+      date: today
     });
   }
 
@@ -611,13 +715,13 @@ async function saveGameData() {
 }
 
 function deleteGame(id) {
-  if (!confirm('¿Eliminar este juego? No se puede deshacer.')) return;
+  if (!confirm('¿Eliminar? No se puede deshacer.')) return;
   games = games.filter(g => g.id !== id);
   saveGames();
   renderGames();
 }
 
-// === DETECTAR CÓDIGO CREADOR ===
+// === CÓDIGO CREADOR ===
 function checkCreatorCode(input) {
   if (input.trim() === CREATOR_CODE) {
     isCreator = true;
@@ -671,12 +775,12 @@ $('gameImageFile').addEventListener('change', e => {
   const r = new FileReader();
   r.onload = ev => {
     $('imgPreview').src = ev.target.result;
-    $('imgPreview').classList.remove('hidden');
+    $('imgPreview').classList.add('show');
   };
   r.readAsDataURL(f);
 });
 
-// Delegar clics en tarjetas
+// Acciones en tarjetas
 document.addEventListener('click', e => {
   const dl = e.target.closest('.btn-download');
   if (dl) {
