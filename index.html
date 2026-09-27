@@ -32,7 +32,6 @@
     input{outline:0;border:1px solid var(--line)}
     .hidden{display:none!important}
 
-    /* === INICIO === */
     .home{
       max-width:420px;
       margin:0 auto;
@@ -79,7 +78,6 @@
       font-weight:700;
     }
 
-    /* === BIBLIOTECA === */
     .library{
       max-width:420px;
       margin:0 auto;
@@ -99,14 +97,12 @@
     }
     .page-title{font-size:1.3rem}
     .game-count{color:var(--muted);font-size:13px}
-    
     .lib-search{
       display:flex;
       gap:8px;
       margin-bottom:18px;
     }
 
-    /* === POPULAR: 2 COLUMNAS === */
     .popular-sections{
       display:grid;
       grid-template-columns:1fr 1fr;
@@ -140,10 +136,7 @@
       background:#1e293b;
       flex-shrink:0;
     }
-    .mini-info{
-      flex:1;
-      min-width:0;
-    }
+    .mini-info{flex:1;min-width:0}
     .mini-name{
       font-size:12px;
       font-weight:700;
@@ -157,7 +150,6 @@
       margin-top:2px;
     }
 
-    /* === TARJETAS DE JUEGOS === */
     .games-grid{
       display:grid;
       grid-template-columns:repeat(2,1fr);
@@ -180,9 +172,7 @@
       object-fit:cover;
       background:#1e293b;
     }
-    .game-info{
-      padding:10px;
-    }
+    .game-info{padding:10px}
     .game-name{
       font-size:14px;
       font-weight:700;
@@ -241,7 +231,6 @@
       font-weight:600;
     }
 
-    /* === PAGINACIÓN === */
     .pagination{
       display:flex;
       justify-content:center;
@@ -259,7 +248,6 @@
     }
     .page-btn:disabled{opacity:.4;cursor:not-allowed}
 
-    /* === BOTÓN AGREGAR === */
     .fab-add{
       position:fixed;
       bottom:90px;
@@ -278,7 +266,6 @@
       z-index:90;
     }
 
-    /* === BARRA DE NAVEGACIÓN === */
     .nav-bar{
       position:fixed;
       bottom:0;
@@ -303,7 +290,6 @@
     .nav-btn.active{color:var(--green)}
     .nav-icon{font-size:20px}
 
-    /* === MODAL === */
     .modal-backdrop{
       position:fixed;
       inset:0;
@@ -364,7 +350,6 @@
     }
     .img-preview.show{display:block}
 
-    /* === BLOQUEO DE ANUNCIO === */
     .lock-modal{
       position:fixed;
       inset:0;
@@ -414,7 +399,6 @@
     }
     .btn-unlock.visible{display:block}
 
-    /* === CALIFICAR ESTRELLAS === */
     .rate-modal{
       position:fixed;
       inset:0;
@@ -445,7 +429,6 @@
 </head>
 <body>
 
-  <!-- === PÁGINA DE INICIO === -->
   <div id="homePage" class="home">
     <h1 class="brand">Leonardo Plebe 🎮</h1>
     <p class="subtitle">Tus juegos favoritos aquí</p>
@@ -463,7 +446,6 @@
     <button id="enterBtn" class="enter-btn">🎮 Ver Biblioteca</button>
   </div>
 
-  <!-- === BIBLIOTECA: JUEGOS === -->
   <div id="gamesPage" class="library hidden">
     <div class="lib-header">
       <button id="backHome1" class="back-btn">← Inicio</button>
@@ -482,7 +464,6 @@
     </div>
   </div>
 
-  <!-- === POPULAR: 2 COLUMNAS === -->
   <div id="popularPage" class="library hidden">
     <div class="lib-header">
       <button id="backHome2" class="back-btn">← Inicio</button>
@@ -491,12 +472,10 @@
     </div>
 
     <div class="popular-sections">
-      <!-- Más Descargados -->
       <div class="popular-section section-downloads">
         <h3>📥 Más Descargados</h3>
         <div id="topDownloads"></div>
       </div>
-      <!-- Mejor Calificados -->
       <div class="popular-section section-stars">
         <h3>⭐ Mejor Calificados</h3>
         <div id="topStars"></div>
@@ -507,10 +486,8 @@
     <div id="popularGrid" class="games-grid"></div>
   </div>
 
-  <!-- === BOTÓN AGREGAR === -->
   <button id="fabAdd" class="fab-add hidden">+</button>
 
-  <!-- === BARRA DE NAVEGACIÓN === -->
   <nav id="navBar" class="nav-bar hidden">
     <button class="nav-btn active" data-page="games">
       <span class="nav-icon">🎮</span>
@@ -522,7 +499,6 @@
     </button>
   </nav>
 
-  <!-- === MODAL AGREGAR/EDITAR === -->
   <div id="gameModal" class="modal-backdrop hidden">
     <div class="modal">
       <h3 id="modalTitle">Agregar Juego 🎮</h3>
@@ -538,7 +514,6 @@
     </div>
   </div>
 
-  <!-- === BLOQUEO DE ANUNCIO === -->
   <div id="lockModal" class="lock-modal hidden">
     <div class="lock-box">
       <h2>🔒 Desbloquear Descarga</h2>
@@ -549,7 +524,6 @@
     </div>
   </div>
 
-  <!-- === CALIFICAR ESTRELLAS === -->
   <div id="rateModal" class="rate-modal hidden">
     <div class="rate-box">
       <h3>⭐ Calificar Juego</h3>
@@ -586,20 +560,14 @@ let editingId = null;
 let selectedRating = 0;
 let ratingGameId = null;
 
-// ==============================================
-// 🔑 CLAVE PARA DATOS COMPARTIDOS (GLOBALES)
-// TODOS ven las mismas descargas y estrellas
-// ==============================================
 const GAMES_KEY = 'leonardoGamesGlobal';
 
-// === DESBLOQUEO: SE REINICIA AL CERRAR EL NAVEGADOR ===
-// Usamos sessionStorage → se borra al cerrar la pestaña/navegador
 function getUnlockedSet() {
-  const s = sessionStorage.getItem('unlockedGames');
+  const s = localStorage.getItem('unlockedGames');
   return s ? new Set(JSON.parse(s)) : new Set();
 }
 function saveUnlockedSet(set) {
-  sessionStorage.setItem('unlockedGames', JSON.stringify([...set]));
+  localStorage.setItem('unlockedGames', JSON.stringify([...set]));
 }
 function isUnlockedForGame(gameId) {
   return getUnlockedSet().has(gameId);
@@ -610,7 +578,6 @@ function unlockGame(gameId) {
   saveUnlockedSet(set);
 }
 
-// === DESCARGAS: SOLO 1 POR DISPOSITIVO PERO SE SUMA AL TOTAL GLOBAL ===
 function getDownloadRecord() {
   const rec = localStorage.getItem('downloadRecordPerDevice');
   return rec ? JSON.parse(rec) : {};
@@ -624,7 +591,6 @@ function markDownloadedThisDevice(gameId) {
   localStorage.setItem('downloadRecordPerDevice', JSON.stringify(rec));
 }
 
-// === GUARDADO GLOBAL ===
 function saveGames() {
   localStorage.setItem(GAMES_KEY, JSON.stringify(games));
 }
@@ -638,9 +604,9 @@ function loadGames() {
     games = [...DEFAULT_GAMES];
   }
   renderGames();
+  renderPopular();
 }
 
-// === CALIFICACIONES: GLOBALES ===
 function getAvgStars(game) {
   if (!game.ratingCount) return 0;
   return Math.round(game.totalStars / game.ratingCount);
@@ -650,7 +616,7 @@ function hasRatedThisDevice(gameId) {
   return rec ? !!JSON.parse(rec)[gameId] : false;
 }
 function markRatedThisDevice(gameId) {
-  const rec = localStorage.getItem('ratedGames') || {};
+  const rec = JSON.parse(localStorage.getItem('ratedGames') || '{}');
   rec[gameId] = true;
   localStorage.setItem('ratedGames', JSON.stringify(rec));
 }
@@ -665,7 +631,6 @@ function saveRatingGlobal(gameId, stars) {
 
 const $ = id => document.getElementById(id);
 
-// === JUEGOS INICIALES ===
 const DEFAULT_GAMES = [
   {
     id: 1789934945734,
@@ -794,13 +759,11 @@ function renderGameCard(game) {
 }
 
 function renderPopular() {
-  // Más descargados
   const byDownloads = [...games].sort((a,b) => (b.downloads||0) - (a.downloads||0)).slice(0,3);
   $('topDownloads').innerHTML = byDownloads.length
     ? byDownloads.map(g => renderMiniCard(g, g.downloads || 0, 'descargas')).join('')
     : '<p style="font-size:11px;color:var(--muted)">Sin datos aún</p>';
 
-  // Mejor calificados
   const byStars = [...games].filter(g => g.ratingCount > 0).sort((a,b) => {
     const sDiff = getAvgStars(b) - getAvgStars(a);
     if (sDiff !== 0) return sDiff;
@@ -810,7 +773,6 @@ function renderPopular() {
     ? byStars.map(g => renderMiniCard(g, renderStarsDisplay(g), 'promedio')).join('')
     : '<p style="font-size:11px;color:var(--muted)">Sin calificaciones</p>';
 
-  // Lista completa
   const sortedAll = [...games].sort((a,b) => (b.downloads||0) - (a.downloads||0));
   const grid = $('popularGrid');
   grid.innerHTML = sortedAll.length
@@ -850,7 +812,6 @@ function showPopularPage() {
   renderPopular();
 }
 
-// === ANUNCIO: SOLO CUENTA AL ABRIRLO ===
 function openLockModal(gameId) {
   pendingGameId = gameId;
   countdownActive = false;
@@ -879,14 +840,12 @@ function doDownload(gameId) {
   const game = games.find(g => g.id === gameId);
   if (!game) return;
 
-  // Sumar descarga SOLO si este dispositivo NO lo ha descargado antes
   if (!hasDownloadedThisDevice(gameId)) {
     game.downloads = (game.downloads || 0) + 1;
     markDownloadedThisDevice(gameId);
     saveGames();
   }
 
-  // Calificar si no ha calificado aún
   if (!hasRatedThisDevice(gameId)) {
     ratingGameId = gameId;
     selectedRating = 0;
@@ -996,7 +955,6 @@ function checkCreatorCode(input) {
   return false;
 }
 
-// === EVENTOS ===
 $('enterBtn').addEventListener('click', showGamesPage);
 $('backHome1').addEventListener('click', showHome);
 $('backHome2').addEventListener('click', showHome);
@@ -1045,7 +1003,6 @@ $('gameImageFile').addEventListener('change', e => {
   r.readAsDataURL(f);
 });
 
-// Navegación
 document.querySelectorAll('.nav-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     if (btn.dataset.page === 'games') showGamesPage();
@@ -1053,7 +1010,6 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
   });
 });
 
-// Tarjetas
 document.addEventListener('click', e => {
   const dl = e.target.closest('.btn-download');
   if (dl) {
@@ -1080,7 +1036,6 @@ document.addEventListener('click', e => {
   }
 });
 
-// Anuncio
 $('goAdBtn').addEventListener('click', () => {
   window.open(AD_URL, '_blank');
   startCountdown();
@@ -1096,7 +1051,6 @@ $('unlockBtn').addEventListener('click', () => {
   }
 });
 
-// Calificación
 document.querySelectorAll('.rate-star').forEach(star => {
   star.addEventListener('click', () => {
     selectedRating = parseInt(star.dataset.val);
@@ -1128,7 +1082,6 @@ $('rateSave').addEventListener('click', () => {
   renderPopular();
 });
 
-// Iniciar
 loadGames();
 </script>
 </body>
