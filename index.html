@@ -16,6 +16,7 @@
       --text:#f8fafc;
       --muted:#94a3b8;
       --line:#ffffff15;
+      --gold:#facc15;
     }
 
     *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
@@ -30,7 +31,7 @@
     input{outline:0;border:1px solid var(--line)}
     .hidden{display:none!important}
 
-    /* === INICIO MÁS PEQUEÑO === */
+    /* === INICIO === */
     .home{
       max-width:420px;
       margin:0 auto;
@@ -77,7 +78,7 @@
       font-weight:700;
     }
 
-    /* === BIBLIOTECA MÁS COMPACTA === */
+    /* === BIBLIOTECA === */
     .library{
       max-width:420px;
       margin:0 auto;
@@ -104,7 +105,7 @@
       margin-bottom:18px;
     }
 
-    /* === TARJETAS CUADRADAS MÁS PEQUEÑAS === */
+    /* === TARJETAS CUADRADAS === */
     .games-grid{
       display:grid;
       grid-template-columns:repeat(2,1fr);
@@ -143,9 +144,9 @@
       color:var(--muted);
       margin-bottom:8px;
     }
-    .stars{
-      color:#facc15;
-      font-size:11px;
+    .stars-display{
+      color:var(--gold);
+      font-size:12px;
       margin-bottom:8px;
     }
     .btn-download{
@@ -225,7 +226,7 @@
       z-index:90;
     }
 
-    /* === BARRA DE NAVEGACIÓN INFERIOR === */
+    /* === BARRA DE NAVEGACIÓN === */
     .nav-bar{
       position:fixed;
       bottom:0;
@@ -360,6 +361,34 @@
       display:none;
     }
     .btn-unlock.visible{display:block}
+
+    /* === ESTRELLAS PARA CALIFICAR === */
+    .rate-modal{
+      position:fixed;
+      inset:0;
+      background:#000e;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      z-index:400;
+    }
+    .rate-box{
+      background:var(--card);
+      border-radius:16px;
+      padding:24px;
+      max-width:340px;
+      width:100%;
+      text-align:center;
+      border:1px solid var(--line);
+    }
+    .rate-stars{
+      font-size:2rem;
+      margin:16px 0;
+      cursor:pointer;
+    }
+    .rate-star{color:#475569;transition:color .2s}
+    .rate-star.active{color:var(--gold)}
   </style>
 </head>
 <body>
@@ -382,21 +411,18 @@
     <button id="enterBtn" class="enter-btn">🎮 Ver Biblioteca</button>
   </div>
 
-  <!-- === BIBLIOTECA === -->
-  <div id="libraryPage" class="library hidden">
+  <!-- === BIBLIOTECA: JUEGOS === -->
+  <div id="gamesPage" class="library hidden">
     <div class="lib-header">
-      <button id="backHome" class="back-btn">← Inicio</button>
+      <button id="backHome1" class="back-btn">← Inicio</button>
       <h2 class="page-title">Juegos</h2>
       <span id="gameCount" class="game-count">0</span>
     </div>
-
     <div class="lib-search">
       <input id="libSearch" class="search" type="text" placeholder="Buscar...">
       <button id="libSearchBtn" class="btn-primary">🔍</button>
     </div>
-
     <div id="gamesGrid" class="games-grid"></div>
-
     <div class="pagination">
       <button id="prevPage" class="page-btn">←</button>
       <span id="pageInfo">1/1</span>
@@ -404,26 +430,29 @@
     </div>
   </div>
 
+  <!-- === POPULAR === -->
+  <div id="popularPage" class="library hidden">
+    <div class="lib-header">
+      <button id="backHome2" class="back-btn">← Inicio</button>
+      <h2 class="page-title">🔥 Popular</h2>
+      <span id="popCount" class="game-count">0</span>
+    </div>
+    <p style="text-align:center;color:var(--muted);margin-bottom:16px;font-size:13px;">Los más descargados y mejor calificados</p>
+    <div id="popularGrid" class="games-grid"></div>
+  </div>
+
   <!-- === BOTÓN AGREGAR === -->
   <button id="fabAdd" class="fab-add hidden">+</button>
 
   <!-- === BARRA DE NAVEGACIÓN === -->
   <nav id="navBar" class="nav-bar hidden">
-    <button class="nav-btn active" data-view="games">
+    <button class="nav-btn active" data-page="games">
       <span class="nav-icon">🎮</span>
       Juegos
     </button>
-    <button class="nav-btn" data-view="apps">
-      <span class="nav-icon">📱</span>
-      Apps
-    </button>
-    <button class="nav-btn" data-view="popular">
+    <button class="nav-btn" data-page="popular">
       <span class="nav-icon">🔥</span>
       Popular
-    </button>
-    <button class="nav-btn" data-view="skins">
-      <span class="nav-icon">🎨</span>
-      Skins
     </button>
   </nav>
 
@@ -434,7 +463,7 @@
       <input id="gameName" type="text" placeholder="Nombre del juego">
       <input id="gameLink" type="url" placeholder="Enlace de descarga">
       <input id="gameImageUrl" type="url" placeholder="🔗 Enlace de imagen (Imgur)">
-      <input id="gameImageFile" type="file" accept="image/*" placeholder="O sube desde galería">
+      <input id="gameImageFile" type="file" accept="image/*">
       <img id="imgPreview" class="img-preview" alt="Vista previa">
       <div class="modal-actions">
         <button id="modalCancel" class="btn-cancel">Cancelar</button>
@@ -454,6 +483,25 @@
     </div>
   </div>
 
+  <!-- === CALIFICAR ESTRELLAS === -->
+  <div id="rateModal" class="rate-modal hidden">
+    <div class="rate-box">
+      <h3>⭐ Calificar Juego</h3>
+      <p style="color:var(--muted);font-size:14px">¿Qué te parece?</p>
+      <div class="rate-stars" id="rateStars">
+        <span class="rate-star" data-val="1">★</span>
+        <span class="rate-star" data-val="2">★</span>
+        <span class="rate-star" data-val="3">★</span>
+        <span class="rate-star" data-val="4">★</span>
+        <span class="rate-star" data-val="5">★</span>
+      </div>
+      <div class="modal-actions">
+        <button id="rateCancel" class="btn-cancel">Omitir</button>
+        <button id="rateSave" class="btn-save">Enviar</button>
+      </div>
+    </div>
+  </div>
+
 <script>
 'use strict';
 
@@ -466,10 +514,71 @@ let games = [];
 let currentPage = 1;
 let searchQuery = '';
 let isCreator = false;
-let pendingGame = null;
-let isUnlocked = false;
-let countdownTimer = null;
+let pendingGameId = null;
+let countdownActive = false;
 let editingId = null;
+let selectedRating = 0;
+let ratingGameId = null;
+
+// === DESBLOQUEO INDIVIDUAL POR JUEGO ===
+function getUnlockedSet() {
+  const s = localStorage.getItem('unlockedGames');
+  return s ? new Set(JSON.parse(s)) : new Set();
+}
+function saveUnlockedSet(set) {
+  localStorage.setItem('unlockedGames', JSON.stringify([...set]));
+}
+function isUnlockedForGame(gameId) {
+  return getUnlockedSet().has(gameId);
+}
+function unlockGame(gameId) {
+  const set = getUnlockedSet();
+  set.add(gameId);
+  saveUnlockedSet(set);
+}
+
+// === DESCARGAS POR DISPOSITIVO ===
+function getDownloadRecord() {
+  const rec = localStorage.getItem('downloadRecord');
+  return rec ? JSON.parse(rec) : {};
+}
+function hasDownloaded(gameId) {
+  return !!getDownloadRecord()[gameId];
+}
+function markDownloaded(gameId) {
+  const rec = getDownloadRecord();
+  if (!rec[gameId]) {
+    rec[gameId] = true;
+    const g = games.find(x => x.id === gameId);
+    if (g) g.downloads = (g.downloads || 0) + 1;
+    localStorage.setItem('downloadRecord', JSON.stringify(rec));
+    saveGames();
+  }
+}
+
+// === CALIFICACIONES ===
+function getRatings() {
+  const r = localStorage.getItem('gameRatings');
+  return r ? JSON.parse(r) : {};
+}
+function hasRated(gameId) {
+  return !!getRatings()[gameId];
+}
+function saveRating(gameId, stars) {
+  const r = getRatings();
+  r[gameId] = stars;
+  localStorage.setItem('gameRatings', JSON.stringify(r));
+  const g = games.find(x => x.id === gameId);
+  if (g) {
+    g.totalStars = ((g.totalStars || 0) + stars);
+    g.ratingCount = ((g.ratingCount || 0) + 1);
+    saveGames();
+  }
+}
+function getAvgStars(game) {
+  if (!game.ratingCount) return 0;
+  return Math.round(game.totalStars / game.ratingCount);
+}
 
 const $ = id => document.getElementById(id);
 
@@ -482,7 +591,9 @@ const DEFAULT_GAMES = [
     image: "https://i.imgur.com/I4f3CVY.jpg",
     downloads: 3,
     version: "1.26.45.1",
-    date: "26 sep 2026"
+    date: "26 sep 2026",
+    totalStars: 0,
+    ratingCount: 0
   },
   {
     id: 1789935000001,
@@ -491,7 +602,9 @@ const DEFAULT_GAMES = [
     image: "https://i.imgur.com/vHLKb6n.jpg",
     downloads: 0,
     version: "v1.0",
-    date: "26 sep 2026"
+    date: "26 sep 2026",
+    totalStars: 0,
+    ratingCount: 0
   },
   {
     id: 1789935000002,
@@ -500,7 +613,9 @@ const DEFAULT_GAMES = [
     image: "https://i.imgur.com/3QMpOBC.jpg",
     downloads: 0,
     version: "v1.00",
-    date: "26 sep 2026"
+    date: "26 sep 2026",
+    totalStars: 0,
+    ratingCount: 0
   },
   {
     id: 1789935000003,
@@ -509,7 +624,9 @@ const DEFAULT_GAMES = [
     image: "https://i.imgur.com/pl7HGVi.jpg",
     downloads: 0,
     version: "v1.5",
-    date: "26 sep 2026"
+    date: "26 sep 2026",
+    totalStars: 0,
+    ratingCount: 0
   },
   {
     id: 1789935000004,
@@ -518,11 +635,12 @@ const DEFAULT_GAMES = [
     image: "https://i.imgur.com/IuHm7vE.jpg",
     downloads: 0,
     version: "1.0",
-    date: "26 sep 2026"
+    date: "26 sep 2026",
+    totalStars: 0,
+    ratingCount: 0
   }
 ];
 
-// === GUARDADO ===
 function saveGames() {
   localStorage.setItem('leonardoGames', JSON.stringify(games));
 }
@@ -538,21 +656,19 @@ function loadGames() {
   renderGames();
 }
 
-// === FILTROS ===
 function getFilteredGames() {
   if (!searchQuery) return games;
   const q = searchQuery.toLowerCase();
   return games.filter(g => g.name.toLowerCase().includes(q));
 }
 
-// === ESTRELLITAS ===
-function renderStars(rating = 4) {
+function renderStarsDisplay(game) {
+  const avg = getAvgStars(game);
   let s = '';
-  for (let i=0; i<5; i++) s += i < rating ? '★' : '☆';
+  for (let i=0; i<5; i++) s += i < avg ? '★' : '☆';
   return s;
 }
 
-// === RENDERIZADO PRINCIPAL ===
 function renderGames() {
   const filtered = getFilteredGames();
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
@@ -565,25 +681,7 @@ function renderGames() {
   if (pageGames.length === 0) {
     grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px">No hay juegos</p>';
   } else {
-    grid.innerHTML = pageGames.map(game => `
-      <div class="game-card">
-        <img class="game-img" src="${game.image || FALLBACK_IMG}" alt="${game.name}" onerror="this.src='${FALLBACK_IMG}'">
-        <div class="game-info">
-          <h3 class="game-name">${game.name}</h3>
-          <p class="game-meta">${game.version || ''}<br>${game.date || ''}</p>
-          <div class="stars">${renderStars()}</div>
-          <button class="btn-download ${(!isCreator && !isUnlocked) ? 'btn-locked' : ''}" data-id="${game.id}">
-            ${(!isCreator && !isUnlocked) ? '🔒 Ver Anuncio' : '✅ Descargar'}
-          </button>
-          ${isCreator ? `
-            <div class="creator-buttons">
-              <button class="btn-edit" data-edit="${game.id}">✏️</button>
-              <button class="btn-delete" data-del="${game.id}">🗑️</button>
-            </div>
-          ` : ''}
-        </div>
-      </div>
-    `).join('');
+    grid.innerHTML = pageGames.map(game => renderGameCard(game)).join('');
   }
 
   $('gameCount').textContent = `${filtered.length}`;
@@ -592,53 +690,121 @@ function renderGames() {
   $('nextPage').disabled = currentPage >= totalPages;
 }
 
-// === NAVEGACIÓN ===
+function renderGameCard(game) {
+  const unlocked = isCreator || isUnlockedForGame(game.id);
+  return `
+    <div class="game-card">
+      <img class="game-img" src="${game.image || FALLBACK_IMG}" alt="${game.name}" onerror="this.src='${FALLBACK_IMG}'">
+      <div class="game-info">
+        <h3 class="game-name">${game.name}</h3>
+        <p class="game-meta">${game.version || ''}<br>${game.date || ''}</p>
+        <div class="stars-display">${renderStarsDisplay(game)}</div>
+        <button class="btn-download ${!unlocked ? 'btn-locked' : ''}" data-gid="${game.id}">
+          ${!unlocked ? '🔒 Ver Anuncio' : '✅ Descargar'}
+        </button>
+        ${isCreator ? `
+          <div class="creator-buttons">
+            <button class="btn-edit" data-edit="${game.id}">✏️</button>
+            <button class="btn-delete" data-del="${game.id}">🗑️</button>
+          </div>
+        ` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderPopular() {
+  // Ordenar: primero por descargas, luego por promedio de estrellas
+  const sorted = [...games].sort((a,b) => {
+    const dDiff = (b.downloads||0) - (a.downloads||0);
+    if (dDiff !== 0) return dDiff;
+    return getAvgStars(b) - getAvgStars(a);
+  });
+
+  const grid = $('popularGrid');
+  if (sorted.length === 0) {
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px">Aún no hay juegos</p>';
+  } else {
+    grid.innerHTML = sorted.map(game => renderGameCard(game)).join('');
+  }
+  $('popCount').textContent = `${sorted.length}`;
+}
+
 function showHome() {
   $('homePage').classList.remove('hidden');
-  $('libraryPage').classList.add('hidden');
+  $('gamesPage').classList.add('hidden');
+  $('popularPage').classList.add('hidden');
   $('navBar').classList.add('hidden');
   $('fabAdd').classList.add('hidden');
   searchQuery = '';
   $('homeSearch').value = '';
 }
 
-function showLibrary() {
+function showGamesPage() {
   $('homePage').classList.add('hidden');
-  $('libraryPage').classList.remove('hidden');
+  $('gamesPage').classList.remove('hidden');
+  $('popularPage').classList.add('hidden');
   $('navBar').classList.remove('hidden');
   $('fabAdd').classList.toggle('hidden', !isCreator);
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.page === 'games'));
   currentPage = 1;
   renderGames();
 }
 
-// === ANUNCIO ===
-function openLockModal(game) {
-  pendingGame = game;
-  isUnlocked = false;
+function showPopularPage() {
+  $('homePage').classList.add('hidden');
+  $('gamesPage').classList.add('hidden');
+  $('popularPage').classList.remove('hidden');
+  $('navBar').classList.remove('hidden');
+  $('fabAdd').classList.toggle('hidden', !isCreator);
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.page === 'popular'));
+  renderPopular();
+}
+
+// === ANUNCIO: SOLO CUENTA CUANDO EL USUARIO LO DESBLOQUEA ===
+function openLockModal(gameId) {
+  pendingGameId = gameId;
+  countdownActive = false;
   $('unlockBtn').classList.remove('visible');
   $('lockCount').textContent = '7';
   $('lockModal').classList.remove('hidden');
-  
-  if (countdownTimer) clearInterval(countdownTimer);
+}
+
+function startCountdown() {
+  if (countdownActive) return;
+  countdownActive = true;
   let sec = 7;
-  countdownTimer = setInterval(() => {
+  $('lockCount').textContent = sec;
+  
+  const timer = setInterval(() => {
     sec--;
     $('lockCount').textContent = sec;
     if (sec <= 0) {
-      clearInterval(countdownTimer);
+      clearInterval(timer);
       $('unlockBtn').classList.add('visible');
     }
   }, 1000);
 }
 
-function doDownload(game) {
-  game.downloads = (game.downloads || 0) + 1;
-  saveGames();
-  window.open(game.link, '_blank');
+function doDownload(gameId) {
+  const game = games.find(g => g.id === gameId);
+  if (!game) return;
+
+  markDownloaded(gameId);
+
+  if (!hasRated(gameId)) {
+    ratingGameId = gameId;
+    selectedRating = 0;
+    document.querySelectorAll('.rate-star').forEach(s => s.classList.remove('active'));
+    $('rateModal').classList.remove('hidden');
+  } else {
+    window.open(game.link, '_blank');
+  }
+
   renderGames();
+  renderPopular();
 }
 
-// === MODAL ===
 function openAddModal() {
   editingId = null;
   $('modalTitle').textContent = 'Agregar Juego 🎮';
@@ -704,6 +870,8 @@ async function saveGameData() {
       link,
       image,
       downloads: 0,
+      totalStars: 0,
+      ratingCount: 0,
       version: "1.0",
       date: today
     });
@@ -721,33 +889,33 @@ function deleteGame(id) {
   renderGames();
 }
 
-// === CÓDIGO CREADOR ===
 function checkCreatorCode(input) {
   if (input.trim() === CREATOR_CODE) {
     isCreator = true;
     alert('✅ ¡Bienvenido Creador!');
-    showLibrary();
+    showGamesPage();
     return true;
   }
   return false;
 }
 
 // === EVENTOS ===
-$('enterBtn').addEventListener('click', showLibrary);
-$('backHome').addEventListener('click', showHome);
+$('enterBtn').addEventListener('click', showGamesPage);
+$('backHome1').addEventListener('click', showHome);
+$('backHome2').addEventListener('click', showHome);
 
 $('homeSearchBtn').addEventListener('click', () => {
   const val = $('homeSearch').value.trim();
   if (checkCreatorCode(val)) return;
   searchQuery = val;
-  showLibrary();
+  showGamesPage();
 });
 $('homeSearch').addEventListener('keydown', e => {
   if (e.key === 'Enter') {
     const val = $('homeSearch').value.trim();
     if (checkCreatorCode(val)) return;
     searchQuery = val;
-    showLibrary();
+    showGamesPage();
   }
 });
 
@@ -780,17 +948,24 @@ $('gameImageFile').addEventListener('change', e => {
   r.readAsDataURL(f);
 });
 
+// Navegación entre pestañas
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.dataset.page === 'games') showGamesPage();
+    if (btn.dataset.page === 'popular') showPopularPage();
+  });
+});
+
 // Acciones en tarjetas
 document.addEventListener('click', e => {
   const dl = e.target.closest('.btn-download');
   if (dl) {
-    const id = parseInt(dl.dataset.id);
-    const game = games.find(g => g.id === id);
-    if (!game) return;
-    if (isCreator || isUnlocked) {
-      doDownload(game);
+    const gid = parseInt(dl.dataset.gid);
+    if (!gid) return;
+    if (isCreator || isUnlockedForGame(gid)) {
+      doDownload(gid);
     } else {
-      openLockModal(game);
+      openLockModal(gid);
     }
   }
 
@@ -811,12 +986,56 @@ document.addEventListener('click', e => {
 // Anuncio
 $('goAdBtn').addEventListener('click', () => {
   window.open(AD_URL, '_blank');
+  startCountdown(); // ⚡ SOLO EMPIEZA A CONTAR CUANDO ABREN EL ANUNCIO
 });
 $('unlockBtn').addEventListener('click', () => {
-  isUnlocked = true;
-  $('lockModal').classList.add('hidden');
-  if (pendingGame) doDownload(pendingGame);
+  if (pendingGameId) {
+    unlockGame(pendingGameId);
+    $('lockModal').classList.add('hidden');
+    doDownload(pendingGameId);
+    pendingGameId = null;
+    renderGames();
+    renderPopular();
+  }
+});
+
+// Calificación con estrellas
+document.querySelectorAll('.rate-star').forEach(star => {
+  star.addEventListener('click', () => {
+    selectedRating = parseInt(star.dataset.val);
+    document.querySelectorAll('.rate-star').forEach((s, i) => {
+      s.classList.toggle('active', i < selectedRating);
+    });
+  });
+});
+document.querySelectorAll('.rate-star').forEach(star => {
+  star.addEventListener('mouseover', () => {
+    const val = parseInt(star.dataset.val);
+    document.querySelectorAll('.rate-star').forEach((s, i) => {
+      s.classList.toggle('active', i < val || (selectedRating && i < selectedRating));
+    });
+  });
+});
+$('rateCancel').addEventListener('click', () => {
+  $('rateModal').classList.add('hidden');
+  if (ratingGameId) {
+    const game = games.find(g => g.id === ratingGameId);
+    if (game) window.open(game.link, '_blank');
+  }
+  ratingGameId = null;
+});
+$('rateSave').addEventListener('click', () => {
+  if (selectedRating > 0 && ratingGameId) {
+    saveRating(ratingGameId, selectedRating);
+  }
+  $('rateModal').classList.add('hidden');
+  if (ratingGameId) {
+    const game = games.find(g => g.id === ratingGameId);
+    if (game) window.open(game.link, '_blank');
+  }
+  ratingGameId = null;
   renderGames();
+  renderPopular();
 });
 
 // Iniciar
