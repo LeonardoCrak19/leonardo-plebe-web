@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#071119">
+  <!-- Fuerza recarga limpia -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Leonardo Plebe 🎮</title>
   <style>
     :root{
@@ -92,8 +96,6 @@
 
     .lock-modal{position:fixed;inset:0;background:#000e;display:flex;align-items:center;justify-content:center;padding:16px;z-index:300}
     .lock-box{background:var(--card);border-radius:14px;padding:20px 18px;max-width:320px;width:100%;text-align:center;border:1px solid var(--line)}
-    .lock-box h2{font-size:1rem;margin-bottom:10px;line-height:1.4;color:var(--gold)}
-    .lock-box p{font-size:13px;color:var(--muted);margin-bottom:6px;line-height:1.4}
     .lock-box .mensaje-principal{color:var(--text);font-weight:600;font-size:14px;margin-bottom:12px;line-height:1.5}
     .lock-box .importante{color:var(--gold);font-weight:500;font-size:11px;margin-bottom:10px}
     .lock-count{font-size:2.2rem;font-weight:700;color:var(--green);margin:12px 0}
@@ -105,6 +107,7 @@
     .rate-stars{font-size:1.8rem;margin:12px 0;cursor:pointer}
     .rate-star{color:#475569;transition:color .2s}
     .rate-star.active{color:var(--gold)}
+    .debug-info{margin-top:10px;font-size:11px;color:var(--muted);text-align:center}
   </style>
 </head>
 <body>
@@ -134,7 +137,7 @@
     <div class="lib-header">
       <button id="backHome1" class="back-btn">← Inicio</button>
       <h2 class="page-title">Juegos</h2>
-      <span id="gameCount" class="game-count">0</span>
+      <span id="gameCount" class="game-count">0 juegos</span>
     </div>
     <div class="lib-search">
       <input id="libSearch" class="search" type="text" placeholder="Buscar...">
@@ -146,6 +149,7 @@
       <span id="pageInfo">1/1</span>
       <button id="nextPage" class="page-btn">→</button>
     </div>
+    <div id="debugInfo" class="debug-info"></div>
   </div>
 
   <div id="popularPage" class="library hidden">
@@ -221,10 +225,12 @@
 'use strict';
 
 const CREATOR_CODE = '2k8L';
-const PAGE_SIZE = 8; // 8 juegos por página ✅
+const PAGE_SIZE = 8;
 const AD_URL = 'https://www.profitableratecpmnetwork.com/zg26qqbwk3?key=9a7994b8893e7a6cc73b4cfdc2f064e9';
 const FALLBACK_IMG = 'https://via.placeholder.com/300/0f172a/f8fafc?text=🎮';
-const GAMES_KEY = 'leonardoGamesGlobal';
+
+// ✅ BORRAMOS LO GUARDADO PARA CARGAR LIMPIO
+const GAMES_KEY = 'leonardoGamesGlobal_v2'; // NUEVA CLAVE = carga desde cero
 
 let games = [];
 let currentPage = 1;
@@ -237,11 +243,11 @@ let selectedRating = 0;
 let ratingGameId = null;
 
 function getUnlockedSet() {
-  const s = sessionStorage.getItem('unlockedGames');
+  const s = sessionStorage.getItem('unlockedGames_v2');
   return s ? new Set(JSON.parse(s)) : new Set();
 }
 function saveUnlockedSet(set) {
-  sessionStorage.setItem('unlockedGames', JSON.stringify([...set]));
+  sessionStorage.setItem('unlockedGames_v2', JSON.stringify([...set]));
 }
 function isUnlockedForGame(gameId) {
   return getUnlockedSet().has(gameId);
@@ -253,7 +259,7 @@ function unlockGame(gameId) {
 }
 
 function getDeviceDownloads() {
-  const rec = localStorage.getItem('deviceDownloads');
+  const rec = localStorage.getItem('deviceDownloads_v2');
   return rec ? JSON.parse(rec) : {};
 }
 function hasDownloaded(gameId) {
@@ -262,7 +268,7 @@ function hasDownloaded(gameId) {
 function markDownloaded(gameId) {
   const rec = getDeviceDownloads();
   rec[gameId] = true;
-  localStorage.setItem('deviceDownloads', JSON.stringify(rec));
+  localStorage.setItem('deviceDownloads_v2', JSON.stringify(rec));
   const game = games.find(g => g.id === gameId);
   if (game) {
     game.downloads = (game.downloads || 0) + 1;
@@ -271,7 +277,7 @@ function markDownloaded(gameId) {
 }
 
 function getDeviceRatings() {
-  const rec = localStorage.getItem('deviceRatings');
+  const rec = localStorage.getItem('deviceRatings_v2');
   return rec ? JSON.parse(rec) : {};
 }
 function hasRated(gameId) {
@@ -280,7 +286,7 @@ function hasRated(gameId) {
 function saveRating(gameId, stars) {
   const rec = getDeviceRatings();
   rec[gameId] = true;
-  localStorage.setItem('deviceRatings', JSON.stringify(rec));
+  localStorage.setItem('deviceRatings_v2', JSON.stringify(rec));
   const game = games.find(g => g.id === gameId);
   if (game) {
     game.totalStars = (game.totalStars || 0) + stars;
@@ -295,7 +301,7 @@ function getAvgStars(game) {
 
 const $ = id => document.getElementById(id);
 
-// ✅ TODOS LOS JUEGOS INCLUIDOS AQUÍ
+// ✅ LOS 10 JUEGOS COMPLETOS
 const DEFAULT_GAMES = [
   {id:1789934945734,name:"Minecraft",link:"https://www.mediafire.com/file/cim5n289rfeguzn/mc%201.26.45.1%20-%20espacioapk.com.apk/file?dkey=l5wy06u4df0&r=577",image:"https://i.imgur.com/I4f3CVY.jpg",downloads:3,totalStars:12,ratingCount:3,version:"1.26.45.1",date:"26 sep 2026"},
   {id:1789935000001,name:"Bulma Adventure 3",link:"https://www.mediafire.com/file/tjoxvvu7hg7g0j6/Bulma%20Adventure%203%20v1.0%20-%20espacioapk.com.apk/file?dkey=ek6a12ukl68&r=1259",image:"https://i.imgur.com/vHLKb6n.jpg",downloads:2,totalStars:9,ratingCount:2,version:"v1.0",date:"26 sep 2026"},
@@ -314,13 +320,27 @@ function saveGames() {
 }
 
 function loadGames() {
+  // Siempre cargar los juegos de la lista por defecto para asegurar que aparezcan
+  games = [...DEFAULT_GAMES];
+  // Si hay juegos guardados por el creador, combinarlos
   const stored = localStorage.getItem(GAMES_KEY);
   if (stored) {
-    try { games = JSON.parse(stored); }
-    catch { games = [...DEFAULT_GAMES]; }
-  } else {
-    games = [...DEFAULT_GAMES];
+    try {
+      const saved = JSON.parse(stored);
+      if (Array.isArray(saved) && saved.length > 0) {
+        // Combinar sin duplicar por ID
+        const ids = new Set(DEFAULT_GAMES.map(g => g.id));
+        saved.forEach(g => {
+          if (!ids.has(g.id)) games.unshift(g);
+        });
+      }
+    } catch (e) {
+      console.log('Usando juegos por defecto');
+    }
   }
+  // Siempre guardar la lista completa
+  saveGames();
+  console.log('✅ Juegos cargados:', games.length);
   renderGames();
 }
 
@@ -364,10 +384,14 @@ function renderGames() {
     grid.innerHTML = pageGames.map(game => renderGameCard(game)).join('');
   }
 
-  $('gameCount').textContent = `${filtered.length}`;
+  $('gameCount').textContent = `${filtered.length} juegos`;
   $('pageInfo').textContent = `${currentPage}/${totalPages}`;
   $('prevPage').disabled = currentPage <= 1;
   $('nextPage').disabled = currentPage >= totalPages;
+  
+  if ($('debugInfo')) {
+    $('debugInfo').textContent = `Total: ${games.length} | Página: ${pageGames.length}`;
+  }
 }
 
 function renderGameCard(game) {
@@ -713,6 +737,12 @@ $('rateSave').addEventListener('click', () => {
   renderGames();
   renderPopular();
 });
+
+// Limpiar datos viejos y cargar desde cero
+localStorage.removeItem('leonardoGamesGlobal');
+sessionStorage.removeItem('unlockedGames');
+localStorage.removeItem('deviceDownloads');
+localStorage.removeItem('deviceRatings');
 
 loadGames();
 </script>
