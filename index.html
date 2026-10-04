@@ -7,441 +7,116 @@
   <title>Leonardo Plebe 🎮</title>
   <style>
     :root{
-      --bg:#050a10;
-      --card:#0f172a;
-      --green:#22c55e;
-      --green2:#15803d;
-      --blue:#1e40af;
-      --red:#ef4444;
-      --text:#f8fafc;
-      --muted:#94a3b8;
-      --line:#ffffff15;
-      --gold:#facc15;
+      --bg:#050a10;--card:#0f172a;
+      --green:#22c55e;--green2:#15803d;
+      --blue:#1e40af;--red:#ef4444;
+      --text:#f8fafc;--muted:#94a3b8;
+      --line:#ffffff15;--gold:#facc15;
       --orange:#f97316;
     }
-
     *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-    body{
-      min-height:100vh;
-      background:var(--bg);
-      color:var(--text);
-      padding-bottom:70px;
-    }
+    body{min-height:100vh;background:var(--bg);color:var(--text);padding-bottom:70px}
     button,input{font:inherit}
     button{cursor:pointer;border:0}
     input{outline:0;border:1px solid var(--line)}
     .hidden{display:none!important}
 
-    /* === INICIO === */
-    .home{
-      max-width:420px;
-      margin:0 auto;
-      padding:40px 16px 30px;
-      text-align:center;
-    }
+    .home{max-width:420px;margin:0 auto;padding:40px 16px 30px;text-align:center}
     .brand{font-size:clamp(1.6rem,5vw,2.2rem);margin-bottom:6px}
-    .subtitle{color:var(--muted);margin-bottom:24px;font-size:14px}
-    .search-bar{
-      display:flex;
-      gap:8px;
-      margin-bottom:24px;
-    }
-    .search{
-      flex:1;
-      padding:12px 14px;
-      border-radius:10px;
-      background:var(--card);
-      color:var(--text);
-      border:1px solid var(--line);
-      font-size:15px;
-    }
-    .btn-primary{
-      padding:12px 16px;
-      border-radius:10px;
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#000;
-      font-weight:700;
-      font-size:15px;
-    }
-    .ad-space{
-      margin:0 auto 24px;
-      padding:16px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      background:#ffffff05;
-    }
-    .enter-btn{
-      padding:14px 32px;
-      font-size:16px;
-      border-radius:12px;
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#000;
-      font-weight:700;
-      width:100%;
-    }
-
-    /* === BIBLIOTECA === */
-    .library{
-      max-width:420px;
-      margin:0 auto;
-      padding:18px 12px;
-    }
-    .lib-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:16px;
-    }
-    .back-btn{
-      background:transparent;
-      color:var(--muted);
-      font-size:15px;
-      padding:6px 0;
-    }
-    .page-title{font-size:1.3rem}
-    .game-count{color:var(--muted);font-size:13px}
-    
-    .lib-search{
-      display:flex;
-      gap:8px;
+    .subtitle{color:var(--muted);margin-bottom:12px;font-size:14px}
+    .ayuda-texto{
+      background:linear-gradient(135deg,#facc1515,#f9731615);
+      border:1px solid #facc1540;
+      border-radius:8px;
+      padding:10px 12px;
       margin-bottom:18px;
+      font-size:13px;
+      color:#fef08a;
+      line-height:1.5;
+      font-weight:500;
     }
+    .search-bar{display:flex;gap:8px;margin-bottom:20px}
+    .search{flex:1;padding:10px 14px;border-radius:10px;background:var(--card);color:var(--text);border:1px solid var(--line);font-size:14px}
+    .btn-primary{padding:10px 14px;border-radius:10px;background:linear-gradient(135deg,var(--green),var(--green2));color:#000;font-weight:700;font-size:14px}
+    .ad-space{margin:0 auto 20px;padding:12px;border-radius:10px;border:1px solid var(--line);background:#ffffff05}
+    .enter-btn{padding:12px 28px;font-size:15px;border-radius:10px;background:linear-gradient(135deg,var(--green),var(--green2));color:#000;font-weight:700;width:100%}
 
-    /* === POPULAR: 2 COLUMNAS === */
-    .popular-sections{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-      margin-bottom:20px;
-    }
-    .popular-section h3{
-      font-size:14px;
-      margin-bottom:10px;
-      padding-bottom:6px;
-      border-bottom:1px solid var(--line);
-    }
+    .library{max-width:420px;margin:0 auto;padding:18px 12px}
+    .lib-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    .back-btn{background:transparent;color:var(--muted);font-size:14px;padding:4px 0}
+    .page-title{font-size:1.2rem}
+    .game-count{color:var(--muted);font-size:12px}
+    .lib-search{display:flex;gap:8px;margin-bottom:16px}
+
+    .popular-sections{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+    .popular-section h3{font-size:13px;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--line)}
     .section-downloads h3{color:var(--orange)}
     .section-stars h3{color:var(--gold)}
-    .mini-card{
-      background:var(--card);
-      border-radius:10px;
-      padding:8px;
-      margin-bottom:8px;
-      display:flex;
-      gap:8px;
-      border:1px solid transparent;
-    }
-    .mini-img{
-      width:40px;
-      height:40px;
-      border-radius:6px;
-      object-fit:cover;
-      background:#1e293b;
-      flex-shrink:0;
-    }
-    .mini-info{
-      flex:1;
-      min-width:0;
-    }
-    .mini-name{
-      font-size:12px;
-      font-weight:700;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .mini-data{
-      font-size:10px;
-      color:var(--muted);
-      margin-top:2px;
-    }
+    .mini-card{background:var(--card);border-radius:8px;padding:6px;margin-bottom:6px;display:flex;gap:8px}
+    .mini-img{width:36px;height:36px;border-radius:6px;object-fit:cover;background:#1e293b;flex-shrink:0}
+    .mini-info{flex:1;min-width:0}
+    .mini-name{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .mini-data{font-size:10px;color:var(--muted);margin-top:2px}
 
-    /* === TARJETAS DE JUEGOS === */
-    .games-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:12px;
-    }
-    .game-card{
-      background:var(--card);
-      border-radius:12px;
-      overflow:hidden;
-      border:1px solid transparent;
-    }
-    .game-img{
-      width:100%;
-      aspect-ratio:1/1;
-      object-fit:cover;
-      background:#1e293b;
-    }
-    .game-info{
-      padding:10px;
-    }
-    .game-name{
-      font-size:14px;
-      font-weight:700;
-      margin-bottom:4px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .game-meta{
-      font-size:11px;
-      color:var(--muted);
-      margin-bottom:8px;
-    }
-    .stars-display{
-      color:var(--gold);
-      font-size:12px;
-      margin-bottom:8px;
-    }
-    .btn-download{
-      width:100%;
-      padding:9px;
-      border-radius:8px;
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#000;
-      font-weight:700;
-      font-size:13px;
-    }
-    .btn-locked{
-      background:none;
-      border:1px solid #334155;
-      color:#94a3b8;
-      cursor:not-allowed;
-    }
-    .creator-buttons{
-      display:flex;
-      gap:6px;
-      margin-top:8px;
-    }
-    .btn-edit{
-      flex:1;
-      padding:8px;
-      border-radius:8px;
-      background:#1e40af;
-      color:#fff;
-      font-size:13px;
-      font-weight:600;
-    }
-    .btn-delete{
-      flex:1;
-      padding:8px;
-      border-radius:8px;
-      background:#dc2626;
-      color:#fff;
-      font-size:13px;
-      font-weight:600;
-    }
+    .games-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .game-card{background:var(--card);border-radius:10px;overflow:hidden;border:1px solid transparent}
+    .game-img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#1e293b}
+    .game-info{padding:10px}
+    .game-name{font-size:14px;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .game-meta{font-size:10px;color:var(--muted);margin-bottom:6px}
+    .stars-display{color:var(--gold);font-size:11px;margin-bottom:8px}
+    .btn-download{width:100%;padding:8px;border-radius:7px;background:linear-gradient(135deg,var(--green),var(--green2));color:#000;font-weight:700;font-size:13px}
+    .btn-locked{background:none;border:1px solid #334155;color:#94a3b8;cursor:not-allowed}
+    .creator-buttons{display:flex;gap:6px;margin-top:8px}
+    .btn-edit{flex:1;padding:7px;border-radius:7px;background:#1e40af;color:#fff;font-size:12px;font-weight:600}
+    .btn-delete{flex:1;padding:7px;border-radius:7px;background:#dc2626;color:#fff;font-size:12px;font-weight:600}
 
-    /* === PAGINACIÓN === */
-    .pagination{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:16px;
-      margin-top:24px;
-    }
-    .page-btn{
-      padding:9px 14px;
-      border-radius:8px;
-      background:var(--card);
-      color:var(--text);
-      border:1px solid var(--line);
-      font-size:14px;
-    }
+    .pagination{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:20px}
+    .page-btn{padding:8px 12px;border-radius:7px;background:var(--card);color:var(--text);border:1px solid var(--line);font-size:13px}
     .page-btn:disabled{opacity:.4;cursor:not-allowed}
-
-    /* === BOTÓN AGREGAR === */
-    .fab-add{
-      position:fixed;
-      bottom:90px;
-      right:16px;
-      width:52px;
-      height:52px;
-      border-radius:50%;
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#000;
-      font-size:24px;
-      font-weight:700;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:90;
-    }
-
-    /* === BARRA DE NAVEGACIÓN === */
-    .nav-bar{
-      position:fixed;
-      bottom:0;
-      left:0;
-      right:0;
-      background:var(--card);
-      border-top:1px solid var(--line);
-      display:flex;
-      justify-content:space-around;
-      padding:8px 0;
-      z-index:80;
-    }
-    .nav-btn{
-      background:transparent;
-      color:var(--muted);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:4px;
-      font-size:11px;
-    }
+    .fab-add{position:fixed;bottom:90px;right:16px;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green2));color:#000;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:90}
+    .nav-bar{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:6px 0;z-index:80}
+    .nav-btn{background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px}
     .nav-btn.active{color:var(--green)}
-    .nav-icon{font-size:20px}
+    .nav-icon{font-size:18px}
 
-    /* === MODAL === */
-    .modal-backdrop{
-      position:fixed;
-      inset:0;
-      background:#000e;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-      z-index:200;
-    }
-    .modal{
-      background:var(--card);
-      border-radius:16px;
-      padding:20px;
-      max-width:380px;
-      width:100%;
-      border:1px solid var(--line);
-    }
-    .modal h3{margin-bottom:16px;text-align:center;font-size:1.25rem}
-    .modal input{
-      width:100%;
-      padding:11px 13px;
-      margin-bottom:10px;
-      border-radius:9px;
-      background:#0003;
-      color:var(--text);
-      border:1px solid var(--line);
-      font-size:14px;
-    }
-    .modal-actions{
-      display:flex;
-      gap:10px;
-      margin-top:10px;
-    }
-    .btn-cancel{
-      flex:1;
-      padding:11px;
-      border-radius:9px;
-      background:#334155;
-      color:#fff;
-      font-weight:600;
-      font-size:14px;
-    }
-    .btn-save{
-      flex:1;
-      padding:11px;
-      border-radius:9px;
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#000;
-      font-weight:700;
-      font-size:14px;
-    }
-    .img-preview{
-      width:100%;
-      border-radius:10px;
-      margin:10px 0;
-      display:none;
-    }
+    .modal-backdrop{position:fixed;inset:0;background:#000e;display:flex;align-items:center;justify-content:center;padding:16px;z-index:200}
+    .modal{background:var(--card);border-radius:14px;padding:18px;max-width:360px;width:100%;border:1px solid var(--line)}
+    .modal h3{margin-bottom:14px;text-align:center;font-size:1.15rem}
+    .modal input{width:100%;padding:10px 12px;margin-bottom:8px;border-radius:8px;background:#0003;color:var(--text);border:1px solid var(--line);font-size:13px}
+    .modal-actions{display:flex;gap:8px;margin-top:8px}
+    .btn-cancel{flex:1;padding:10px;border-radius:8px;background:#334155;color:#fff;font-weight:600;font-size:13px}
+    .btn-save{flex:1;padding:10px;border-radius:8px;background:linear-gradient(135deg,var(--green),var(--green2));color:#000;font-weight:700;font-size:13px}
+    .img-preview{width:100%;border-radius:8px;margin:8px 0;display:none}
     .img-preview.show{display:block}
 
-    /* === BLOQUEO DE ANUNCIO === */
-    .lock-modal{
-      position:fixed;
-      inset:0;
-      background:#000e;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-      z-index:300;
-    }
-    .lock-box{
-      background:var(--card);
-      border-radius:16px;
-      padding:24px;
-      max-width:340px;
-      width:100%;
-      text-align:center;
-      border:1px solid var(--line);
-    }
-    .lock-box h2{font-size:1.25rem;margin-bottom:8px}
-    .lock-box p{font-size:14px;color:var(--muted)}
-    .lock-count{
-      font-size:2.5rem;
-      font-weight:700;
-      color:var(--green);
-      margin:16px 0;
-    }
-    .btn-ad{
-      width:100%;
-      padding:12px;
-      border-radius:9px;
-      background:linear-gradient(135deg,#f97316,#ea580c);
-      color:#fff;
-      font-weight:700;
-      font-size:15px;
-      margin-bottom:10px;
-    }
-    .btn-unlock{
-      width:100%;
-      padding:12px;
-      border-radius:9px;
-      background:var(--green);
-      color:#000;
-      font-weight:700;
-      font-size:15px;
-      display:none;
-    }
+    .lock-modal{position:fixed;inset:0;background:#000e;display:flex;align-items:center;justify-content:center;padding:16px;z-index:300}
+    .lock-box{background:var(--card);border-radius:14px;padding:20px 18px;max-width:320px;width:100%;text-align:center;border:1px solid var(--line)}
+    .lock-box h2{font-size:1rem;margin-bottom:10px;line-height:1.4;color:var(--gold)}
+    .lock-box p{font-size:13px;color:var(--muted);margin-bottom:6px;line-height:1.4}
+    .lock-box .mensaje-principal{color:var(--text);font-weight:600;font-size:14px;margin-bottom:12px;line-height:1.5}
+    .lock-box .importante{color:var(--gold);font-weight:500;font-size:11px;margin-bottom:10px}
+    .lock-count{font-size:2.2rem;font-weight:700;color:var(--green);margin:12px 0}
+    .btn-ad{width:100%;padding:11px;border-radius:8px;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;font-weight:700;font-size:14px;margin-bottom:8px}
+    .btn-unlock{width:100%;padding:11px;border-radius:8px;background:var(--green);color:#000;font-weight:700;font-size:14px;display:none}
     .btn-unlock.visible{display:block}
-
-    /* === CALIFICAR ESTRELLAS === */
-    .rate-modal{
-      position:fixed;
-      inset:0;
-      background:#000e;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-      z-index:400;
-    }
-    .rate-box{
-      background:var(--card);
-      border-radius:16px;
-      padding:24px;
-      max-width:340px;
-      width:100%;
-      text-align:center;
-      border:1px solid var(--line);
-    }
-    .rate-stars{
-      font-size:2rem;
-      margin:16px 0;
-      cursor:pointer;
-    }
+    .rate-modal{position:fixed;inset:0;background:#000e;display:flex;align-items:center;justify-content:center;padding:16px;z-index:400}
+    .rate-box{background:var(--card);border-radius:14px;padding:18px;max-width:300px;width:100%;text-align:center;border:1px solid var(--line)}
+    .rate-stars{font-size:1.8rem;margin:12px 0;cursor:pointer}
     .rate-star{color:#475569;transition:color .2s}
     .rate-star.active{color:var(--gold)}
   </style>
 </head>
 <body>
 
-  <!-- === PÁGINA DE INICIO === -->
   <div id="homePage" class="home">
     <h1 class="brand">Leonardo Plebe 🎮</h1>
     <p class="subtitle">Tus juegos favoritos aquí</p>
-    
+
+    <div class="ayuda-texto">
+      👇 Baja hasta abajo hasta ver la opción <strong>BIBLIOTECA</strong> para descargar juegos
+    </div>
+
     <div class="search-bar">
       <input id="homeSearch" class="search" type="text" placeholder="Buscar juegos...">
       <button id="homeSearchBtn" class="btn-primary">🔍</button>
@@ -455,7 +130,6 @@
     <button id="enterBtn" class="enter-btn">🎮 Ver Biblioteca</button>
   </div>
 
-  <!-- === BIBLIOTECA: JUEGOS === -->
   <div id="gamesPage" class="library hidden">
     <div class="lib-header">
       <button id="backHome1" class="back-btn">← Inicio</button>
@@ -474,14 +148,12 @@
     </div>
   </div>
 
-  <!-- === POPULAR: 2 COLUMNAS === -->
   <div id="popularPage" class="library hidden">
     <div class="lib-header">
       <button id="backHome2" class="back-btn">← Inicio</button>
       <h2 class="page-title">🔥 Popular</h2>
       <span id="popCount" class="game-count">0</span>
     </div>
-
     <div class="popular-sections">
       <div class="popular-section section-downloads">
         <h3>📥 Más Descargados</h3>
@@ -492,27 +164,16 @@
         <div id="topStars"></div>
       </div>
     </div>
-
-    <h3 style="margin:20px 0 10px;font-size:14px;color:var(--muted);">Todos los juegos</h3>
+    <h3 style="margin:16px 0 8px;font-size:13px;color:var(--muted);">Todos los juegos</h3>
     <div id="popularGrid" class="games-grid"></div>
   </div>
 
-  <!-- === BOTÓN AGREGAR === -->
   <button id="fabAdd" class="fab-add hidden">+</button>
-
-  <!-- === BARRA DE NAVEGACIÓN === -->
   <nav id="navBar" class="nav-bar hidden">
-    <button class="nav-btn active" data-page="games">
-      <span class="nav-icon">🎮</span>
-      Juegos
-    </button>
-    <button class="nav-btn" data-page="popular">
-      <span class="nav-icon">🔥</span>
-      Popular
-    </button>
+    <button class="nav-btn active" data-page="games"><span class="nav-icon">🎮</span>Juegos</button>
+    <button class="nav-btn" data-page="popular"><span class="nav-icon">🔥</span>Popular</button>
   </nav>
 
-  <!-- === MODAL AGREGAR/EDITAR === -->
   <div id="gameModal" class="modal-backdrop hidden">
     <div class="modal">
       <h3 id="modalTitle">Agregar Juego 🎮</h3>
@@ -528,22 +189,20 @@
     </div>
   </div>
 
-  <!-- === BLOQUEO DE ANUNCIO === -->
   <div id="lockModal" class="lock-modal hidden">
     <div class="lock-box">
-      <h2>🔒 Desbloquear Descarga</h2>
-      <p>Ve el anuncio para obtener el enlace</p>
+      <p class="mensaje-principal">Toca el anuncio y quédate 7 segundos para ayudarme a agregar más juegos 🫶</p>
+      <p class="importante">✅ No cierres hasta que llegue a 0</p>
       <div id="lockCount" class="lock-count">7</div>
       <button id="goAdBtn" class="btn-ad">🌐 Abrir Anuncio</button>
-      <button id="unlockBtn" class="btn-unlock">✅ Ya lo vi — Descargar</button>
+      <button id="unlockBtn" class="btn-unlock">✅ Ya esperé — Descargar</button>
     </div>
   </div>
 
-  <!-- === CALIFICAR ESTRELLAS === -->
   <div id="rateModal" class="rate-modal hidden">
     <div class="rate-box">
-      <h3>⭐ Calificar Juego</h3>
-      <p style="color:var(--muted);font-size:14px">¿Qué te parece?</p>
+      <h3>⭐ Calificar</h3>
+      <p style="color:var(--muted);font-size:12px">¿Qué te parece?</p>
       <div class="rate-stars" id="rateStars">
         <span class="rate-star" data-val="1">★</span>
         <span class="rate-star" data-val="2">★</span>
@@ -577,7 +236,6 @@ let editingId = null;
 let selectedRating = 0;
 let ratingGameId = null;
 
-// === DESBLOQUEO: SE REINICIA AL CERRAR NAVEGADOR ===
 function getUnlockedSet() {
   const s = sessionStorage.getItem('unlockedGames');
   return s ? new Set(JSON.parse(s)) : new Set();
@@ -594,7 +252,6 @@ function unlockGame(gameId) {
   saveUnlockedSet(set);
 }
 
-// === DESCARGAS: 1 POR DISPOSITIVO, CONTADOR GLOBAL ===
 function getDeviceDownloads() {
   const rec = localStorage.getItem('deviceDownloads');
   return rec ? JSON.parse(rec) : {};
@@ -606,7 +263,6 @@ function markDownloaded(gameId) {
   const rec = getDeviceDownloads();
   rec[gameId] = true;
   localStorage.setItem('deviceDownloads', JSON.stringify(rec));
-  
   const game = games.find(g => g.id === gameId);
   if (game) {
     game.downloads = (game.downloads || 0) + 1;
@@ -614,7 +270,6 @@ function markDownloaded(gameId) {
   }
 }
 
-// === CALIFICACIONES: 1 POR DISPOSITIVO, PROMEDIO GLOBAL ===
 function getDeviceRatings() {
   const rec = localStorage.getItem('deviceRatings');
   return rec ? JSON.parse(rec) : {};
@@ -626,7 +281,6 @@ function saveRating(gameId, stars) {
   const rec = getDeviceRatings();
   rec[gameId] = true;
   localStorage.setItem('deviceRatings', JSON.stringify(rec));
-  
   const game = games.find(g => g.id === gameId);
   if (game) {
     game.totalStars = (game.totalStars || 0) + stars;
@@ -641,63 +295,17 @@ function getAvgStars(game) {
 
 const $ = id => document.getElementById(id);
 
-// === JUEGOS INICIALES ===
 const DEFAULT_GAMES = [
-  {
-    id: 1789934945734,
-    name: "Minecraft",
-    link: "https://www.mediafire.com/file/cim5n289rfeguzn/mc%201.26.45.1%20-%20espacioapk.com.apk/file?dkey=l5wy06u4df0&r=577",
-    image: "https://i.imgur.com/I4f3CVY.jpg",
-    downloads: 3,
-    totalStars: 12,
-    ratingCount: 3,
-    version: "1.26.45.1",
-    date: "26 sep 2026"
-  },
-  {
-    id: 1789935000001,
-    name: "Bulma Adventure 3",
-    link: "https://www.mediafire.com/file/tjoxvvu7hg7g0j6/Bulma%20Adventure%203%20v1.0%20-%20espacioapk.com.apk/file?dkey=ek6a12ukl68&r=1259",
-    image: "https://i.imgur.com/vHLKb6n.jpg",
-    downloads: 2,
-    totalStars: 9,
-    ratingCount: 2,
-    version: "v1.0",
-    date: "26 sep 2026"
-  },
-  {
-    id: 1789935000002,
-    name: "Bulma Adventure",
-    link: "https://espacioapk.co/apk/Bulma%20Adventure%201%20v1.00%20-%20espacioapk.com.apk",
-    image: "https://i.imgur.com/3QMpOBC.jpg",
-    downloads: 1,
-    totalStars: 5,
-    ratingCount: 1,
-    version: "v1.00",
-    date: "26 sep 2026"
-  },
-  {
-    id: 1789935000003,
-    name: "Five Nights in Anime RX",
-    link: "https://download2391.mediafire.com/7ozvcnr8dkwgaejggLepLRuFXKM7UhReZSwIJNYVWTHU3dofbyYp8DkQueNnljEJvsgpqFUjHVM388TVfyYnSfPx4cIUBEwEddxavDtmyJfW0VLqMWSCmpkugM1cXGWaZMaPEvWOmBMccZMYhW7q6TD30zWeGp5H8vCRS-xQEdHI0g/xss34jppa8wufgt/FNIA+RX+v1.5+-+espacioapk.com.apk",
-    image: "https://i.imgur.com/pl7HGVi.jpg",
-    downloads: 0,
-    totalStars: 0,
-    ratingCount: 0,
-    version: "v1.5",
-    date: "26 sep 2026"
-  },
-  {
-    id: 1789935000004,
-    name: "Ho My Waifu",
-    link: "https://www.mediafire.com/file/h22r0k79uxaldic/OMW+(1).apk/file",
-    image: "https://i.imgur.com/IuHm7vE.jpg",
-    downloads: 0,
-    totalStars: 0,
-    ratingCount: 0,
-    version: "1.0",
-    date: "26 sep 2026"
-  }
+  {id:1789934945734,name:"Minecraft",link:"https://www.mediafire.com/file/cim5n289rfeguzn/mc%201.26.45.1%20-%20espacioapk.com.apk/file?dkey=l5wy06u4df0&r=577",image:"https://i.imgur.com/I4f3CVY.jpg",downloads:3,totalStars:12,ratingCount:3,version:"1.26.45.1",date:"26 sep 2026"},
+  {id:1789935000001,name:"Bulma Adventure 3",link:"https://www.mediafire.com/file/tjoxvvu7hg7g0j6/Bulma%20Adventure%203%20v1.0%20-%20espacioapk.com.apk/file?dkey=ek6a12ukl68&r=1259",image:"https://i.imgur.com/vHLKb6n.jpg",downloads:2,totalStars:9,ratingCount:2,version:"v1.0",date:"26 sep 2026"},
+  {id:1789935000002,name:"Bulma Adventure",link:"https://espacioapk.co/apk/Bulma%20Adventure%201%20v1.00%20-%20espacioapk.com.apk",image:"https://i.imgur.com/3QMpOBC.jpg",downloads:1,totalStars:5,ratingCount:1,version:"v1.00",date:"26 sep 2026"},
+  {id:1789935000003,name:"Five Nights in Anime RX",link:"https://download2391.mediafire.com/7ozvcnr8dkwgaejggLepLRuFXKM7UhReZSwIJNYVWTHU3dofbyYp8DkQueNnljEJvsgpqFUjHVM388TVfyYnSfPx4cIUBEwEddxavDtmyJfW0VLqMWSCmpkugM1cXGWaZMaPEvWOmBMccZMYhW7q6TD30zWeGp5H8vCRS-xQEdHI0g/xss34jppa8wufgt/FNIA+RX+v1.5+-+espacioapk.com.apk",image:"https://i.imgur.com/pl7HGVi.jpg",downloads:0,totalStars:0,ratingCount:0,version:"v1.5",date:"26 sep 2026"},
+  {id:1789935000004,name:"Ho My Waifu",link:"https://www.mediafire.com/file/h22r0k79uxaldic/OMW+(1).apk/file",image:"https://i.imgur.com/IuHm7vE.jpg",downloads:0,totalStars:0,ratingCount:0,version:"1.0",date:"26 sep 2026"},
+  {id:1791190000001,name:"Kame Paradise 3",link:"https://cdn.espacioapps.com/KameParadise%203%20v1.1%20-%20espacioapk.com.apk",image:"https://i.imgur.com/AK5ggQV.jpg",downloads:0,totalStars:0,ratingCount:0,version:"v1.1",date:"03 oct 2026"},
+  {id:1791190000002,name:"Hole House",link:"https://download2440.mediafire.com/myo22nbe15wgjQD2A6tpwtGXo8hDHBxmAIXVjwP1UWIwbxnXE5wk4YGWCceeg0VokTEIGEp-WaXWf2chKqZRvNpO0v2tTEI0VHs-Qh8BxeQwpdoXR8wKL-wlobOcxMn1nikFWRaYaNgdBhTIfUQwhtjklwC3CbTLFbBABI1QkdEkSA/8rse15xpfnqsl6k/Hole+House+v0.2.16+-+espacioapk.com.apk",image:"https://i.imgur.com/wunMz3G.jpg",downloads:0,totalStars:0,ratingCount:0,version:"v0.2.16",date:"03 oct 2026"},
+  {id:1791190000003,name:"My Femboy Roommate",link:"https://download2393.mediafire.com/vge8oy7lr1eg1t3iPISmDxsk1qCELdaGnZ7MC2lwxJuEiRF4nY-o2qv7H45l53sYGmEP9Jz8yeKjyfhTmh2Tjwqsrf3vmT-TwnewUmxEfYL6Wf6H4zGf7y_mkGkL3YurV4M6HouQ4hCFSPRisGWtd10S_eGQQLT3jJiC0ayPqxYhiQ/wcja012cgqlp5xg/My+Femboy+Roommate+1.1+-+espacioapk.com.apk",image:"https://i.imgur.com/skHYIwl.jpg",downloads:0,totalStars:0,ratingCount:0,version:"v1.1",date:"03 oct 2026"},
+  {id:1791190000004,name:"Five Nights in Anime 2",link:"https://www.mediafire.com/file/r0xbl52awxu3s66/fnia%202%20v3.0.8%20-%20espacioapk.com.apk/file?dkey=lw08smvwdcu&r=717",image:"https://i.imgur.com/BUSh5jO.jpg",downloads:0,totalStars:0,ratingCount:0,version:"v3.0.8",date:"03 oct 2026"},
+  {id:1791190000005,name:"Back Alley Tales",link:"https://download2435.mediafire.com/1jhaupxzbbjgQ0uH8-9OWTdqFEFW5YKJ5IOfm-u6cBRxhERdGvsGuD3ny2hY5S1YUNBqmcS21uFnL0SVJoOaKVqOJ7lvDNL7K2Z1aGAEb6bTe17wqKnGU_2t8m0Kp846iXJK60pvNsf30XTe08qKowQpNnIvw_lh4qJso5XcYTM3gw/eryy2scn241xag1/Back+Alley+Tales+v1.13dan+-+espacioapk.zip",image:"https://i.imgur.com/BUSh5jO.jpg",downloads:0,totalStars:0,ratingCount:0,version:"v1.13dan",date:"03 oct 2026"}
 ];
 
 function saveGames() {
@@ -768,7 +376,7 @@ function renderGameCard(game) {
       <img class="game-img" src="${game.image || FALLBACK_IMG}" alt="${game.name}" onerror="this.src='${FALLBACK_IMG}'">
       <div class="game-info">
         <h3 class="game-name">${game.name}</h3>
-        <p class="game-meta">${game.version || ''}<br>📥 ${game.downloads || 0} descargas</p>
+        <p class="game-meta">📥 ${game.downloads || 0} descargas</p>
         <div class="stars-display">${renderStarsDisplay(game)} (${game.ratingCount || 0})</div>
         <button class="btn-download ${!unlocked ? 'btn-locked' : ''}" data-gid="${game.id}">
           ${!unlocked ? '🔒 Ver Anuncio' : '✅ Descargar'}
@@ -788,7 +396,7 @@ function renderPopular() {
   const byDownloads = [...games].sort((a, b) => (b.downloads || 0) - (a.downloads || 0)).slice(0, 3);
   $('topDownloads').innerHTML = byDownloads.length
     ? byDownloads.map(g => renderMiniCard(g, g.downloads || 0, 'descargas')).join('')
-    : '<p style="font-size:11px;color:var(--muted)">Sin datos aún</p>';
+    : '<p style="font-size:11px;color:var(--muted)">Sin datos</p>';
 
   const byStars = [...games].filter(g => g.ratingCount > 0).sort((a, b) => {
     const diff = getAvgStars(b) - getAvgStars(a);
@@ -796,18 +404,17 @@ function renderPopular() {
     return (b.ratingCount || 0) - (a.ratingCount || 0);
   }).slice(0, 3);
   $('topStars').innerHTML = byStars.length
-    ? byStars.map(g => renderMiniCard(g, renderStarsDisplay(g), 'promedio')).join('')
-    : '<p style="font-size:11px;color:var(--muted)">Sin calificaciones</p>';
+    ? byStars.map(g => renderMiniCard(g, renderStarsDisplay(g), 'estrellas')).join('')
+    : '<p style="font-size:11px;color:var(--muted)">Sin calificar</p>';
 
   const sortedAll = [...games].sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
   const grid = $('popularGrid');
   grid.innerHTML = sortedAll.length
     ? sortedAll.map(g => renderGameCard(g)).join('')
-    : '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px">Aún no hay juegos</p>';
+    : '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px">Sin juegos</p>';
   $('popCount').textContent = `${sortedAll.length}`;
 }
 
-// === NAVEGACIÓN ===
 function showHome() {
   $('homePage').classList.remove('hidden');
   $('gamesPage').classList.add('hidden');
@@ -839,7 +446,6 @@ function showPopularPage() {
   renderPopular();
 }
 
-// === ANUNCIO ===
 function openLockModal(gameId) {
   pendingGameId = gameId;
   countdownActive = false;
@@ -885,7 +491,6 @@ function doDownload(gameId) {
   renderPopular();
 }
 
-// === CREAR/EDITAR JUEGO ===
 function openAddModal() {
   editingId = null;
   $('modalTitle').textContent = 'Agregar Juego 🎮';
@@ -982,7 +587,6 @@ function checkCreatorCode(input) {
   return false;
 }
 
-// === EVENTOS DE BOTONES ===
 $('enterBtn').addEventListener('click', showGamesPage);
 $('backHome1').addEventListener('click', showHome);
 $('backHome2').addEventListener('click', showHome);
@@ -1038,7 +642,6 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
   });
 });
 
-// === ACCIONES EN TARJETAS ===
 document.addEventListener('click', e => {
   const dl = e.target.closest('.btn-download');
   if (dl) {
@@ -1065,7 +668,6 @@ document.addEventListener('click', e => {
   }
 });
 
-// === ANUNCIO ===
 $('goAdBtn').addEventListener('click', () => {
   window.open(AD_URL, '_blank');
   startCountdown();
@@ -1081,7 +683,6 @@ $('unlockBtn').addEventListener('click', () => {
   }
 });
 
-// === CALIFICACIÓN ===
 document.querySelectorAll('.rate-star').forEach(star => {
   star.addEventListener('click', () => {
     selectedRating = parseInt(star.dataset.val);
@@ -1112,7 +713,6 @@ $('rateSave').addEventListener('click', () => {
   renderPopular();
 });
 
-// === INICIAR ===
 loadGames();
 </script>
 </body>
